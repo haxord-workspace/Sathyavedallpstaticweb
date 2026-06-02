@@ -12,6 +12,11 @@ const config = defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  nitro: {
+    prerender: {
+      crawlLinks: false,
+    },
+  },
 });
 
 // Ensure plugins array exists at top level for Wrangler
