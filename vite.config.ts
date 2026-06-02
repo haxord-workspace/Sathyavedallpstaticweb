@@ -6,15 +6,18 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-const config = defineConfig({
+const baseConfig = defineConfig({
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
   },
-  vite: {
-    plugins: [],
-  },
 });
+
+// Ensure plugins array exists for Wrangler compatibility
+const config = {
+  ...baseConfig,
+  plugins: baseConfig.plugins || [],
+};
 
 export default config;
