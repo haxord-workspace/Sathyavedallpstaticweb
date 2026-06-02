@@ -16,7 +16,7 @@ const config = defineConfig({
     prerender: {
       crawlLinks: false,
     },
-    preset: "cloudflare_pages",
+    preset: "cloudflare_module",
   },
 });
 
