@@ -20,7 +20,26 @@ const config = defineConfig({
   },
 });
 
-// Ensure plugins array exists at top level for Wrangler
-(config as any).plugins = (config as any).plugins || [];
+export default async (env: any) => {
+  let resolvedConfig;
+  if (typeof config === 'function') {
+    resolvedConfig = await config(env);
+  } else {
+    resolvedConfig = await config;
+  }
 
-export default config;
+  resolvedConfig.plugins = resolvedConfig.plugins || [];
+
+  resolvedConfig.plugins.push({
+    name: "remove-index-html-from-bundle",
+    enforce: "post",
+    generateBundle(options: any, bundle: any) {
+      if (bundle['index.html']) {
+        delete bundle['index.html'];
+        console.log('[build-fix] Removed index.html from Vite bundle to prevent static asset bypass.');
+      }
+    }
+  });
+
+  return resolvedConfig;
+};
