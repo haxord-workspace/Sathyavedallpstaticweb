@@ -40,7 +40,7 @@ const concerns = ["Hair Fall", "Sleep", "Joint Pain", "Immunity", "Respiratory",
 
 function Home() {
   return (
-    <div className="bg-red-500 min-h-screen bg-background scroll-smooth">
+    <div className="min-h-screen bg-background scroll-smooth">
       <Header />
 
       {/* Hero */}
