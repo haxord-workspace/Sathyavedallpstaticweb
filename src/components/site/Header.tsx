@@ -1,61 +1,77 @@
 import { Link } from "@tanstack/react-router";
-import { Search, User, ShoppingBag, Menu } from "lucide-react";
-import { useState } from "react";
+import { Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
 import logo from "@/assets/logo.png";
+
+const navLinks = [
+  { to: "/", label: "Home" },
+  { to: "/about", label: "About" },
+  { to: "/products", label: "Products" },
+  { to: "/wellness", label: "Blogs" },
+  { to: "/contact", label: "Contact" },
+];
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 60);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
-      <div className="bg-brand-green-dark text-primary-foreground text-xs py-2 overflow-hidden">
-        <div className="flex animate-[scroll_30s_linear_infinite] gap-12 whitespace-nowrap">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <span key={i}>✦ Free delivery on orders over ₹499 ✦ Authentic Kerala Ayurveda</span>
-          ))}
-        </div>
-      </div>
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between gap-4">
-        <div className="hidden md:flex items-center gap-2 border border-brand-green rounded-full px-4 py-2 w-72">
-          <Search className="h-4 w-4 text-brand-green" />
-          <input placeholder="Search for Hair Care" className="bg-transparent text-sm outline-none flex-1" />
-        </div>
-        <button className="md:hidden" onClick={() => setOpen(!open)}><Menu /></button>
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-out ${
+        visible
+          ? "translate-y-0 bg-background/90 backdrop-blur-md border-b border-border shadow-sm"
+          : "-translate-y-full"
+      }`}
+    >
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link to="/" className="flex items-center gap-2">
-          <img src={logo} alt="Sathyaveda Herbals LLP" className="h-14 w-auto" />
+          <img src={logo} alt="Sathyaveda Herbals LLP" className="h-11 w-auto" />
         </Link>
-        <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-foreground/80">
-          <Link to="/" className="hover:text-brand-green transition duration-300">Home</Link>
-          <span className="text-border">|</span>
-          <Link to="/about" className="hover:text-brand-green transition duration-300">About</Link>
-          <span className="text-border">|</span>
-          <Link to="/products" className="hover:text-brand-green transition duration-300">Products</Link>
-          <span className="text-border">|</span>
-          <Link to="/wellness" className="hover:text-brand-green transition duration-300">Wellness</Link>
-          <span className="text-border">|</span>
-          <Link to="/contact" className="hover:text-brand-green transition duration-300">Contact</Link>
+
+        <nav className="hidden lg:flex items-center gap-10 text-sm font-medium tracking-wide text-foreground/75">
+          {navLinks.map((l) => (
+            <Link key={l.to} to={l.to} className="hover:text-brand-green-dark transition-colors duration-300">
+              {l.label}
+            </Link>
+          ))}
         </nav>
-        <div className="flex items-center gap-4 text-foreground/80">
-          <User className="h-5 w-5 hidden sm:block" />
-          <ShoppingBag className="h-5 w-5" />
+
+        <div className="flex items-center gap-4">
+          <Link
+            to="/contact"
+            className="hidden sm:inline-flex items-center rounded-full bg-brand-green-dark px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors duration-300 hover:bg-brand-green"
+          >
+            Get in Touch
+          </Link>
+          <button
+            aria-label="Toggle menu"
+            className="lg:hidden text-foreground"
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
       </div>
-      <div className="bg-secondary border-t border-border">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-center gap-8 text-sm font-medium">
-          <a href="#concern" className="hover:text-brand-green">Shop by Concern</a>
-          <a href="#doshas" className="hover:text-brand-green">Shop by Doshas</a>
-          <a href="#bundles" className="hover:text-brand-green">Self Care Bundles</a>
-        </div>
-      </div>
+
       {open && (
-        <div className="lg:hidden border-t border-border bg-background px-4 py-3 flex flex-col gap-3 text-sm">
-          <Link to="/">Home</Link>
-          <Link to="/about">About</Link>
-          <Link to="/products">Products</Link>
-          <Link to="/wellness">Wellness</Link>
-          <Link to="/contact">Contact</Link>
+        <div className="lg:hidden border-t border-border bg-background px-6 py-4 flex flex-col gap-4 text-sm font-medium">
+          {navLinks.map((l) => (
+            <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="text-foreground/80 hover:text-brand-green-dark">
+              {l.label}
+            </Link>
+          ))}
+          <Link to="/contact" onClick={() => setOpen(false)} className="text-brand-green-dark font-semibold">
+            Get in Touch
+          </Link>
         </div>
       )}
-      <style>{`@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}`}</style>
     </header>
   );
 }

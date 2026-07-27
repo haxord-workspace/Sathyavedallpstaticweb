@@ -1,126 +1,33 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import { useState } from "react";
-import pOil from "@/assets/product-oil.jpg";
-import pPowder from "@/assets/product-powder.jpg";
-import pTablets from "@/assets/product-tablets.jpg";
+import { Reveal } from "@/components/site/Reveal";
+import { ArrowRight } from "lucide-react";
+import { products } from "@/lib/products";
 
-interface ProductVariant {
-  size: string;
-  price: string;
-}
-
-interface Product {
-  id: number;
-  name: string;
-  brand: string;
-  description: string;
-  variants?: ProductVariant[];
-  price?: string;
-  image: string;
-  category: string;
-}
-
-const items: Product[] = [
-  {
-    id: 1,
-    brand: "Sathyaveda Glow Rich",
-    name: "ABC Powder",
-    description: "Premium herbal formulation for skin health and vitality",
-    category: "Wellness",
-    image: pPowder,
-    variants: [
-      { size: "60 Capsules 500 mg", price: "₹599" },
-      { size: "Powder 200 grams", price: "₹799" },
-      { size: "Powder 500 grams", price: "₹1,499" },
-    ],
-  },
-  {
-    id: 2,
-    brand: "EnergeXMax",
-    name: "Drumstick Extract + Musli Powder",
-    description: "Energy and vitality capsules with natural herb extracts",
-    category: "Energy & Vitality",
-    price: "₹699",
-    image: pTablets,
-    variants: [
-      { size: "Capsules 500mg", price: "₹699" },
-    ],
-  },
-  {
-    id: 3,
-    brand: "Sathyaveda Rich",
-    name: "Cashew Nuts",
-    description: "180 grade export quality premium cashew nuts",
-    category: "Premium Nuts",
-    price: "₹1,299",
-    image: pOil,
-    variants: [
-      { size: "1 Kg", price: "₹1,299" },
-    ],
-  },
-];
-
-function ProductCard({ product, index }: { product: Product; index: number }) {
-  const [selectedVariant, setSelectedVariant] = useState(0);
-
+function ProductCard({ product, index }: { product: typeof products[number]; index: number }) {
   return (
-    <div
-      className="bg-card rounded-2xl border border-border overflow-hidden hover:shadow-2xl transition-all duration-500 animate-fade-in hover:scale-105"
-      style={{
-        animationDelay: `${index * 150}ms`,
-      }}
+    <Reveal
+      as="div"
+      animation="fade-up"
+      delay={(index % 4) * 100}
+      className="overflow-hidden rounded-[1.75rem] border border-border/70 bg-white/80 shadow-[0_20px_60px_-28px_rgba(0,0,0,0.25)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_30px_70px_-24px_rgba(0,0,0,0.3)]"
     >
-      <div className="aspect-square bg-secondary overflow-hidden">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
-        />
+      <div className="overflow-hidden bg-[#f7f4eb] p-3">
+        <img src={product.image} alt={product.name} className="aspect-[4/5] w-full rounded-[1.25rem] object-contain" />
       </div>
       <div className="p-6">
-        <div className="text-xs text-brand-green font-medium uppercase tracking-wider">{product.brand}</div>
-        <div className="font-display text-lg mt-2 text-brand-green-dark">{product.name}</div>
-        <p className="text-sm text-muted-foreground mt-2">{product.description}</p>
-
-        {product.variants && product.variants.length > 0 && (
-          <div className="mt-4">
-            <label className="text-xs font-semibold text-muted-foreground mb-2 block">Select Variant:</label>
-            <div className="flex flex-col gap-2">
-              {product.variants.map((variant, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setSelectedVariant(idx)}
-                  className={`text-xs px-3 py-2 rounded-lg border transition-all duration-300 ${
-                    selectedVariant === idx
-                      ? "bg-brand-green-dark text-primary-foreground border-brand-green-dark"
-                      : "border-border hover:border-brand-green-dark"
-                  }`}
-                >
-                  {variant.size}
-                </button>
-              ))}
-            </div>
-            <div className="flex items-center justify-between mt-4">
-              <span className="font-bold text-brand-green-dark">{product.variants[selectedVariant].price}</span>
-              <button className="text-xs px-4 py-2 rounded-full bg-brand-green-dark text-primary-foreground hover:bg-brand-green transition-colors duration-300">
-                Add to Cart
-              </button>
-            </div>
-          </div>
-        )}
-
-        {!product.variants && (
-          <div className="flex items-center justify-between mt-4">
-            <span className="font-bold text-brand-green-dark">{product.price}</span>
-            <button className="text-xs px-4 py-2 rounded-full bg-brand-green-dark text-primary-foreground hover:bg-brand-green transition-colors duration-300">
-              Add to Cart
-            </button>
-          </div>
-        )}
+        <div className="text-[11px] font-semibold uppercase tracking-[0.3em] text-brand-green">{product.brand}</div>
+        <div className="mt-2 font-display text-xl text-brand-green-dark">{product.name}</div>
+        <p className="mt-2 text-sm text-muted-foreground">{product.shortDescription}</p>
+        <div className="mt-4 flex items-center justify-between">
+          <span className="text-lg font-semibold text-brand-green-dark">{product.price}</span>
+          <Link to="/product/$productId" params={{ productId: product.id }} className="inline-flex items-center gap-2 text-sm font-semibold text-brand-green-dark transition hover:gap-3">
+            View details <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
       </div>
-    </div>
+    </Reveal>
   );
 }
 
@@ -129,15 +36,15 @@ export const Route = createFileRoute("/products")({
   component: () => (
     <div className="min-h-screen bg-background scroll-smooth">
       <Header />
-      <section className="container mx-auto px-4 py-16 md:py-24">
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
         <div className="animate-fade-in" style={{ animationDuration: "600ms" }}>
           <h1 className="font-display text-5xl md:text-6xl text-brand-green-dark text-center mb-4">Premium Wellness Products</h1>
           <p className="text-center text-muted-foreground text-lg max-w-2xl mx-auto">
             Discover our carefully curated collection of authentic Ayurvedic products, sourced from Kerala and crafted for your well-being.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
-          {items.map((product, index) => (
+        <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-4">
+          {products.map((product, index) => (
             <ProductCard key={product.id} product={product} index={index} />
           ))}
         </div>

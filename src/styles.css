@@ -58,16 +58,29 @@
 
 @layer base {
   * { border-color: var(--color-border); }
+  html, body {
+    overflow-x: hidden;
+  }
   body {
     background: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    line-height: 1.6;
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
-  h1, h2, h3, h4 { font-family: var(--font-display); }
-  
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.01em; }
+
   html {
     scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
   }
 }
 
@@ -87,6 +100,26 @@
     from {
       opacity: 0;
       transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes bannerPan {
+    0% {
+      transform: translateY(0) scale(1);
+    }
+    100% {
+      transform: translateY(-4px) scale(1.03);
+    }
+  }
+
+  @keyframes bannerEntrance {
+    from {
+      opacity: 0;
+      transform: translateY(32px);
     }
     to {
       opacity: 1;
@@ -117,6 +150,118 @@
   .animate-fade-in {
     animation: fadeIn 0.8s ease-out forwards;
     opacity: 0;
+  }
+
+  @keyframes pageFade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Opacity-only (no transform) so it never becomes a containing block for
+     position:fixed descendants like the header. */
+  .animate-page-fade {
+    animation: pageFade 450ms ease-out forwards;
+    opacity: 0;
+  }
+
+  .animate-banner-entrance {
+    animation: bannerEntrance 0.8s ease-out forwards;
+    opacity: 0;
+  }
+
+  .animate-banner-pan {
+    animation: bannerPan 20s ease-in-out infinite alternate;
+    transform-origin: center;
+  }
+
+  .carousel-card-3d {
+    perspective: 1800px;
+    transform-style: preserve-3d;
+  }
+
+  .carousel-card-3d > * {
+    transform-style: preserve-3d;
+  }
+
+  .carousel-card-3d::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at 40% 10%, rgba(255,255,255,0.15), transparent 36%);
+  }
+
+  @keyframes productScroll {
+    0% {
+      transform: translateX(0);
+    }
+    18% {
+      transform: translateX(0);
+    }
+    22% {
+      transform: translateX(-100%);
+    }
+    40% {
+      transform: translateX(-100%);
+    }
+    44% {
+      transform: translateX(-200%);
+    }
+    62% {
+      transform: translateX(-200%);
+    }
+    66% {
+      transform: translateX(-300%);
+    }
+    84% {
+      transform: translateX(-300%);
+    }
+    100% {
+      transform: translateX(-300%);
+    }
+  }
+
+  .product-track {
+    width: 400%;
+    display: flex;
+    height: 100%;
+    animation: productScroll 28s ease-in-out infinite;
+  }
+
+  .product-slide {
+    position: relative;
+    width: 100%;
+    min-width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .product-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1s ease;
+  }
+
+  .product-slide:hover img {
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 1024px) {
+    .product-track {
+      animation: none;
+      width: 100%;
+      flex-direction: column;
+    }
+
+    .product-slide {
+      min-width: auto;
+      min-height: 520px;
+    }
   }
 
   .animate-slide-up {

@@ -1,17 +1,24 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { useInView } from "@/hooks/useInView";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
+import { Reveal } from "@/components/site/Reveal";
 import { Leaf, Shield, Truck, Sparkles, Star, ArrowRight } from "lucide-react";
-import hero from "@/assets/hero.jpg";
-import catSkin from "@/assets/cat-skin.jpg";
-import catHair from "@/assets/cat-hair.jpg";
-import catPain from "@/assets/cat-pain.jpg";
-import catImmunity from "@/assets/cat-immunity.jpg";
-import pOil from "@/assets/product-oil.jpg";
-import pPowder from "@/assets/product-powder.jpg";
-import pTablets from "@/assets/product-tablets.jpg";
-import pHair from "@/assets/product-haircare.jpg";
-import about from "@/assets/about.jpg";
+import { products as shopProducts } from "@/lib/products";
+import hero from "@/assets/SATHYAVEDA HERBALS BANNERS/ABC BANNER.jpg";
+import catSkin from "@/assets/SATHYAVEDA HERBALS BANNERS/4 IMAGES BANNER.jpg";
+import catHair from "@/assets/SATHYAVEDA HERBALS BANNERS/ALMOND BANNER.jpg";
+import catPain from "@/assets/SATHYAVEDA HERBALS BANNERS/ABC BANNER.jpg";
+import catImmunity from "@/assets/SATHYAVEDA HERBALS BANNERS/CASHEW BANNER.jpg";
+import about from "@/assets/SATHYAVEDA HERBALS BANNERS/DRUMSTICK BANNER.jpg";
+import abcVideo from "@/assets/Sathiyavedha videos/ABC CAPSULE ANIMATION 1080P.mp4";
+import badamVideo from "@/assets/Sathiyavedha videos/California_Almonds_product_animation_1080p.mp4";
+import cashewVideo from "@/assets/Sathiyavedha videos/Rich_Cashews_product_animation_1080p.mp4";
+import chargeXVideo from "@/assets/Sathiyavedha videos/Veda_ChargeX_product_animation_1080p.mp4";
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
+import offerABC from "@/assets/offers/ABC.jpg";
+import offerVeda from "@/assets/offers/vedachargeX.jpeg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -30,40 +37,72 @@ const categories = [
   { name: "Immunity", img: catImmunity },
 ];
 
-const products = [
-  { name: "Sathyaveda Glow Rich ABC Powder", brand: "Sathyaveda Glow Rich", tag: "Premium Wellness", price: "₹599", img: pPowder, rating: 4.8 },
-  { name: "EnergeXMax Drumstick Extract", brand: "EnergeXMax", tag: "Energy & Vitality", price: "₹699", img: pTablets, rating: 4.7 },
-  { name: "Sathyaveda Rich Cashew Nuts", brand: "Sathyaveda Rich", tag: "Premium Nuts", price: "₹1,299", img: pOil, rating: 4.9 },
-];
-
 const concerns = ["Hair Fall", "Sleep", "Joint Pain", "Immunity", "Respiratory", "Skin Glow", "Diabetes", "Liver", "Bone Health", "Stress"];
 
 function Home() {
+  const [selectedProductId, setSelectedProductId] = useState(shopProducts[0]?.id ?? "abc-powder");
+  const [offerCarouselApi, setOfferCarouselApi] = useState<CarouselApi | null>(null);
+
+  const videoMap: Record<string, string> = {
+    "abc-powder": abcVideo,
+    badam: badamVideo,
+    cashew: cashewVideo,
+    "veda-chargex": chargeXVideo,
+  };
+
+  const selectedProduct = shopProducts.find((product) => product.id === selectedProductId) ?? shopProducts[0];
+
+  const { ref: heroRef, inView: heroInView } = useInView<HTMLDivElement>({ rootMargin: "-10%" });
+  const { ref: togglesRef, inView: togglesInView } = useInView<HTMLDivElement>({ rootMargin: "-10%" });
+  const { ref: videoRef, inView: videoInView } = useInView<HTMLDivElement>({ rootMargin: "-10%" });
+
+  useEffect(() => {
+    if (!offerCarouselApi) return;
+    const interval = window.setInterval(() => offerCarouselApi.scrollNext(), 3500);
+    return () => window.clearInterval(interval);
+  }, [offerCarouselApi]);
+
   return (
     <div className="min-h-screen bg-background scroll-smooth">
       <Header />
 
       {/* Hero */}
-      <section className="relative">
-        <div className="relative h-[540px] md:h-[640px] overflow-hidden">
-          <img src={hero} alt="Authentic ayurvedic herbs" className="absolute inset-0 w-full h-full object-cover" width={1920} height={900} />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/40 to-transparent" />
-          <div className="relative container mx-auto px-4 h-full flex items-center">
-            <div className="max-w-xl animate-fade-in">
-              <span className="inline-block text-brand-green font-medium tracking-widest text-xs uppercase mb-4">From Pokkotumbadam, Kerala</span>
-              <h1 className="font-display text-5xl md:text-6xl leading-tight text-foreground">
-                Authentic <span className="text-accent italic">Ayurveda</span><br />
-                <span className="text-brand-green-dark">for Everyday Wellness</span>
+      <section className="relative isolate overflow-hidden">
+        <div className="relative min-h-[70vh] overflow-hidden bg-brand-green-dark sm:min-h-[90svh] lg:min-h-[92svh]">
+          <video
+            className="absolute inset-0 h-full w-full object-cover object-center"
+            src="https://res.cloudinary.com/oqelcwup/video/upload/v1785063393/ALL_PRODUCTS_ANIMATED_NEW_qtalgb.mp4"
+            poster={hero}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-black/6" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+
+          <div className="relative mx-auto flex min-h-[60vh] w-full max-w-7xl items-center px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
+            <div ref={heroRef} className={`w-full max-w-xl lg:max-w-2xl ${heroInView ? "animate-fade-in" : ""}`}>
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-white">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent animate-pulse-subtle" />
+                New Launch
+              </span>
+              <h1 className="mt-5 max-w-3xl font-display font-semibold leading-[0.95] text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
+                <span className="block">India&apos;s first capsule of <span className="text-accent italic">pure Ayurveda</span>.</span>
+                <span className="mt-3 block text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-white/90">
+                  Pure Kerala herbs, refined for modern wellness.
+                </span>
               </h1>
-              <p className="mt-5 text-foreground/70 text-lg">
-                Crafted from age-old Kerala traditions — pure herbs, time-tested formulations, and a promise of natural healing.
+              <p className="mt-3 max-w-lg text-sm leading-6 text-white/80 sm:text-base lg:text-lg">
+                A gentle, premium Ayurvedic formulation rooted in tradition.
               </p>
-              <div className="mt-8 flex gap-4">
-                <a href="#products" className="inline-flex items-center gap-2 bg-brand-green-dark text-primary-foreground px-7 py-3.5 rounded-full font-medium hover:bg-brand-green transition duration-300 transform hover:scale-105">
+              <div className="mt-6 flex flex-wrap items-center gap-3 sm:gap-x-6">
+                <a href="#products" className="inline-flex items-center gap-2 bg-white text-brand-green-dark px-6 py-3 rounded-full font-semibold hover:bg-accent hover:text-white transition duration-300">
                   Shop Now <ArrowRight className="h-4 w-4" />
                 </a>
-                <a href="#about" className="inline-flex items-center gap-2 border border-brand-green-dark text-brand-green-dark px-7 py-3.5 rounded-full font-medium hover:bg-brand-green-dark hover:text-primary-foreground transition duration-300">
-                  Our Story
+                <a href="#about" className="inline-flex items-center gap-1.5 text-white font-medium">
+                  Our Story <ArrowRight className="h-3.5 w-3.5" />
                 </a>
               </div>
             </div>
@@ -71,140 +110,102 @@ function Home() {
         </div>
       </section>
 
-      {/* Trust strip */}
-      <section className="border-y border-border bg-secondary/50">
-        <div className="container mx-auto px-4 py-6 grid grid-cols-2 md:grid-cols-4 gap-6">
-          {[
-            { i: Leaf, t: "100% Natural", s: "Pure herbs, no chemicals" },
-            { i: Shield, t: "GMP Certified", s: "Quality assured" },
-            { i: Truck, t: "Free Shipping", s: "On orders over ₹499" },
-            { i: Sparkles, t: "Authentic Kerala", s: "Traditional recipes" },
-          ].map(({ i: Icon, t, s }) => (
-            <div key={t} className="flex items-center gap-3 hover:translate-x-2 transition duration-300">
-              <div className="h-11 w-11 rounded-full bg-brand-green/10 flex items-center justify-center">
-                <Icon className="h-5 w-5 text-brand-green-dark" />
-              </div>
-              <div>
-                <div className="font-semibold text-sm">{t}</div>
-                <div className="text-xs text-muted-foreground">{s}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Shop by Concern */}
-      <section id="concern" className="container mx-auto px-4 py-16">
-        <h2 className="font-display text-4xl text-center text-brand-green-dark">Shop by Concern</h2>
-        <p className="text-center text-muted-foreground mt-2">Find herbal answers for what matters most</p>
-        <div className="mt-10 flex flex-wrap justify-center gap-3">
-          {concerns.map((c) => (
-            <button key={c} className="px-5 py-2.5 rounded-full bg-secondary border border-border hover:border-brand-green hover:text-brand-green-dark transition duration-300 text-sm font-medium hover:scale-105 transform">
-              {c}
-            </button>
-          ))}
-        </div>
-      </section>
-
-      {/* Categories */}
-      <section className="container mx-auto px-4 py-10">
-        <h2 className="font-display text-4xl text-center text-brand-green-dark mb-10">Explore Our Range</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {categories.map((c) => (
-            <a href="#products" key={c.name} className="group block">
-              <div className="aspect-square overflow-hidden rounded-2xl bg-secondary">
-                <img src={c.img} alt={c.name} loading="lazy" width={600} height={600} className="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
-              </div>
-              <div className="mt-3 text-center font-medium text-foreground group-hover:text-brand-green-dark transition duration-300">
-                {c.name}
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
-
-      {/* Products */}
-      <section id="products" className="container mx-auto px-4 py-16">
-        <div className="flex items-end justify-between mb-10">
-          <div className="animate-fade-in" style={{ animationDuration: "600ms" }}>
-            <h2 className="font-display text-4xl text-brand-green-dark">Premium Wellness Collection</h2>
-            <p className="text-muted-foreground mt-2">Our most sought-after herbal formulations</p>
-          </div>
-          <a href="/products" className="hidden md:inline-flex items-center gap-2 text-brand-green-dark font-medium hover:gap-3 transition duration-300">
-            View All <ArrowRight className="h-4 w-4" />
-          </a>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((p, index) => (
-            <div
-              key={p.name}
-              className="group bg-card rounded-2xl border border-border overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:scale-105 animate-fade-in"
-              style={{
-                animationDelay: `${index * 100}ms`,
-              }}
-            >
-              <div className="aspect-square bg-secondary overflow-hidden">
-                <img
-                  src={p.img}
-                  alt={p.name}
-                  loading="lazy"
-                  width={768}
-                  height={768}
-                  className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
-                />
-              </div>
-              <div className="p-6">
-                <div className="text-xs text-brand-green font-medium uppercase tracking-wider">{p.brand}</div>
-                <div className="font-display text-lg mt-2 text-brand-green-dark">{p.name}</div>
-                <div className="text-xs text-muted-foreground mt-1">{p.tag}</div>
-                <div className="flex items-center gap-1 mt-3 text-xs text-muted-foreground">
-                  <div className="flex gap-1">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`h-4 w-4 ${i < Math.floor(p.rating) ? "fill-accent text-accent" : "text-muted-foreground"}`}
-                      />
-                    ))}
-                  </div>
-                  <span className="font-semibold text-foreground">{p.rating}</span>
-                </div>
-                <div className="flex items-center justify-between mt-4">
-                  <span className="font-bold text-brand-green-dark text-lg">{p.price}</span>
-                  <button className="text-xs px-4 py-2 rounded-full bg-brand-green-dark text-primary-foreground hover:bg-brand-green transition duration-300 transform hover:scale-105">
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* About */}
-      <section id="about" className="bg-secondary/50 py-20">
-        <div className="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-          <div className="rounded-3xl overflow-hidden">
-            <img src={about} alt="Traditional Kerala ayurveda" loading="lazy" width={1024} height={768} className="w-full h-full object-cover hover:scale-105 transition duration-700" />
-          </div>
-          <div className="animate-fade-in" style={{ animationDuration: "800ms" }}>
-            <span className="text-brand-green font-medium tracking-widest text-xs uppercase">Our Story</span>
-            <h2 className="font-display text-4xl md:text-5xl text-brand-green-dark mt-3">Rooted in Kerala. Crafted for You.</h2>
-            <p className="mt-5 text-foreground/70 leading-relaxed">
-              At Sathyaveda Herbals LLP, we honour the ancient wisdom of Ayurveda passed down through generations in the
-              lush hills of Pokkotumbadam. Every product is hand-formulated using locally sourced herbs, traditional methods,
-              and the unwavering belief that nature holds the answer to true wellbeing.
+      <section id="products" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+        <div className="space-y-8">
+          <Reveal as="div" className="space-y-3 text-center">
+            <span className="text-xs font-semibold uppercase tracking-[0.35em] text-brand-green">Real product reveal</span>
+            <h2 className="mx-auto max-w-3xl font-display text-3xl text-brand-green-dark sm:text-4xl">Preview product videos instantly</h2>
+            <p className="mx-auto max-w-2xl text-muted-foreground leading-6">
+              Tap or hover a product to preview its cinematic clip below.
             </p>
-            <div className="grid grid-cols-3 gap-6 mt-8">
-              <div><div className="font-display text-3xl text-brand-green-dark">25+</div><div className="text-xs text-muted-foreground">Years of Tradition</div></div>
-              <div><div className="font-display text-3xl text-brand-green-dark">100+</div><div className="text-xs text-muted-foreground">Herbal Formulations</div></div>
-              <div><div className="font-display text-3xl text-brand-green-dark">10k+</div><div className="text-xs text-muted-foreground">Happy Customers</div></div>
+          </Reveal>
+
+          <div ref={togglesRef} className={`rounded-[1.5rem] border border-border/70 bg-white/95 p-4 shadow-sm ${togglesInView ? "animate-slide-up" : ""}`}>
+            <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:justify-center">
+              {shopProducts.map((product) => (
+                <button
+                  key={product.id}
+                  type="button"
+                  onMouseEnter={() => setSelectedProductId(product.id)}
+                  onFocus={() => setSelectedProductId(product.id)}
+                  onClick={() => setSelectedProductId(product.id)}
+                  className={`w-full rounded-full border px-4 py-2 text-sm font-semibold transition duration-200 sm:w-auto ${selectedProductId === product.id ? "border-brand-green bg-brand-green/10 text-brand-green-dark shadow" : "border-border/70 bg-slate-50 text-slate-900 hover:border-brand-green/60 hover:bg-brand-green/5"}`}
+                >
+                  {product.name}
+                </button>
+              ))}
             </div>
           </div>
+
+          <div className="mx-auto max-w-4xl">
+            <div className="relative overflow-hidden rounded-2xl border border-border/70 bg-black shadow-lg">
+              <div ref={videoRef} className={`relative rounded-xl lg:h-[480px] h-[300px] bg-black overflow-hidden ${videoInView ? "animate-fade-in" : ""}`}>
+                <video
+                  key={selectedProductId}
+                  src={videoMap[selectedProductId]}
+                  poster={selectedProduct?.image}
+                  className="h-full w-full object-cover"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                <div className="absolute left-4 right-4 bottom-4 mx-auto max-w-3xl rounded-lg border border-white/10 bg-black/30 p-3 text-white">
+                  <div className="flex items-center justify-between gap-3">
+                    <h3 className="text-lg font-semibold text-white">{selectedProduct?.name}</h3>
+                    <span className="rounded-full bg-white/10 px-2 py-1 text-sm font-semibold text-white">{selectedProduct?.rating} ★</span>
+                  </div>
+                  <p className="mt-2 text-sm text-white/80">{selectedProduct?.shortDescription}</p>
+                  <div className="mt-3 flex items-center gap-3">
+                    <Link to="/product/$productId" params={{ productId: selectedProductId }} className="inline-flex items-center gap-2 rounded-full bg-brand-green-dark px-3 py-1.5 text-sm font-semibold text-white">
+                      View details <ArrowRight className="h-4 w-4" />
+                    </Link>
+                    <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-sm text-white/90">{selectedProduct?.price}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Offer */}
+      <section id="about" className="bg-secondary/50 py-20 lg:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
+          <Reveal as="div" animation="slide-right" className="rounded-3xl overflow-hidden">
+            <Carousel opts={{ loop: true }} setApi={setOfferCarouselApi} className="w-full h-full">
+              <CarouselContent className="flex">
+                <CarouselItem>
+                  <img src={offerABC} alt="Offer - ABC" loading="lazy" className="w-full h-[420px] object-cover" />
+                </CarouselItem>
+                <CarouselItem>
+                  <img src={offerVeda} alt="Offer - Veda ChargeX" loading="lazy" className="w-full h-[420px] object-cover" />
+                </CarouselItem>
+              </CarouselContent>
+            </Carousel>
+          </Reveal>
+          <Reveal as="div" animation="slide-left" delay={150}>
+            <span className="text-brand-green font-medium tracking-widest text-xs uppercase">Special Offer</span>
+            <h2 className="font-display text-4xl md:text-5xl text-brand-green-dark mt-3">Free American Tourist Bag</h2>
+            <p className="mt-5 text-foreground/70 leading-relaxed">
+              Buy both <strong>ABC</strong> and <strong>Veda ChargeX</strong> together and receive a complimentary American tourist bag with your order. Limited time offer.
+            </p>
+            <div className="mt-8">
+              <h3 className="text-lg font-semibold text-brand-green-dark">Offer applies to:</h3>
+              <ul className="mt-3 list-disc list-inside text-foreground/80">
+                <li>ABC</li>
+                <li>Veda ChargeX</li>
+              </ul>
+              <a href="#products" className="mt-6 inline-flex items-center gap-2 rounded-full bg-brand-green-dark px-4 py-2 text-white font-semibold hover:bg-brand-green">Shop ABC & Veda ChargeX <ArrowRight className="h-4 w-4" /></a>
+            </div>
+          </Reveal>
         </div>
       </section>
 
       {/* Doshas */}
-      <section id="doshas" className="container mx-auto px-4 py-16">
+      {/* <section id="doshas" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
         <h2 className="font-display text-4xl text-center text-brand-green-dark">Shop by Doshas</h2>
         <p className="text-center text-muted-foreground mt-2">Balance your unique constitution</p>
         <div className="grid md:grid-cols-3 gap-6 mt-10">
@@ -215,7 +216,7 @@ function Home() {
           ].map((d) => (
             <div
               key={d.n}
-              className="rounded-2xl border border-border bg-card p-8 hover:border-brand-green transition duration-300 hover:shadow-lg transform hover:translate-y--2"
+              className="rounded-2xl border border-border bg-card p-8 hover:border-brand-green transition duration-300 hover:shadow-lg hover:-translate-y-2"
             >
               <div className="h-12 w-12 rounded-full bg-brand-green/10 flex items-center justify-center mb-4">
                 <Leaf className="h-5 w-5 text-brand-green-dark" />
@@ -228,39 +229,55 @@ function Home() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
-      {/* Testimonials */}
-      <section className="bg-brand-green-dark text-primary-foreground py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="font-display text-4xl text-center">Trusted by Thousands</h2>
-          <div className="grid md:grid-cols-3 gap-6 mt-12">
+      {/* Launch Preview */}
+      <section className="bg-brand-green-dark text-primary-foreground py-16 lg:py-20">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <Reveal as="h2" className="font-display text-3xl text-center">Launch Preview</Reveal>
+          <Reveal as="p" delay={100} className="mx-auto mt-4 max-w-2xl text-center text-sm text-white/80">
+            Our products are launching soon. Here’s a preview of the kind of feedback we are aiming for from early testers and friends who have experienced our formulations.
+          </Reveal>
+          <div className="mt-10 space-y-4">
             {[
-              { n: "Anjali R.", t: "The Neelibringadi oil transformed my hair in weeks. Authentic Kerala goodness." },
-              { n: "Rahul M.", t: "Genuine ayurveda. The pain relief balm worked when nothing else did." },
-              { n: "Priya S.", t: "Beautifully packaged, traditional formulations. I trust them completely." },
-            ].map((r) => (
-              <div key={r.n} className="bg-background/10 backdrop-blur rounded-2xl p-6 border border-primary-foreground/10">
-                <div className="flex gap-1 text-accent">{Array.from({length:5}).map((_,i)=><Star key={i} className="h-4 w-4 fill-current" />)}</div>
-                <p className="mt-3 text-sm opacity-90">"{r.t}"</p>
-                <div className="mt-4 font-semibold text-sm">— {r.n}</div>
-              </div>
+              { n: "Anjali", t: "Excited to try the ABC + Veda ChargeX combo when it launches — the offer bag is a great travel-ready bonus." },
+              { n: "Rahul", t: "I can’t wait for the launch. The product preview looks authentic and premium." },
+              { n: "Priya", t: "This feels like a thoughtful launch bundle for anyone who values Ayurvedic travel essentials." },
+            ].map((r, index) => (
+              <Reveal
+                key={r.n}
+                as="div"
+                animation={index % 2 === 0 ? "slide-right" : "slide-left"}
+                delay={index * 120}
+                className={`flex ${index % 2 === 0 ? "justify-start" : "justify-end"}`}
+              >
+                <div
+                  className={`relative max-w-[85%] px-4 py-3 text-sm leading-6 shadow-[0_2px_8px_rgba(0,0,0,0.08)] ${
+                    index % 2 === 0
+                      ? "bg-white text-slate-900 rounded-[22px] rounded-br-[6px]"
+                      : "bg-emerald-500 text-white rounded-[22px] rounded-bl-[6px]"
+                  }`}
+                >
+                  <p>{r.t}</p>
+                  <div className="mt-2 text-[11px] opacity-80">{r.n}</div>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* Newsletter */}
-      <section id="bundles" className="container mx-auto px-4 py-20">
-        <div className="rounded-3xl bg-gradient-to-br from-secondary to-brand-green/10 p-10 md:p-16 text-center">
-          <h2 className="font-display text-4xl text-brand-green-dark">Join the Sathyaveda Circle</h2>
+      {/* <section id="bundles" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-24">
+        <div className="rounded-3xl bg-gradient-to-br from-secondary to-brand-green/10 p-6 sm:p-10 md:p-16 text-center">
+          <h2 className="font-display text-3xl sm:text-4xl text-brand-green-dark">Join the Sathyaveda Circle</h2>
           <p className="text-muted-foreground mt-3 max-w-xl mx-auto">Receive ayurvedic wisdom, seasonal rituals and exclusive offers — straight from Kerala to your inbox.</p>
-          <form className="mt-8 flex max-w-md mx-auto gap-2">
-            <input type="email" placeholder="your@email.com" className="flex-1 rounded-full px-5 py-3 border border-border bg-background outline-none focus:border-brand-green" />
-            <button type="button" className="rounded-full px-6 py-3 bg-brand-green-dark text-primary-foreground font-medium hover:bg-brand-green">Subscribe</button>
+          <form className="mt-8 flex flex-col sm:flex-row max-w-md mx-auto gap-3 sm:gap-2">
+            <input type="email" placeholder="your@email.com" className="min-w-0 flex-1 rounded-full px-5 py-3 border border-border bg-background outline-none focus:border-brand-green" />
+            <button type="button" className="shrink-0 rounded-full px-6 py-3 bg-brand-green-dark text-primary-foreground font-medium hover:bg-brand-green">Subscribe</button>
           </form>
         </div>
-      </section>
+      </section> */}
 
       <Footer />
     </div>
