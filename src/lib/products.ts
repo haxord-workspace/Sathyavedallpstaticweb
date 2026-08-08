@@ -35,10 +35,10 @@ export const products: Product[] = [
     category: "Wellness",
     image: abcPowder,
     badge: "New Launch",
-    price: "₹599",
+    price: "₹950",
     rating: 4.8,
     variants: [
-      { size: "100g pouch", price: "₹599" },
+      { size: "100g pouch", price: "₹950" },
       { size: "250g pouch", price: "₹1,199" },
     ],
     benefits: [
@@ -58,10 +58,10 @@ export const products: Product[] = [
     category: "Nutrient Rich",
     image: badam,
     badge: "Signature Choice",
-    price: "₹899",
+    price: "₹350",
     rating: 4.7,
     variants: [
-      { size: "250g pack", price: "₹899" },
+      { size: "250g pack", price: "₹350" },
       { size: "500g pack", price: "₹1,699" },
     ],
     benefits: [
@@ -81,11 +81,11 @@ export const products: Product[] = [
     category: "Premium Nuts",
     image: cashew,
     badge: "Best Seller",
-    price: "₹1,299",
+    price: "₹1,800",
     rating: 4.9,
     variants: [
       { size: "500g pack", price: "₹1,299" },
-      { size: "1kg pack", price: "₹2,499" },
+      { size: "1kg pack", price: "₹1,800" },
     ],
     benefits: [
       "High in protein, magnesium and phosphorus",
@@ -104,10 +104,10 @@ export const products: Product[] = [
     category: "Vitality Blend",
     image: chargeX,
     badge: "Wellness Essential",
-    price: "₹749",
+    price: "₹950",
     rating: 4.8,
     variants: [
-      { size: "Bottle 120ml", price: "₹749" },
+      { size: "Bottle 120ml", price: "₹950" },
       { size: "Bottle 250ml", price: "₹1,399" },
     ],
     benefits: [

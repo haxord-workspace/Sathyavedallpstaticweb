@@ -28,7 +28,7 @@ function ProductDetailPage() {
         <Header />
         <section className="mx-auto flex min-h-[60vh] max-w-7xl items-center justify-center px-4 py-24">
           <div className="text-center">
-            <h1 className="font-display text-3xl text-brand-green-dark">Product not found</h1>
+            <h1 className="font-display text-2xl text-brand-green-dark sm:text-3xl">Product not found</h1>
             <p className="mt-3 text-muted-foreground">The requested product could not be found.</p>
             <Link to="/products" className="mt-6 inline-flex items-center gap-2 rounded-full bg-brand-green-dark px-5 py-3 text-sm font-semibold text-primary-foreground">
               <ArrowLeft className="h-4 w-4" /> Back to products
@@ -46,13 +46,13 @@ function ProductDetailPage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-        <Link to="/products" className="inline-flex items-center gap-2 text-sm font-semibold text-brand-green-dark transition hover:gap-3">
+      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-16">
+        <Link to="/" className="inline-flex items-center gap-2 text-sm font-semibold text-brand-green-dark transition hover:gap-3">
           <ArrowLeft className="h-4 w-4" /> Back to collection
         </Link>
 
-        <div className="mt-8 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
-          <Reveal as="div" animation="slide-right" className="overflow-hidden rounded-[2rem] border border-border/70 bg-[#f7f4eb] p-4 shadow-sm">
+        <div className="mt-6 grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:gap-10">
+          <Reveal as="div" animation="slide-right" className="overflow-hidden rounded-[2rem] border border-border/70 bg-[#f7f4eb] p-3 shadow-sm lg:p-4">
             <img src={product.image} alt={product.name} className="aspect-[4/5] w-full rounded-[1.5rem] object-contain" />
           </Reveal>
 
@@ -60,22 +60,21 @@ function ProductDetailPage() {
             <div className="inline-flex rounded-full border border-brand-green/20 bg-brand-green/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-brand-green">
               {product.badge}
             </div>
-            <h1 className="mt-4 font-display text-4xl text-brand-green-dark sm:text-5xl">{product.name}</h1>
-            <p className="mt-3 text-lg text-muted-foreground">{product.description}</p>
+            <h1 className="mt-3 font-display text-3xl text-brand-green-dark sm:text-5xl">{product.name}</h1>
+            <p className="mt-2 text-base text-muted-foreground sm:text-lg">{product.description}</p>
 
-            <div className="mt-6 rounded-2xl border border-border bg-card p-5 shadow-sm">
+            <div className="mt-4 rounded-2xl border border-border bg-card p-4 shadow-sm lg:p-5">
               <div className="flex items-end justify-between gap-3">
                 <div>
                   <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-green">{product.brand}</p>
                   <p className="mt-1 text-sm text-muted-foreground">{product.category}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">Starting From</p>
-                  <p className="text-2xl font-semibold text-brand-green-dark">{product.price}</p>
+                  <p className="text-xl font-semibold text-brand-green-dark sm:text-2xl">{product.price}</p>
                 </div>
               </div>
 
-              <div className="mt-6 flex flex-wrap gap-3">
+              <div className="mt-4 flex flex-wrap gap-3">
                 <a href={whatsappUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-brand-green-dark px-5 py-3 text-sm font-semibold text-primary-foreground transition hover:bg-brand-green">
                   <ShoppingBag className="h-4 w-4" /> Buy on WhatsApp
                 </a>
@@ -85,10 +84,10 @@ function ProductDetailPage() {
               </div>
             </div>
 
-            <div className="mt-8 grid gap-8 md:grid-cols-2">
+            <div className="mt-6 grid gap-6 md:grid-cols-2 lg:gap-8">
               <Reveal as="div" delay={100}>
-                <h2 className="text-lg font-semibold text-brand-green-dark">Why you&apos;ll love it</h2>
-                <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
+                <h2 className="text-base font-semibold text-brand-green-dark sm:text-lg">Why you&apos;ll love it</h2>
+                <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
                   {product.benefits.map((benefit) => (
                     <li key={benefit} className="flex gap-2">
                       <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-green" />
@@ -99,8 +98,8 @@ function ProductDetailPage() {
               </Reveal>
 
               <Reveal as="div" delay={200}>
-                <h2 className="text-lg font-semibold text-brand-green-dark">Key details</h2>
-                <div className="mt-4 space-y-3 text-sm text-muted-foreground">
+                <h2 className="text-base font-semibold text-brand-green-dark sm:text-lg">Key details</h2>
+                <div className="mt-3 space-y-3 text-sm text-muted-foreground">
                   <div>
                     <p className="font-semibold text-foreground">Available sizes</p>
                     <div className="mt-2 flex flex-wrap gap-2">

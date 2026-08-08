@@ -26,13 +26,13 @@ export function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-out ${
         visible
-          ? "translate-y-0 bg-background/90 backdrop-blur-md border-b border-border shadow-sm"
-          : "-translate-y-full"
+          ? "bg-background/90 backdrop-blur-md border-b border-border shadow-sm"
+          : "bg-transparent"
       }`}
     >
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-20 lg:px-8">
         <Link to="/" className="flex items-center gap-2">
-          <img src={logo} alt="Sathyaveda Herbals LLP" className="h-11 w-auto" />
+          <img src={logo} alt="Sathyaveda Herbals LLP" className="h-9 w-auto lg:h-11" />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-10 text-sm font-medium tracking-wide text-foreground/75">

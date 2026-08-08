@@ -6,19 +6,14 @@ import { Footer } from "@/components/site/Footer";
 import { Reveal } from "@/components/site/Reveal";
 import { Leaf, Shield, Truck, Sparkles, Star, ArrowRight } from "lucide-react";
 import { products as shopProducts } from "@/lib/products";
-import hero from "@/assets/SATHYAVEDA HERBALS BANNERS/ABC BANNER.jpg";
-import catSkin from "@/assets/SATHYAVEDA HERBALS BANNERS/4 IMAGES BANNER.jpg";
-import catHair from "@/assets/SATHYAVEDA HERBALS BANNERS/ALMOND BANNER.jpg";
-import catPain from "@/assets/SATHYAVEDA HERBALS BANNERS/ABC BANNER.jpg";
-import catImmunity from "@/assets/SATHYAVEDA HERBALS BANNERS/CASHEW BANNER.jpg";
-import about from "@/assets/SATHYAVEDA HERBALS BANNERS/DRUMSTICK BANNER.jpg";
-import abcVideo from "@/assets/Sathiyavedha videos/ABC CAPSULE ANIMATION 1080P.mp4";
-import badamVideo from "@/assets/Sathiyavedha videos/California_Almonds_product_animation_1080p.mp4";
-import cashewVideo from "@/assets/Sathiyavedha videos/Rich_Cashews_product_animation_1080p.mp4";
-import chargeXVideo from "@/assets/Sathiyavedha videos/Veda_ChargeX_product_animation_1080p.mp4";
+
+const abcVideo = "https://res.cloudinary.com/dafifet3i/video/upload/v1786081693/IMG_8455_gaxvox.mov";
+const badamVideo = "https://res.cloudinary.com/dafifet3i/video/upload/v1786080467/IMG_8451_sd4ey0.mov";
+const cashewVideo = "https://res.cloudinary.com/dafifet3i/video/upload/v1786080461/IMG_8450_pllfre.mov";
+const chargeXVideo = "https://res.cloudinary.com/dafifet3i/video/upload/v1786080462/IMG_8449_h4kfe3.mov";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 import offerABC from "@/assets/offers/ABC.jpg";
-import offerVeda from "@/assets/offers/vedachargeX.jpeg";
+import offerVeda from "@/assets/offers/vedachargeX.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -30,12 +25,7 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const categories = [
-  { name: "Skin Care", img: catSkin },
-  { name: "Hair Care", img: catHair },
-  { name: "Pain Relief", img: catPain },
-  { name: "Immunity", img: catImmunity },
-];
+
 
 const concerns = ["Hair Fall", "Sleep", "Joint Pain", "Immunity", "Respiratory", "Skin Glow", "Diabetes", "Liver", "Bone Health", "Stress"];
 
@@ -56,6 +46,13 @@ function Home() {
   const { ref: togglesRef, inView: togglesInView } = useInView<HTMLDivElement>({ rootMargin: "-10%" });
   const { ref: videoRef, inView: videoInView } = useInView<HTMLDivElement>({ rootMargin: "-10%" });
 
+  const [showHeroText, setShowHeroText] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowHeroText(true), 5000);
+    return () => clearTimeout(timer);
+  }, []);
+
   useEffect(() => {
     if (!offerCarouselApi) return;
     const interval = window.setInterval(() => offerCarouselApi.scrollNext(), 3500);
@@ -68,56 +65,61 @@ function Home() {
 
       {/* Hero */}
       <section className="relative isolate overflow-hidden">
-        <div className="relative min-h-[70vh] overflow-hidden bg-brand-green-dark sm:min-h-[90svh] lg:min-h-[92svh]">
+        <div className="relative h-[88svh] w-full overflow-hidden bg-black sm:h-[92svh] lg:h-screen">
           <video
-            className="absolute inset-0 h-full w-full object-cover object-center"
-            src="https://res.cloudinary.com/oqelcwup/video/upload/v1785063393/ALL_PRODUCTS_ANIMATED_NEW_qtalgb.mp4"
-            poster={hero}
+            className="absolute inset-0 h-full w-full object-cover object-center scale-105"
+            src="https://res.cloudinary.com/dafifet3i/video/upload/v1786080685/IMG_8400_rkfi4t.mov"
             autoPlay
             muted
             loop
             playsInline
             preload="auto"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-black/6" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
 
-          <div className="relative mx-auto flex min-h-[60vh] w-full max-w-7xl items-center px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
-            <div ref={heroRef} className={`w-full max-w-xl lg:max-w-2xl ${heroInView ? "animate-fade-in" : ""}`}>
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-white">
-                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent animate-pulse-subtle" />
-                New Launch
-              </span>
-              <h1 className="mt-5 max-w-3xl font-display font-semibold leading-[0.95] text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
-                <span className="block">India&apos;s first capsule of <span className="text-accent italic">pure Ayurveda</span>.</span>
-                <span className="mt-3 block text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-white/90">
-                  Pure Kerala herbs, refined for modern wellness.
-                </span>
-              </h1>
-              <p className="mt-3 max-w-lg text-sm leading-6 text-white/80 sm:text-base lg:text-lg">
-                A gentle, premium Ayurvedic formulation rooted in tradition.
-              </p>
-              <div className="mt-6 flex flex-wrap items-center gap-3 sm:gap-x-6">
-                <a href="#products" className="inline-flex items-center gap-2 bg-white text-brand-green-dark px-6 py-3 rounded-full font-semibold hover:bg-accent hover:text-white transition duration-300">
-                  Shop Now <ArrowRight className="h-4 w-4" />
-                </a>
-                <a href="#about" className="inline-flex items-center gap-1.5 text-white font-medium">
-                  Our Story <ArrowRight className="h-3.5 w-3.5" />
-                </a>
+          <div className="relative flex h-full w-full items-center">
+            <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-24">              <div ref={heroRef} className={`w-full max-w-xl lg:max-w-2xl ${heroInView ? "animate-fade-in" : ""}`}>
+                {/* Hero text — hidden on load, fades in after 5 seconds */}
+                <div
+                  className="transition-all duration-700 ease-out"
+                  style={{
+                    opacity: showHeroText ? 1 : 0,
+                    transform: showHeroText ? "translateY(0)" : "translateY(20px)",
+                    pointerEvents: showHeroText ? "auto" : "none",
+                  }}
+                >
+
+                <h1 className="max-w-3xl font-display font-semibold leading-[0.95] text-white text-2xl sm:text-4xl md:text-5xl lg:text-6xl">
+                  <span className="block"><span className="text-white italic">India's First ABC & Wellness Herbal Capsules.</span></span>
+                  <span className="mt-3 block text-base sm:text-xl md:text-2xl lg:text-3xl font-medium text-white/90">
+                   Nature-powered nutrition for your everyday well-being.
+                  </span>
+                </h1>
+                <p className="mt-3 text-xs leading-6 text-white/80 italic whitespace-nowrap">
+                  Powered by the goodness of Apple, Beetroot, Carrot & Drumstick.
+                </p>
+                <div className="mt-6 flex flex-wrap items-center gap-3 sm:gap-x-6">
+                  <a href="#products" className="inline-flex items-center gap-2 bg-white text-brand-green-dark px-6 py-3 rounded-full font-semibold hover:bg-accent hover:text-white transition duration-300">
+                    Shop Now <ArrowRight className="h-4 w-4" />
+                  </a>
+                  <a href="#about" className="inline-flex items-center gap-1.5 text-white font-medium">
+                    Our Story <ArrowRight className="h-3.5 w-3.5" />
+                  </a>
+                </div>
+
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="products" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
-        <div className="space-y-8">
-          <Reveal as="div" className="space-y-3 text-center">
+      <section id="products" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+        <div className="space-y-6">
+          <Reveal as="div" className="space-y-2 text-center">
             <span className="text-xs font-semibold uppercase tracking-[0.35em] text-brand-green">Real product reveal</span>
-            <h2 className="mx-auto max-w-3xl font-display text-3xl text-brand-green-dark sm:text-4xl">Preview product videos instantly</h2>
-            <p className="mx-auto max-w-2xl text-muted-foreground leading-6">
-              Tap or hover a product to preview its cinematic clip below.
-            </p>
+            <h2 className="mx-auto max-w-3xl font-display text-2xl text-brand-green-dark sm:text-4xl">Preview product videos instantly</h2>
           </Reveal>
 
           <div ref={togglesRef} className={`rounded-[1.5rem] border border-border/70 bg-white/95 p-4 shadow-sm ${togglesInView ? "animate-slide-up" : ""}`}>
@@ -137,14 +139,14 @@ function Home() {
             </div>
           </div>
 
-          <div className="mx-auto max-w-4xl">
+          <div className="mx-auto w-full max-w-3xl">
             <div className="relative overflow-hidden rounded-2xl border border-border/70 bg-black shadow-lg">
-              <div ref={videoRef} className={`relative rounded-xl lg:h-[480px] h-[300px] bg-black overflow-hidden ${videoInView ? "animate-fade-in" : ""}`}>
+              <div ref={videoRef} className={`relative overflow-hidden ${videoInView ? "animate-fade-in" : ""}`} style={{ aspectRatio: '16/9' }}>
                 <video
                   key={selectedProductId}
                   src={videoMap[selectedProductId]}
                   poster={selectedProduct?.image}
-                  className="h-full w-full object-cover"
+                  className="absolute inset-0 h-full w-full object-contain object-center"
                   autoPlay
                   muted
                   loop
@@ -152,17 +154,17 @@ function Home() {
                   preload="metadata"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                <div className="absolute left-4 right-4 bottom-4 mx-auto max-w-3xl rounded-lg border border-white/10 bg-black/30 p-3 text-white">
-                  <div className="flex items-center justify-between gap-3">
-                    <h3 className="text-lg font-semibold text-white">{selectedProduct?.name}</h3>
-                    <span className="rounded-full bg-white/10 px-2 py-1 text-sm font-semibold text-white">{selectedProduct?.rating} ★</span>
+                <div className="absolute left-2 right-2 bottom-2 mx-auto max-w-3xl rounded-lg border border-white/10 bg-black/30 p-2 text-white sm:left-4 sm:right-4 sm:bottom-4 sm:p-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <h3 className="text-sm font-semibold text-white sm:text-lg">{selectedProduct?.name}</h3>
+                    <span className="rounded-full bg-white/10 px-1.5 py-0.5 text-xs font-semibold text-white sm:px-2 sm:py-1 sm:text-sm">{selectedProduct?.rating} ★</span>
                   </div>
-                  <p className="mt-2 text-sm text-white/80">{selectedProduct?.shortDescription}</p>
-                  <div className="mt-3 flex items-center gap-3">
-                    <Link to="/product/$productId" params={{ productId: selectedProductId }} className="inline-flex items-center gap-2 rounded-full bg-brand-green-dark px-3 py-1.5 text-sm font-semibold text-white">
-                      View details <ArrowRight className="h-4 w-4" />
+                  <p className="mt-1 text-xs text-white/80 sm:mt-2 sm:text-sm">{selectedProduct?.shortDescription}</p>
+                  <div className="mt-2 flex items-center gap-2 sm:mt-3 sm:gap-3">
+                    <Link to="/product/$productId" params={{ productId: selectedProductId }} className="inline-flex items-center gap-1.5 rounded-full bg-brand-green-dark px-2.5 py-1 text-xs font-semibold text-white sm:gap-2 sm:px-3 sm:py-1.5 sm:text-sm">
+                      View details <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4" />
                     </Link>
-                    <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-sm text-white/90">{selectedProduct?.price}</span>
+                    <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-2.5 py-1 text-xs text-white/90 sm:px-3 sm:py-1.5 sm:text-sm">{selectedProduct?.price}</span>
                   </div>
                 </div>
               </div>
@@ -172,33 +174,36 @@ function Home() {
       </section>
 
       {/* Offer */}
-      <section id="about" className="bg-secondary/50 py-20 lg:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
+      <section id="about" className="bg-secondary/50 py-3 lg:py-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid gap-2 md:grid-cols-2 md:gap-8 items-center">
+          <div className="flex flex-col gap-1">
+            <span className="inline-flex self-start items-center text-brand-green bg-brand-green/10 font-semibold tracking-widest text-[10px] uppercase px-3 py-1">Special Offer</span>
+            <h2 className="font-display text-2xl md:text-4xl text-brand-green-dark whitespace-nowrap">Free American Tourister Bag</h2>
+          </div>
           <Reveal as="div" animation="slide-right" className="rounded-3xl overflow-hidden">
             <Carousel opts={{ loop: true }} setApi={setOfferCarouselApi} className="w-full h-full">
               <CarouselContent className="flex">
                 <CarouselItem>
-                  <img src={offerABC} alt="Offer - ABC" loading="lazy" className="w-full h-[420px] object-cover" />
+                  <img src={offerABC} alt="Offer - ABC" loading="lazy" className="aspect-[2/3] w-full object-contain" />
                 </CarouselItem>
                 <CarouselItem>
-                  <img src={offerVeda} alt="Offer - Veda ChargeX" loading="lazy" className="w-full h-[420px] object-cover" />
+                  <img src={offerVeda} alt="Offer - Veda ChargeX" loading="lazy" className="aspect-[2/3] w-full object-contain" />
                 </CarouselItem>
               </CarouselContent>
             </Carousel>
           </Reveal>
           <Reveal as="div" animation="slide-left" delay={150}>
-            <span className="text-brand-green font-medium tracking-widest text-xs uppercase">Special Offer</span>
-            <h2 className="font-display text-4xl md:text-5xl text-brand-green-dark mt-3">Free American Tourist Bag</h2>
-            <p className="mt-5 text-foreground/70 leading-relaxed">
-              Buy both <strong>ABC</strong> and <strong>Veda ChargeX</strong> together and receive a complimentary American tourist bag with your order. Limited time offer.
+
+            <p className="mt-3 text-foreground/70 leading-relaxed">
+              Buy both <strong>ABC</strong> and <strong>Veda ChargeX</strong> together and receive a complimentary American Tourister bag with your order. Limited time offer.
             </p>
-            <div className="mt-8">
-              <h3 className="text-lg font-semibold text-brand-green-dark">Offer applies to:</h3>
-              <ul className="mt-3 list-disc list-inside text-foreground/80">
+            <div className="mt-6">
+              <h3 className="text-base font-semibold text-brand-green-dark sm:text-lg">Offer applies to:</h3>
+              <ul className="mt-2 list-disc list-inside text-foreground/80">
                 <li>ABC</li>
                 <li>Veda ChargeX</li>
               </ul>
-              <a href="#products" className="mt-6 inline-flex items-center gap-2 rounded-full bg-brand-green-dark px-4 py-2 text-white font-semibold hover:bg-brand-green">Shop ABC & Veda ChargeX <ArrowRight className="h-4 w-4" /></a>
+              <a href="#products" className="mt-5 inline-flex items-center gap-2 rounded-full bg-brand-green-dark px-4 py-2 text-white font-semibold hover:bg-brand-green">Shop ABC & Veda ChargeX <ArrowRight className="h-4 w-4" /></a>
             </div>
           </Reveal>
         </div>
@@ -232,13 +237,13 @@ function Home() {
       </section> */}
 
       {/* Launch Preview */}
-      <section className="bg-brand-green-dark text-primary-foreground py-16 lg:py-20">
+      <section className="bg-brand-green-dark text-primary-foreground py-10 lg:py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <Reveal as="h2" className="font-display text-3xl text-center">Launch Preview</Reveal>
-          <Reveal as="p" delay={100} className="mx-auto mt-4 max-w-2xl text-center text-sm text-white/80">
+          <Reveal as="h2" className="font-display text-2xl text-center sm:text-3xl">Launch Preview</Reveal>
+          <Reveal as="p" delay={100} className="mx-auto mt-3 max-w-2xl text-center text-sm text-white/80">
             Our products are launching soon. Here’s a preview of the kind of feedback we are aiming for from early testers and friends who have experienced our formulations.
           </Reveal>
-          <div className="mt-10 space-y-4">
+          <div className="mt-6 space-y-3">
             {[
               { n: "Anjali", t: "Excited to try the ABC + Veda ChargeX combo when it launches — the offer bag is a great travel-ready bonus." },
               { n: "Rahul", t: "I can’t wait for the launch. The product preview looks authentic and premium." },
