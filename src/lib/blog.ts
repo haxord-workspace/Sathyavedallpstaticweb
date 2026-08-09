@@ -9,59 +9,61 @@ export type Post = {
 
 export const posts: Post[] = [
   {
-    title: "ABC Capsules: A Gentle Daily Ritual",
-    excerpt: "How ABC capsules fit into a daily wellness routine and what herbs make them effective.",
+    title: "ABC Powder: A Gentle Daily Ritual",
+    excerpt: "How ABC Powder — our Kerala-inspired herbal blend — fits into a daily Ayurvedic wellness routine.",
     date: "2026-07-20",
     tag: "Product Guide",
     slug: "abc-capsules-daily-ritual",
-    content: `ABC capsules are formulated from time-honoured Kerala herbs. In this post we explore the core botanicals, suggested usage, and how they fit into your morning ritual.
+    content: `ABC Powder is Sathyaveda's signature herbal wellness blend, rooted in traditional Kerala formulations and crafted with Apple, Beetroot, Carrot, Drumstick (Moringa) extract, Safed Musli, Ashwagandha, Gooseberry (Amla) and Dates Seed. Each botanical plays a distinct role — Ashwagandha for adaptogenic balance, Safed Musli for stamina, Moringa for micronutrient density, and Amla for antioxidant support — combined into one daily Ayurvedic tonic for immunity and digestion.
 
-ABC combines three primary botanicals traditionally used to support digestion, immunity and gentle detoxification. Taken after a light breakfast, a daily ABC capsule can complement balanced eating and gentle movement.
+How to use: stir one teaspoon of ABC Powder into a glass of warm water or milk once daily, ideally after a light breakfast. If you're new to herbal supplements, start with a half measure for the first three to four days to assess tolerance before moving to the full dose as part of a consistent morning ritual.
 
-How to use: take one capsule with warm water after breakfast. For those new to herbal supplements, start with a half dose for the first three days to assess tolerance. People who are pregnant, nursing, or on prescription medication should consult a practitioner before use.
+Safety note: ABC Powder is a food-based wellness blend, not a medicine. Anyone who is pregnant, nursing, managing a chronic condition, or taking prescription medication should check with a qualified Ayurvedic practitioner or doctor before adding it to their routine.
 
-What to expect: within 2-4 weeks many users report subtle improvements in digestion and energy. These are supportive, not immediate cures — consistent, mindful routines are recommended.
+What to expect: most people notice gentle improvements in digestion, energy and everyday immunity within two to four weeks of consistent use. Like any natural wellness routine, ABC Powder works best alongside balanced eating, good hydration and gentle daily movement — not as a substitute for medical care.
 `,
   },
   {
     title: "Veda ChargeX: Natural Energy Support",
-    excerpt: "An evidence-informed look at energising herbs and how to use Veda ChargeX responsibly.",
+    excerpt: "An evidence-informed look at Veda ChargeX's adaptogenic herbs and how to use this Ayurvedic tonic responsibly.",
     date: "2026-07-22",
     tag: "Product Guide",
     slug: "veda-chargex-energy-support",
-    content: `Veda ChargeX combines adaptogenic herbs to support sustained energy. We cover ingredients, timing, and safety considerations.
+    content: `Veda ChargeX is Sathyaveda's herbal vitality tonic, blending Drumstick (Moringa) extract, Safed Musli, Ashwagandha and Gooseberry (Amla) with Dates Seed to support sustained, natural energy. Ashwagandha and Safed Musli are traditional Ayurvedic adaptogens used to help the body manage everyday stress, while Moringa and Amla add antioxidants and micronutrients that support immunity, digestion and healthy blood sugar balance.
 
-Key ingredients such as Ashwagandha, Shankhpushpi and natural extracts provide gentle support without the crash associated with stimulants. ChargeX is designed for daytime use; avoid taking it late in the day to prevent sleep disruption.
+How to use: take one to two teaspoons of Veda ChargeX mixed with warm water or milk each morning, ideally with food. For the best results, pair it with consistent sleep, good hydration and short movement breaks through the day, rather than relying on it alone for energy.
 
-Recommended use: one capsule in the morning with food. For sustained results, pair with adequate sleep, hydration and short movement breaks during the day.
+Safety note: because ChargeX supports blood-sugar and thyroid-linked pathways, anyone on diabetes or thyroid medication, or who is pregnant or nursing, should speak with a healthcare professional before starting it. This is a gentle, food-based herbal tonic — not a stimulant — so consistency matters more than dosage.
 
-Safety note: those with hypertension or on thyroid medication should consult a healthcare professional before using ChargeX.
+What to expect: many people notice steadier, more even energy within a few weeks of daily use, without the sharp peaks and crashes associated with caffeine-based energy drinks.
 `,
   },
   {
     title: "Travel-Ready Ayurveda: Packing Your Kit",
-    excerpt: "What to pack for short trips — essential herbal helpers and how our launch bag helps you stay balanced.",
+    excerpt: "What to pack for short trips — essential herbal helpers and how our launch bag helps you stay balanced on the road.",
     date: "2026-07-24",
     tag: "Lifestyle",
     slug: "travel-ready-ayurveda",
-    content: `When travelling, simple herbal allies can help preserve balance. This guide outlines a compact kit for short trips.
+    content: `When travelling, a few well-chosen herbal allies can help you stay balanced even with disrupted routines, unfamiliar food and long hours in transit. This guide outlines a compact Ayurvedic travel kit built around Sathyaveda's everyday wellness range.
 
-Essentials to pack: a small pouch with ABC capsules for digestion, a sachet of rehydrating powder for long journeys, and a small tube of balm for travel aches. The complimentary launch bag is sized to hold these basics, plus a water bottle and small first-aid items.
+Essentials to pack: single-serve sachets of ABC Powder for digestion and immunity, a small tub of Veda ChargeX for steady energy on long travel days, a pouch of Badam or Cashew for a nourishing snack, and a rehydrating electrolyte sachet for flights or road trips. Our complimentary launch bag is sized to hold these basics alongside a water bottle and small first-aid items.
 
-Tips: maintain regular meal times where possible, sip warm water rather than cold drinks, and pause for short grounding walks at layovers to support digestion and circulation.
+Tips for staying balanced on the road: keep meal times as regular as possible, sip warm water instead of cold or iced drinks, and take short grounding walks at layovers or rest stops to support digestion and circulation. Even a single teaspoon of ABC Powder in warm water each morning can help anchor the body's rhythm when everything else around you is changing.
 `,
   },
   {
     title: "Dosha Basics: Find Your Routine",
-    excerpt: "A concise primer on doshas and simple daily adjustments to support balance and wellbeing.",
+    excerpt: "A concise Ayurveda primer on Vata, Pitta and Kapha doshas, with simple daily adjustments to support balance.",
     date: "2026-07-26",
     tag: "Education",
     slug: "dosha-basics",
-    content: `Doshas are the core energetic principles in Ayurveda. This primer explains the basics and small daily changes you can make.
+    content: `Doshas are the core energetic principles in Ayurveda, and understanding your own balance is the foundation of any personalised Ayurvedic routine. This primer explains the basics of Vata, Pitta and Kapha and small daily changes you can make to support wellbeing.
 
-Vata, Pitta and Kapha describe movement, transformation and structure respectively. Small, daily routines — consistent meal times, suitable sleep windows and tailored herbs — can help keep doshas in balance.
+Vata, Pitta and Kapha describe movement, transformation and structure respectively. Vata governs circulation and the nervous system, Pitta governs digestion and metabolism, and Kapha governs structure and immunity. Small, consistent routines — regular meal times, suitable sleep windows and tailored herbs like Ashwagandha or Amla — help keep all three in balance.
 
-Practical steps: for Vata (cool, dry) increase grounding warm foods and oil massage; for Pitta (hot, intense) prioritise cooling herbs and moderation of spicy foods; for Kapha (heavy, slow) incorporate drying spices and light morning movement.
+Practical steps: for Vata (cool, dry, quick-moving) favour grounding warm foods, oil massage and a steady daily schedule; for Pitta (hot, intense, sharp) prioritise cooling foods, moderate spicy meals and avoid overheating; for Kapha (heavy, slow, steady) incorporate light, warming spices and energising morning movement.
+
+Bringing it together: many Ayurvedic wellness blends, including Sathyaveda's ABC Powder and Veda ChargeX, are formulated to gently support all three doshas — but pairing them with dosha-aware daily habits is what makes an Ayurvedic routine truly effective.
 `,
   },
 ];

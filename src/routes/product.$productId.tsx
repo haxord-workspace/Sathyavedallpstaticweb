@@ -46,7 +46,7 @@ function ProductDetailPage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-16">
+      <section className="mx-auto max-w-7xl px-4 pt-24 pb-8 sm:px-6 lg:px-8 lg:pt-28 lg:pb-16">
         <Link to="/" className="inline-flex items-center gap-2 text-sm font-semibold text-brand-green-dark transition hover:gap-3">
           <ArrowLeft className="h-4 w-4" /> Back to collection
         </Link>

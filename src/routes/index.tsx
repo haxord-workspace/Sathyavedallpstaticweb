@@ -174,13 +174,28 @@ function Home() {
       </section>
 
       {/* Offer */}
-      <section id="about" className="bg-secondary/50 py-3 lg:py-6">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid gap-2 md:grid-cols-2 md:gap-8 items-center">
-          <div className="flex flex-col gap-1">
+      <section id="about" className="bg-secondary/50 py-6 lg:py-10">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid gap-8 md:grid-cols-2 md:gap-12 items-center">
+
+          {/* Left: heading + description */}
+          <Reveal as="div" animation="slide-right" className="flex flex-col gap-3">
             <span className="inline-flex self-start items-center text-brand-green bg-brand-green/10 font-semibold tracking-widest text-[10px] uppercase px-3 py-1">Special Offer</span>
-            <h2 className="font-display text-2xl md:text-4xl text-brand-green-dark whitespace-nowrap">Free American Tourister Bag</h2>
-          </div>
-          <Reveal as="div" animation="slide-right" className="rounded-3xl overflow-hidden">
+            <h2 className="font-display text-2xl md:text-4xl text-brand-green-dark">Free American Tourister Bag</h2>
+            <p className="text-sm text-foreground/70 leading-relaxed">
+              Buy both <strong>ABC</strong> and <strong>Veda ChargeX</strong> together and receive a complimentary American Tourister bag with your order. Limited time offer.
+            </p>
+            <div>
+              <h3 className="text-sm font-semibold text-brand-green-dark">Offer applies to:</h3>
+              <ul className="mt-1.5 list-disc list-inside text-sm text-foreground/80">
+                <li>ABC</li>
+                <li>Veda ChargeX</li>
+              </ul>
+              <a href="#products" className="mt-4 inline-flex items-center gap-2 rounded-full bg-brand-green-dark px-4 py-2 text-white text-sm font-semibold hover:bg-brand-green">Shop ABC & Veda ChargeX <ArrowRight className="h-4 w-4" /></a>
+            </div>
+          </Reveal>
+
+          {/* Right: carousel image */}
+          <Reveal as="div" animation="slide-left" delay={150} className="rounded-3xl overflow-hidden lg:max-w-xs lg:mx-auto">
             <Carousel opts={{ loop: true }} setApi={setOfferCarouselApi} className="w-full h-full">
               <CarouselContent className="flex">
                 <CarouselItem>
@@ -192,22 +207,10 @@ function Home() {
               </CarouselContent>
             </Carousel>
           </Reveal>
-          <Reveal as="div" animation="slide-left" delay={150}>
 
-            <p className="mt-3 text-foreground/70 leading-relaxed">
-              Buy both <strong>ABC</strong> and <strong>Veda ChargeX</strong> together and receive a complimentary American Tourister bag with your order. Limited time offer.
-            </p>
-            <div className="mt-6">
-              <h3 className="text-base font-semibold text-brand-green-dark sm:text-lg">Offer applies to:</h3>
-              <ul className="mt-2 list-disc list-inside text-foreground/80">
-                <li>ABC</li>
-                <li>Veda ChargeX</li>
-              </ul>
-              <a href="#products" className="mt-5 inline-flex items-center gap-2 rounded-full bg-brand-green-dark px-4 py-2 text-white font-semibold hover:bg-brand-green">Shop ABC & Veda ChargeX <ArrowRight className="h-4 w-4" /></a>
-            </div>
-          </Reveal>
         </div>
       </section>
+
 
       {/* Doshas */}
       {/* <section id="doshas" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-20">

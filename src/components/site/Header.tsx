@@ -67,9 +67,7 @@ export function Header() {
               {l.label}
             </Link>
           ))}
-          <Link to="/contact" onClick={() => setOpen(false)} className="text-brand-green-dark font-semibold">
-            Get in Touch
-          </Link>
+         
         </div>
       )}
     </header>

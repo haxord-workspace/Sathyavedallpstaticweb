@@ -29,10 +29,10 @@ function AboutPage() {
       <Header />
 
       <section className="relative bg-gradient-to-b from-secondary/30 to-transparent">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 lg:py-20 grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-12 items-center">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 pb-6 lg:pt-32 lg:pb-12 grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-12 items-center">
           <Reveal as="div" animation="slide-right">
             <p className="text-sm uppercase tracking-[0.3em] text-brand-green">About Sathyaveda</p>
-            <h1 className="font-display text-3xl sm:text-5xl text-brand-green-dark mt-3">Ayurveda shaped by Kerala, made for today.</h1>
+            <h1 className="font-display text-3xl sm:text-4xl text-brand-green-dark mt-3">Ayurveda shaped by Kerala, made for today.</h1>
             <p className="mt-4 max-w-xl text-base text-foreground/80 sm:text-lg">
               We craft potent herbal formulas from responsibly sourced ingredients, grounded in tradition and designed with clarity for modern wellness.
             </p>
@@ -63,7 +63,7 @@ function AboutPage() {
       </section>
 
       <section className="bg-card">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 lg:py-16 grid gap-6 lg:grid-cols-3">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 lg:py-10 grid gap-6 lg:grid-cols-3">
           {[
             { title: "Heritage in every bottle", body: "We preserve Kerala’s Ayurvedic roots through transparent sourcing and clean, natural formulations." },
             { title: "Modern clarity", body: "Clear ingredient statements, gentle processing and practical wellness rituals that fit daily life." },
