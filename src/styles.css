@@ -28,8 +28,8 @@
   --color-brand-red: var(--brand-red);
   --color-brand-blue: var(--brand-blue);
   --color-brand-cream: var(--brand-cream);
-  --font-display: "Playfair Display", serif;
-  --font-sans: "Inter", sans-serif;
+  --font-display: "Bricolage Grotesque", sans-serif;
+  --font-sans: "Bricolage Grotesque", sans-serif;
 }
 
 :root {
@@ -290,4 +290,22 @@
   .pagination-item.active {
     @apply scale-110 font-bold;
   }
+
+  /* ── Certification badge marquee ── */
+  @keyframes certMarquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .cert-marquee-track {
+    /* width: 200% because we duplicate the list */
+    width: max-content;
+    animation: certMarquee 28s linear infinite;
+    will-change: transform;
+  }
+
+  .cert-marquee-track:hover {
+    animation-play-state: paused;
+  }
 }
+

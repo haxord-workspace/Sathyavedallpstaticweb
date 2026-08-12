@@ -4,13 +4,10 @@ import { useInView } from "@/hooks/useInView";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Reveal } from "@/components/site/Reveal";
+import { CertBadgeMarquee } from "@/components/site/CertBadgeMarquee";
 import { Leaf, Shield, Truck, Sparkles, Star, ArrowRight } from "lucide-react";
 import { products as shopProducts } from "@/lib/products";
 
-const abcVideo = "https://res.cloudinary.com/dafifet3i/video/upload/v1786081693/IMG_8455_gaxvox.mov";
-const badamVideo = "https://res.cloudinary.com/dafifet3i/video/upload/v1786080467/IMG_8451_sd4ey0.mov";
-const cashewVideo = "https://res.cloudinary.com/dafifet3i/video/upload/v1786080461/IMG_8450_pllfre.mov";
-const chargeXVideo = "https://res.cloudinary.com/dafifet3i/video/upload/v1786080462/IMG_8449_h4kfe3.mov";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 import offerABC from "@/assets/offers/ABC.jpg";
 import offerVeda from "@/assets/offers/vedachargeX.jpg";
@@ -30,21 +27,9 @@ export const Route = createFileRoute("/")({
 const concerns = ["Hair Fall", "Sleep", "Joint Pain", "Immunity", "Respiratory", "Skin Glow", "Diabetes", "Liver", "Bone Health", "Stress"];
 
 function Home() {
-  const [selectedProductId, setSelectedProductId] = useState(shopProducts[0]?.id ?? "abc-powder");
-  const [offerCarouselApi, setOfferCarouselApi] = useState<CarouselApi | null>(null);
-
-  const videoMap: Record<string, string> = {
-    "abc-powder": abcVideo,
-    badam: badamVideo,
-    cashew: cashewVideo,
-    "veda-chargex": chargeXVideo,
-  };
-
-  const selectedProduct = shopProducts.find((product) => product.id === selectedProductId) ?? shopProducts[0];
-
   const { ref: heroRef, inView: heroInView } = useInView<HTMLDivElement>({ rootMargin: "-10%" });
   const { ref: togglesRef, inView: togglesInView } = useInView<HTMLDivElement>({ rootMargin: "-10%" });
-  const { ref: videoRef, inView: videoInView } = useInView<HTMLDivElement>({ rootMargin: "-10%" });
+  const [offerCarouselApi, setOfferCarouselApi] = useState<CarouselApi | null>(null);
 
   const [showHeroText, setShowHeroText] = useState(false);
 
@@ -78,8 +63,8 @@ function Home() {
           <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
 
-          <div className="relative flex h-full w-full items-center">
-            <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-24">              <div ref={heroRef} className={`w-full max-w-xl lg:max-w-2xl ${heroInView ? "animate-fade-in" : ""}`}>
+          <div className="relative flex h-full w-full items-end">
+            <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16 lg:pb-20">              <div ref={heroRef} className={`w-full max-w-xl lg:max-w-2xl ${heroInView ? "animate-fade-in" : ""}`}>
                 {/* Hero text — hidden on load, fades in after 5 seconds */}
                 <div
                   className="transition-all duration-700 ease-out"
@@ -90,21 +75,21 @@ function Home() {
                   }}
                 >
 
-                <h1 className="max-w-3xl font-display font-semibold leading-[0.95] text-white text-2xl sm:text-4xl md:text-5xl lg:text-6xl">
+                <h1 className="max-w-3xl font-display font-semibold leading-[0.95] text-white text-xl sm:text-3xl md:text-4xl lg:text-4xl">
                   <span className="block"><span className="text-white italic">India's First ABC & Wellness Herbal Capsules.</span></span>
-                  <span className="mt-3 block text-base sm:text-xl md:text-2xl lg:text-3xl font-medium text-white/90">
+                  <span className="mt-2 block text-sm sm:text-base md:text-lg lg:text-xl font-medium text-white/90">
                    Nature-powered nutrition for your everyday well-being.
                   </span>
                 </h1>
                 <p className="mt-3 text-xs leading-6 text-white/80 italic whitespace-nowrap">
                   Powered by the goodness of Apple, Beetroot, Carrot & Drumstick.
                 </p>
-                <div className="mt-6 flex flex-wrap items-center gap-3 sm:gap-x-6">
-                  <a href="#products" className="inline-flex items-center gap-2 bg-white text-brand-green-dark px-6 py-3 rounded-full font-semibold hover:bg-accent hover:text-white transition duration-300">
-                    Shop Now <ArrowRight className="h-4 w-4" />
+                <div className="mt-4 flex flex-wrap items-center gap-3 sm:gap-x-5">
+                  <a href="#products" className="inline-flex items-center gap-2 bg-white text-brand-green-dark px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-accent hover:text-white transition duration-300">
+                    Shop Now <ArrowRight className="h-3.5 w-3.5" />
                   </a>
-                  <a href="#about" className="inline-flex items-center gap-1.5 text-white font-medium">
-                    Our Story <ArrowRight className="h-3.5 w-3.5" />
+                  <a href="#about" className="inline-flex items-center gap-1.5 text-sm text-white font-medium">
+                    Our Story <ArrowRight className="h-3 w-3" />
                   </a>
                 </div>
 
@@ -115,60 +100,68 @@ function Home() {
         </div>
       </section>
 
-      <section id="products" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+      {/* Certification marquee strip */}
+      <CertBadgeMarquee />
+
+      <section id="products" className="py-10 lg:py-16">
         <div className="space-y-6">
-          <Reveal as="div" className="space-y-2 text-center">
+          <Reveal as="div" className="space-y-2 text-center px-4 sm:px-6 lg:px-8">
             <span className="text-xs font-semibold uppercase tracking-[0.35em] text-brand-green">Real product reveal</span>
-            <h2 className="mx-auto max-w-3xl font-display text-2xl text-brand-green-dark sm:text-4xl">Preview product videos instantly</h2>
+            <h2 className="mx-auto max-w-3xl font-display text-2xl text-brand-green-dark sm:text-4xl">Our Products</h2>
           </Reveal>
 
-          <div ref={togglesRef} className={`rounded-[1.5rem] border border-border/70 bg-white/95 p-4 shadow-sm ${togglesInView ? "animate-slide-up" : ""}`}>
-            <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:justify-center">
-              {shopProducts.map((product) => (
-                <button
-                  key={product.id}
-                  type="button"
-                  onMouseEnter={() => setSelectedProductId(product.id)}
-                  onFocus={() => setSelectedProductId(product.id)}
-                  onClick={() => setSelectedProductId(product.id)}
-                  className={`w-full rounded-full border px-4 py-2 text-sm font-semibold transition duration-200 sm:w-auto ${selectedProductId === product.id ? "border-brand-green bg-brand-green/10 text-brand-green-dark shadow" : "border-border/70 bg-slate-50 text-slate-900 hover:border-brand-green/60 hover:bg-brand-green/5"}`}
-                >
-                  {product.name}
-                </button>
-              ))}
-            </div>
-          </div>
+          {/* Horizontal scrollable product card row */}
+          <div
+            ref={togglesRef}
+            className={`flex flex-nowrap gap-4 overflow-x-auto scroll-smooth px-4 sm:px-6 lg:px-8 pb-4
+              [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden
+              ${togglesInView ? "animate-fade-in" : ""}`}
+          >
+            {shopProducts.map((product) => (
+              <div
+                key={product.id}
+                className="flex-none w-[78vw] sm:w-[46vw] md:w-[340px] lg:w-[calc(25%-12px)] xl:w-[calc(25%-12px)]
+                  rounded-2xl border border-border/70 bg-white shadow-md overflow-hidden
+                  flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl"
+              >
+                {/* Product image */}
+                <div className="relative w-full aspect-[4/3] overflow-hidden bg-brand-cream">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-contain object-center p-3 transition-transform duration-500 hover:scale-105"
+                  />
+                  {/* Badge */}
+                  <span className="absolute top-3 left-3 rounded-full bg-brand-green-dark/90 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
+                    {product.badge}
+                  </span>
+                  {/* Rating */}
+                  <span className="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-black/50 px-2 py-0.5 text-xs font-semibold text-white backdrop-blur-sm">
+                    <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                    {product.rating}
+                  </span>
+                </div>
 
-          <div className="mx-auto w-full max-w-3xl">
-            <div className="relative overflow-hidden rounded-2xl border border-border/70 bg-black shadow-lg">
-              <div ref={videoRef} className={`relative overflow-hidden ${videoInView ? "animate-fade-in" : ""}`} style={{ aspectRatio: '16/9' }}>
-                <video
-                  key={selectedProductId}
-                  src={videoMap[selectedProductId]}
-                  poster={selectedProduct?.image}
-                  className="absolute inset-0 h-full w-full object-contain object-center"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                <div className="absolute left-2 right-2 bottom-2 mx-auto max-w-3xl rounded-lg border border-white/10 bg-black/30 p-2 text-white sm:left-4 sm:right-4 sm:bottom-4 sm:p-3">
-                  <div className="flex items-center justify-between gap-2">
-                    <h3 className="text-sm font-semibold text-white sm:text-lg">{selectedProduct?.name}</h3>
-                    <span className="rounded-full bg-white/10 px-1.5 py-0.5 text-xs font-semibold text-white sm:px-2 sm:py-1 sm:text-sm">{selectedProduct?.rating} ★</span>
+                {/* Card body */}
+                <div className="flex flex-1 flex-col gap-2 p-4">
+                  <div>
+                    <p className="text-[10px] font-semibold uppercase tracking-widest text-brand-green">{product.category}</p>
+                    <h3 className="mt-0.5 text-base font-semibold text-brand-green-dark leading-snug">{product.name}</h3>
                   </div>
-                  <p className="mt-1 text-xs text-white/80 sm:mt-2 sm:text-sm">{selectedProduct?.shortDescription}</p>
-                  <div className="mt-2 flex items-center gap-2 sm:mt-3 sm:gap-3">
-                    <Link to="/product/$productId" params={{ productId: selectedProductId }} className="inline-flex items-center gap-1.5 rounded-full bg-brand-green-dark px-2.5 py-1 text-xs font-semibold text-white sm:gap-2 sm:px-3 sm:py-1.5 sm:text-sm">
-                      View details <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <p className="text-xs text-foreground/60 leading-relaxed flex-1">{product.shortDescription}</p>
+                  <div className="mt-auto flex items-center justify-between gap-2 pt-2 border-t border-border/50">
+                    <span className="text-base font-bold text-brand-green-dark">{product.price}</span>
+                    <Link
+                      to="/product/$productId"
+                      params={{ productId: product.id }}
+                      className="inline-flex items-center gap-1.5 rounded-full bg-brand-green-dark px-3 py-1.5 text-xs font-semibold text-white hover:bg-brand-green transition-colors duration-200"
+                    >
+                      View details <ArrowRight className="h-3 w-3" />
                     </Link>
-                    <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-2.5 py-1 text-xs text-white/90 sm:px-3 sm:py-1.5 sm:text-sm">{selectedProduct?.price}</span>
                   </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -240,10 +233,10 @@ function Home() {
       </section> */}
 
       {/* Launch Preview */}
-      <section className="bg-brand-green-dark text-primary-foreground py-10 lg:py-16">
+      <section className="bg-white text-slate-900 py-10 lg:py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Reveal as="h2" className="font-display text-2xl text-center sm:text-3xl">Launch Preview</Reveal>
-          <Reveal as="p" delay={100} className="mx-auto mt-3 max-w-2xl text-center text-sm text-white/80">
+          <Reveal as="p" delay={100} className="mx-auto mt-3 max-w-2xl text-center text-sm text-slate-500">
             Our products are launching soon. Here’s a preview of the kind of feedback we are aiming for from early testers and friends who have experienced our formulations.
           </Reveal>
           <div className="mt-6 space-y-3">
