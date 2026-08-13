@@ -1,3 +1,6 @@
+import bannerAbc from "@/assets/SATHYAVEDA HERBALS BANNERS LAPTOP/abc.png";
+import bannerVeda from "@/assets/SATHYAVEDA HERBALS BANNERS LAPTOP/veda.png";
+
 export type Post = {
   title: string;
   excerpt: string;
@@ -5,30 +8,38 @@ export type Post = {
   tag: string;
   slug: string;
   content?: string;
+  readTime?: string;
+  image?: string;
+  productId?: string;
 };
 
 export const posts: Post[] = [
   {
-    title: "ABC Powder: A Gentle Daily Ritual",
-    excerpt: "How ABC Powder — our Kerala-inspired herbal blend — fits into a daily Ayurvedic wellness routine.",
-    date: "2026-07-20",
-    tag: "Product Guide",
+    title: "ABC Capsules: A Gentle Daily Wellness Ritual",
+    excerpt: "How ABC Capsules fits into a simple, everyday wellness routine.",
+    date: "Aug 13, 2026",
+    tag: "Wellness",
     slug: "abc-capsules-daily-ritual",
-    content: `ABC Powder is Sathyaveda's signature herbal wellness blend, rooted in traditional Kerala formulations and crafted with Apple, Beetroot, Carrot, Drumstick (Moringa) extract, Safed Musli, Ashwagandha, Gooseberry (Amla) and Dates Seed. Each botanical plays a distinct role — Ashwagandha for adaptogenic balance, Safed Musli for stamina, Moringa for micronutrient density, and Amla for antioxidant support — combined into one daily Ayurvedic tonic for immunity and digestion.
+    readTime: "4 min read",
+    image: bannerAbc,
+    productId: "abc-powder",
+    content: `For many of us, wellness routines get crowded out by everyday life. ABC Capsules was designed with that in mind — a simple, contemporary format built around Apple, Beetroot and Carrot, meant to sit easily inside a daily routine rather than complicate it.
 
-How to use: stir one teaspoon of ABC Powder into a glass of warm water or milk once daily, ideally after a light breakfast. If you're new to herbal supplements, start with a half measure for the first three to four days to assess tolerance before moving to the full dose as part of a consistent morning ritual.
+The idea behind the formulation is straightforward: bring together a small set of familiar, purposeful ingredients in a format that doesn't require preparation or planning. No juicing, no chopping — just a daily capsule.
 
-Safety note: ABC Powder is a food-based wellness blend, not a medicine. Anyone who is pregnant, nursing, managing a chronic condition, or taking prescription medication should check with a qualified Ayurvedic practitioner or doctor before adding it to their routine.
+"A gentle ritual works best when it asks little of you and still shows up, every day."
 
-What to expect: most people notice gentle improvements in digestion, energy and everyday immunity within two to four weeks of consistent use. Like any natural wellness routine, ABC Powder works best alongside balanced eating, good hydration and gentle daily movement — not as a substitute for medical care.
-`,
+Apple, Beetroot and Carrot are joined by additional botanical ingredients to round out the formulation. Together, they're positioned as general nutrition support — part of a broader, everyday approach to wellbeing rather than a stand-alone solution.
+
+As with any wellness product, we'd encourage reading the full ingredient and usage information on the packaging, and speaking with a physician if you have specific health considerations.`,
   },
   {
     title: "Veda ChargeX: Natural Energy Support",
     excerpt: "An evidence-informed look at Veda ChargeX's adaptogenic herbs and how to use this Ayurvedic tonic responsibly.",
     date: "2026-07-22",
-    tag: "Product Guide",
+    tag: "Wellness",
     slug: "veda-chargex-energy-support",
+    image: bannerVeda,
     content: `Veda ChargeX is Sathyaveda's herbal vitality tonic, blending Drumstick (Moringa) extract, Safed Musli, Ashwagandha and Gooseberry (Amla) with Dates Seed to support sustained, natural energy. Ashwagandha and Safed Musli are traditional Ayurvedic adaptogens used to help the body manage everyday stress, while Moringa and Amla add antioxidants and micronutrients that support immunity, digestion and healthy blood sugar balance.
 
 How to use: take one to two teaspoons of Veda ChargeX mixed with warm water or milk each morning, ideally with food. For the best results, pair it with consistent sleep, good hydration and short movement breaks through the day, rather than relying on it alone for energy.
@@ -55,7 +66,7 @@ Tips for staying balanced on the road: keep meal times as regular as possible, s
     title: "Dosha Basics: Find Your Routine",
     excerpt: "A concise Ayurveda primer on Vata, Pitta and Kapha doshas, with simple daily adjustments to support balance.",
     date: "2026-07-26",
-    tag: "Education",
+    tag: "Ayurveda",
     slug: "dosha-basics",
     content: `Doshas are the core energetic principles in Ayurveda, and understanding your own balance is the foundation of any personalised Ayurvedic routine. This primer explains the basics of Vata, Pitta and Kapha and small daily changes you can make to support wellbeing.
 

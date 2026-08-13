@@ -192,3 +192,32 @@ export function buildBreadcrumbSchema(crumbs: { name: string; url: string }[]) {
     })),
   };
 }
+
+/** Builds an Article schema. */
+export function buildArticleSchema(article: {
+  headline: string;
+  datePublished: string;
+  dateModified: string;
+  authorName: string;
+  image?: string;
+  description: string;
+  url: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.headline,
+    datePublished: article.datePublished,
+    dateModified: article.dateModified,
+    author: {
+      "@type": "Organization",
+      name: article.authorName,
+    },
+    ...(article.image && { image: article.image.startsWith("http") ? article.image : `${BASE_URL}${article.image}` }),
+    description: article.description,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": article.url,
+    },
+  };
+}

@@ -5,6 +5,7 @@ import {
   createRootRouteWithContext,
   useRouter,
   useRouterState,
+  ScrollRestoration,
 } from "@tanstack/react-router";
 import { useEffect } from "react";
 
@@ -82,6 +83,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ScrollRestoration />
       <div key={pathname} className="animate-page-fade">
         <Outlet />
       </div>
