@@ -15,8 +15,8 @@ function ProductCard({ product, index }: { product: typeof products[number]; ind
       className="flex flex-row lg:flex-col overflow-hidden rounded-[1.5rem] border border-border/70 bg-white/80 shadow-[0_20px_60px_-28px_rgba(0,0,0,0.25)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_30px_70px_-24px_rgba(0,0,0,0.3)]"
     >
       {/* Image */}
-      <div className="w-36 shrink-0 overflow-hidden bg-[#f7f4eb] p-2.5 sm:w-44 lg:w-full lg:shrink">
-        <img src={product.image} alt={product.name} className="aspect-square lg:aspect-[4/5] w-full rounded-[1rem] object-contain" />
+      <div className="relative w-36 shrink-0 overflow-hidden bg-[#f7f4eb] sm:w-44 lg:w-full lg:shrink">
+        <img src={product.image} alt={product.name} className="aspect-square lg:aspect-[4/5] w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105" />
       </div>
       {/* Content */}
       <div className="flex flex-1 flex-col justify-between p-4">

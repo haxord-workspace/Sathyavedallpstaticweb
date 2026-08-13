@@ -74,30 +74,58 @@ function ProductDetailPage() {
           </Reveal>
 
           <Reveal as="div" animation="slide-left" delay={150}>
-            <div className="inline-flex rounded-full border border-brand-green/20 bg-brand-green/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-brand-green">
-              {product.badge}
-            </div>
-            <h1 className="mt-3 font-display text-3xl text-brand-green-dark sm:text-5xl">{product.name}</h1>
-            <p className="mt-2 text-base text-muted-foreground sm:text-lg">{product.description}</p>
-
-            <div className="mt-4 rounded-2xl border border-border bg-card p-4 shadow-sm lg:p-5">
-              <div className="flex items-end justify-between gap-3">
-                <div>
-                  <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-green">{product.brand}</p>
-                  <p className="mt-1 text-sm text-muted-foreground">{product.category}</p>
+            {/* Mobile Layout (Visible only on mobile/tablet) */}
+            <div className="lg:hidden">
+              <div className="flex items-center flex-wrap gap-3 mb-3">
+                <div className="inline-flex rounded-full border border-brand-green/20 bg-brand-green/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-brand-green shrink-0">
+                  {product.badge}
                 </div>
-                <div className="text-right">
-                  <p className="text-xl font-semibold text-brand-green-dark sm:text-2xl">{product.price}</p>
-                </div>
+                <h1 className="font-display text-2xl text-brand-green-dark">{product.name}</h1>
+              </div>
+              
+              <div className="flex items-center gap-2 mb-4">
+                {product.originalPrice && (
+                  <span className="text-sm text-muted-foreground font-medium line-through decoration-red-500">{product.originalPrice}</span>
+                )}
+                <span className="text-2xl font-bold text-brand-green-dark">{product.price}</span>
               </div>
 
-              <div className="mt-4 flex flex-wrap gap-3">
-                <a href={whatsappUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-brand-green-dark px-5 py-3 text-sm font-semibold text-primary-foreground transition hover:bg-brand-green">
+              <div className="flex items-center gap-2.5 mb-5">
+                <a href={whatsappUrl} target="_blank" rel="noreferrer" className="flex-1 inline-flex justify-center items-center gap-1.5 rounded-full bg-brand-green-dark px-4 py-3 text-xs font-semibold text-primary-foreground transition hover:bg-brand-green shadow-sm">
                   <ShoppingBag className="h-4 w-4" /> Buy on WhatsApp
                 </a>
-                <a href="/contact" className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-3 text-sm font-semibold text-foreground transition hover:border-brand-green-dark hover:text-brand-green-dark">
+                <a href="/contact" className="flex-1 inline-flex justify-center items-center gap-1.5 rounded-full border border-border bg-white px-4 py-3 text-xs font-semibold text-foreground transition hover:border-brand-green-dark hover:text-brand-green-dark shadow-sm">
                   Contact us <ArrowRight className="h-4 w-4" />
                 </a>
+              </div>
+
+              <p className="text-sm text-muted-foreground leading-relaxed">{product.description}</p>
+            </div>
+
+            {/* Desktop Layout (Visible only on laptop/desktop) */}
+            <div className="hidden lg:block">
+              <div className="inline-flex rounded-full border border-brand-green/20 bg-brand-green/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-brand-green">
+                {product.badge}
+              </div>
+              <h1 className="mt-3 font-display text-5xl text-brand-green-dark">{product.name}</h1>
+              <p className="mt-2 text-lg text-muted-foreground">{product.description}</p>
+
+              <div className="mt-6">
+                <div className="flex items-center gap-2.5 mb-5">
+                  {product.originalPrice && (
+                    <span className="text-xl text-muted-foreground font-medium line-through decoration-red-500">{product.originalPrice}</span>
+                  )}
+                  <span className="text-4xl font-bold text-brand-green-dark">{product.price}</span>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <a href={whatsappUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-brand-green-dark px-6 py-3.5 text-sm font-semibold text-primary-foreground transition hover:bg-brand-green shadow-sm">
+                    <ShoppingBag className="h-4 w-4" /> Buy on WhatsApp
+                  </a>
+                  <a href="/contact" className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-6 py-3.5 text-sm font-semibold text-foreground transition hover:border-brand-green-dark hover:text-brand-green-dark shadow-sm hover:bg-gray-50">
+                    Contact us <ArrowRight className="h-4 w-4" />
+                  </a>
+                </div>
               </div>
             </div>
 

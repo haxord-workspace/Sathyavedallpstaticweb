@@ -75,6 +75,31 @@ function Home() {
   const [offerCarouselApiDesktop, setOfferCarouselApiDesktop] = useState<CarouselApi | null>(null);
   const [heroCarouselApi, setHeroCarouselApi] = useState<CarouselApi | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentOfferSlide, setCurrentOfferSlide] = useState(0);
+  const [offerBenefitsCarouselApi, setOfferBenefitsCarouselApi] = useState<CarouselApi | null>(null);
+  const [offerBenefitsCarouselApiDesktop, setOfferBenefitsCarouselApiDesktop] = useState<CarouselApi | null>(null);
+
+  const offerBenefits = [
+    // ABC (Index 0)
+    [
+      { icon: Activity, label: "Helps in Natural Skin Glow" },
+      { icon: Droplets, label: "Healthy &amp; Radiant Skin" },
+      { icon: ShieldCheck, label: "Boosts Immunity" },
+      { icon: Sparkles, label: "Improves Overall Well-being" },
+      { icon: Dna, label: "Rich in Vitamins &amp; Antioxidants" },
+      { icon: Leaf, label: "100% Natural" },
+    ],
+    // Veda ChargeX (Index 1)
+    [
+      { icon: Activity, label: "Supports Natural Energy &amp; Vitality" },
+      { icon: ShieldCheck, label: "Helps Maintain Strength &amp; Stamina" },
+      { icon: Shield, label: "Supports Immunity" },
+      { icon: Sparkles, label: "Promotes Overall Well-being" },
+      { icon: Dna, label: "Supports Men's &amp; Women's Wellness" },
+      { icon: Leaf, label: "Made with Drumstick Extract &amp; Musli" },
+      { icon: Leaf, label: "Whole Herb Nutrition" },
+    ]
+  ];
 
   const homeJsonLd = [
     buildBreadcrumbSchema([
@@ -114,17 +139,47 @@ function Home() {
     };
   }, [heroCarouselApi]);
 
+  const [heroImageLoaded, setHeroImageLoaded] = useState(false);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = heroBanners[0];
+    img.onload = () => setHeroImageLoaded(true);
+    // Fallback timeout just in case
+    const timeout = setTimeout(() => setHeroImageLoaded(true), 3000);
+    return () => clearTimeout(timeout);
+  }, []);
+
   useEffect(() => {
     if (!offerCarouselApi) return;
+    const onSelect = () => setCurrentOfferSlide(offerCarouselApi.selectedScrollSnap());
+    offerCarouselApi.on("select", onSelect);
+    offerCarouselApi.on("reInit", onSelect);
     const interval = window.setInterval(() => offerCarouselApi.scrollNext(), 5000);
-    return () => window.clearInterval(interval);
+    return () => {
+      offerCarouselApi.off("select", onSelect);
+      offerCarouselApi.off("reInit", onSelect);
+      window.clearInterval(interval);
+    };
   }, [offerCarouselApi]);
 
   useEffect(() => {
     if (!offerCarouselApiDesktop) return;
+    const onSelect = () => setCurrentOfferSlide(offerCarouselApiDesktop.selectedScrollSnap());
+    offerCarouselApiDesktop.on("select", onSelect);
+    offerCarouselApiDesktop.on("reInit", onSelect);
     const interval = window.setInterval(() => offerCarouselApiDesktop.scrollNext(), 5000);
-    return () => window.clearInterval(interval);
+    return () => {
+      offerCarouselApiDesktop.off("select", onSelect);
+      offerCarouselApiDesktop.off("reInit", onSelect);
+      window.clearInterval(interval);
+    };
   }, [offerCarouselApiDesktop]);
+
+  useEffect(() => {
+    if (offerBenefitsCarouselApi) offerBenefitsCarouselApi.scrollTo(currentOfferSlide);
+    if (offerBenefitsCarouselApiDesktop) offerBenefitsCarouselApiDesktop.scrollTo(currentOfferSlide);
+  }, [currentOfferSlide, offerBenefitsCarouselApi, offerBenefitsCarouselApiDesktop]);
 
   return (
     <div className="min-h-screen bg-background scroll-smooth">
@@ -138,8 +193,18 @@ function Home() {
 
       {/* Hero */}
       <section className="relative isolate overflow-hidden">
-        <div className="relative h-[70svh] w-full overflow-hidden bg-black sm:h-[70svh] lg:h-[93vh]">
-          <div className="absolute inset-0 h-full w-full">
+        <div className="relative h-[70svh] w-full overflow-hidden bg-[#fdf8f0] sm:h-[70svh] lg:h-[93vh]">
+          {/* Loading Animation Overlay */}
+          {!heroImageLoaded && (
+            <div className="absolute inset-0 z-50 flex items-center justify-center bg-[#fdf8f0]">
+              <div className="flex flex-col items-center gap-3">
+                <div className="h-8 w-8 animate-spin rounded-full border-4 border-brand-green/20 border-t-brand-green"></div>
+                <span className="text-[10px] font-semibold uppercase tracking-widest text-brand-green/70">Loading Experience</span>
+              </div>
+            </div>
+          )}
+          
+          <div className="absolute inset-0 h-full w-full z-0">
             <Carousel setApi={setHeroCarouselApi} className="h-full w-full [&>.overflow-hidden]:h-full" opts={{ loop: true }}>
               <CarouselContent className="h-full ml-0">
                 {heroBanners.map((img, i) => {
@@ -172,35 +237,46 @@ function Home() {
               </div>
             </Carousel>
           </div>
-          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+          <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/60 via-black/30 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
 
-          <div className="relative flex h-full w-full items-end">
-            <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16 lg:pb-20">              <div ref={heroRef} className={`w-full max-w-xl lg:max-w-2xl ${heroInView ? "animate-fade-in" : ""}`}>
-                {/* Hero text — hidden on load, fades in after 5 seconds */}
+          <div className="relative z-20 flex h-full w-full items-end pb-8 sm:pb-0">
+            <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16 lg:pb-20">
+              <div ref={heroRef} className={`w-full max-w-xl lg:max-w-2xl ${heroInView ? "animate-fade-in" : "opacity-0"}`}>
                 {/* Hero text */}
-                <div className="flex flex-col gap-4 animate-fade-in">
-                  <span className="text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase text-white/90">
+                <div className="flex flex-col gap-3 sm:gap-4">
+                  <span className="hidden sm:block text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase text-white/90">
                     Authentic Ayurvedic Wellness
                   </span>
-                  <h1 className="hidden sm:block max-w-2xl font-display font-medium leading-[1.1] text-white text-3xl sm:text-5xl lg:text-[56px]">
+                  <h1 className="hidden sm:block  max-w-2xl font-display font-medium leading-[1.1] text-white text-3xl sm:text-5xl lg:text-[56px]">
                     Rooted in Ayurveda.<br />Made for modern wellbeing.
                   </h1>
                   <p className="hidden sm:block max-w-xl text-sm sm:text-base leading-relaxed text-white/80">
                     Thoughtfully formulated herbal wellness essentials inspired by Kerala's wisdom and designed for today's everyday life.
                   </p>
-                  <div className=" mt-2 flex flex-wrap items-center gap-3 sm:gap-4">
+                  <div className="mt-3 sm:mt-2 flex flex-wrap items-center gap-3 sm:gap-4">
+                    {/* Desktop Buttons */}
+                    <div className="hidden sm:flex items-center gap-3 sm:gap-4">
+                      <Link
+                        to="/products"
+                        className="inline-flex items-center gap-2 bg-brand-green-dark text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold hover:bg-brand-green transition duration-300"
+                      >
+                          Explore Products  <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                      </Link>
+                      <Link
+                        to="/about"
+                        className="inline-flex items-center gap-2 bg-transparent border border-white/40 text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold hover:bg-white/10 transition duration-300"
+                      >
+                        Discover Sathyaveda <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                      </Link>
+                    </div>
+
+                    {/* Mobile Button */}
                     <Link
                       to="/products"
-                      className="hidden sm:inline-flex items-center gap-2 bg-brand-green-dark text-white px-6 py-3 rounded-full text-sm font-semibold hover:bg-brand-green transition duration-300"
+                      className="sm:hidden inline-flex items-center gap-2 bg-transparent border border-white/40 text-white px-5 py-2.5 rounded-full text-xs font-semibold hover:bg-white/10 transition duration-300"
                     >
-                      Explore ABC Capsules <ArrowRight className="h-4 w-4" />
-                    </Link>
-                    <Link
-                      to="/about"
-                      className="inline-flex items-center gap-2 bg-transparent border border-white/40 text-white px-6 py-3 rounded-full text-sm font-semibold hover:bg-white/10 transition duration-300"
-                    >
-                      Discover Sathyaveda <ArrowRight className="h-4 w-4" />
+                      Explore Products <ArrowRight className="h-3.5 w-3.5" />
                     </Link>
                   </div>
                 </div>
@@ -279,18 +355,18 @@ function Home() {
 
           {/* ─── DESKTOP LAYOUT (lg+) ─────────────────────────────── */}
           <div className="hidden lg:block">
-            <div className="grid grid-cols-[1fr_auto_1fr] items-start gap-0">
+            <div className="grid grid-cols-[1.15fr_0.95fr_1.2fr] items-stretch gap-0">
 
               {/* Left: Text */}
-              <Reveal as="div" animation="slide-right" className="flex flex-col gap-4 py-12 pr-10">
+              <Reveal as="div" animation="slide-right" className="flex flex-col gap-4 py-12 pr-10 min-w-0">
                 <span className="inline-flex self-start items-center text-brand-green bg-brand-green/10 font-semibold tracking-widest text-[10px] uppercase px-3 py-1 rounded-sm">Special Offer</span>
-                <h2 className="font-display text-3xl xl:text-5xl text-brand-green-dark leading-tight">Free American<br />Tourister Bag</h2>
+                <h2 className="font-display text-4xl xl:text-5xl text-brand-green-dark leading-tight">Free American<br />Tourister Bag</h2>
                 <div className="flex items-center gap-3">
                   <div className="h-px w-10 bg-brand-green-dark/20" />
                   <Leaf className="h-4 w-4 text-brand-green-dark opacity-60" />
                   <div className="h-px w-10 bg-brand-green-dark/20" />
                 </div>
-                <p className="text-sm text-foreground/70 leading-relaxed max-w-xs">
+                <p className="text-sm text-foreground/70 leading-relaxed max-w-[380px]">
                   Buy both <strong className="text-foreground/90">ABC</strong> and <strong className="text-foreground/90">Veda ChargeX</strong> together and receive a complimentary American Tourister bag with your order. Limited time offer.
                 </p>
                 <div className="mt-1">
@@ -304,35 +380,36 @@ function Home() {
                     ))}
                   </ul>
                 </div>
-                <a href="#products" className="mt-3 inline-flex items-center gap-2 self-start rounded-full bg-brand-green-dark px-5 py-3 text-white text-sm font-semibold hover:bg-brand-green transition-colors">
+                <a href="#products" className="mt-3 inline-flex items-center gap-2 self-start rounded-full bg-brand-green-dark px-6 py-3.5 text-white text-sm font-semibold hover:bg-brand-green transition-colors shadow-sm">
                   Shop ABC &amp; Veda ChargeX <ArrowRight className="h-4 w-4" />
                 </a>
               </Reveal>
 
               {/* Middle: Benefits panel */}
-              <Reveal as="div" animation="fade-up" delay={80} className="flex flex-col gap-1 py-12 px-6 border-x border-border/40 self-stretch justify-center min-w-[220px]">
+              <Reveal as="div" animation="fade-up" delay={80} className="flex flex-col py-12 px-6 border-x border-border/40 self-stretch justify-center min-w-0">
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-brand-green mb-4 flex items-center gap-2">
                   <Leaf className="h-3.5 w-3.5" /> Benefits You'll Love
                 </p>
-                {[
-                  { icon: Activity, label: "Helps in Natural Skin Glow" },
-                  { icon: Droplets, label: "Healthy &amp; Radiant Skin" },
-                  { icon: ShieldCheck, label: "Boosts Immunity" },
-                  { icon: Sparkles, label: "Improves Overall Well-being" },
-                  { icon: Dna, label: "Rich in Vitamins &amp; Antioxidants" },
-                  { icon: Leaf, label: "100% Natural" },
-                ].map(({ icon: Icon, label }, i) => (
-                  <div key={i} className="flex items-center gap-3 py-2.5 border-b border-border/30 last:border-0">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-green/10">
-                      <Icon className="h-4 w-4 text-brand-green-dark" strokeWidth={1.5} />
-                    </div>
-                    <span className="text-sm text-foreground/80" dangerouslySetInnerHTML={{ __html: label }} />
-                  </div>
-                ))}
+                <Carousel setApi={setOfferBenefitsCarouselApiDesktop} opts={{ watchDrag: false, loop: true }} className="w-full">
+                  <CarouselContent>
+                    {offerBenefits.map((benefitsList, idx) => (
+                      <CarouselItem key={idx}>
+                        {benefitsList.map(({ icon: Icon, label }, i) => (
+                          <div key={i} className="flex items-center gap-3 py-3 border-b border-border/40 last:border-0">
+                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-green/10">
+                              <Icon className="h-4 w-4 text-brand-green-dark" strokeWidth={1.5} />
+                            </div>
+                            <span className="text-sm text-foreground/80" dangerouslySetInnerHTML={{ __html: label }} />
+                          </div>
+                        ))}
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                </Carousel>
               </Reveal>
 
               {/* Right: Product image — auto-cycles every 5s */}
-              <Reveal as="div" animation="slide-left" delay={150} className="relative pl-8 flex items-end justify-center py-6">
+              <Reveal as="div" animation="slide-left" delay={150} className="relative pl-8 pr-2 flex items-center justify-center py-6 min-w-0">
                 {/* FREE badge */}
                
                 <Carousel opts={{ loop: true }} setApi={setOfferCarouselApiDesktop} className="w-full">
@@ -458,23 +535,24 @@ function Home() {
               <p className="text-[10px] font-bold uppercase tracking-widest text-brand-green mb-4 text-center">
                 Benefits You'll Love
               </p>
-              <div className="grid grid-cols-3 gap-x-3 gap-y-5">
-                {[
-                  { icon: Activity, label: "Helps in Natural Skin Glow" },
-                  { icon: Droplets, label: "Healthy & Radiant Skin" },
-                  { icon: ShieldCheck, label: "Boosts Immunity" },
-                  { icon: Sparkles, label: "Improves Overall Well-being" },
-                  { icon: Dna, label: "Rich in Vitamins & Antioxidants" },
-                  { icon: Leaf, label: "100% Natural" },
-                ].map(({ icon: Icon, label }, i) => (
-                  <div key={i} className="flex flex-col items-center gap-2 text-center">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-full border border-border/60 bg-background">
-                      <Icon className="h-5 w-5 text-brand-green-dark" strokeWidth={1.4} />
-                    </div>
-                    <span className="text-[10px] text-foreground/70 leading-snug">{label}</span>
-                  </div>
-                ))}
-              </div>
+              <Carousel setApi={setOfferBenefitsCarouselApi} opts={{ watchDrag: false, loop: true }} className="w-full">
+                <CarouselContent>
+                  {offerBenefits.map((benefitsList, idx) => (
+                    <CarouselItem key={idx}>
+                      <div className="grid grid-cols-3 gap-x-3 gap-y-5">
+                        {benefitsList.map(({ icon: Icon, label }, i) => (
+                          <div key={i} className="flex flex-col items-center gap-2 text-center">
+                            <div className="flex h-11 w-11 items-center justify-center rounded-full border border-border/60 bg-background">
+                              <Icon className="h-5 w-5 text-brand-green-dark" strokeWidth={1.4} />
+                            </div>
+                            <span className="text-[10px] text-foreground/70 leading-snug" dangerouslySetInnerHTML={{ __html: label }} />
+                          </div>
+                        ))}
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
             </Reveal>
 
             {/* Natural Glow banner */}
@@ -595,8 +673,8 @@ function Home() {
             <div className="lg:col-span-8 relative z-10">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
                 {[
-                  { title: "Apple", desc: "A nourishing fruit traditionally valued in everyday wellness.", img: imgApple },
-                  { title: "Beetroot", desc: "A natural root known for its vitality and rich nutrients.", img: imgBeetroot },
+                  { title: "Apple", desc: "A nourishing fruit traditionally valued in everyday wellness.", img:imgBeetroot},
+                  { title: "Beetroot", desc: "A natural root known for its vitality and rich nutrients.", img:imgApple},
                   { title: "Carrot", desc: "A wholesome root packed with goodness from nature.", img: imgCarrot },
                   { title: "Botanical Ingredients", desc: "Carefully selected herbs and botanicals to complete the blend.", img: imgAshwagandha },
                 ].map((item, i) => (
