@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Reveal } from "@/components/site/Reveal";
+import { SeoHead, buildBreadcrumbSchema } from "@/components/site/SeoHead";
 import { ArrowRight } from "lucide-react";
 import { products } from "@/lib/products";
 
@@ -36,9 +37,27 @@ function ProductCard({ product, index }: { product: typeof products[number]; ind
 }
 
 export const Route = createFileRoute("/products")({
-  head: () => ({ meta: [{ title: "Products — Sathyaveda Herbals LLP" }, { name: "description", content: "Authentic ayurvedic products from Kerala." }] }),
+  head: () => ({ meta: [{ title: "Products — Sathyaveda Herbals LLP" }, { name: "description", content: "Shop authentic Ayurvedic products from Kerala — ABC Capsules, Veda ChargeX, Premium Almonds and Cashews." }] }),
   component: () => (
     <div className="min-h-screen bg-background scroll-smooth">
+      <SeoHead
+        path="/products"
+        title="Products — Sathyaveda Herbals LLP"
+        description="Shop authentic Ayurvedic products from Kerala — ABC Capsules, Veda ChargeX, Premium Almonds and Cashews for everyday wellness."
+        jsonLd={[
+          buildBreadcrumbSchema([
+            { name: "Home", url: "https://sathyavedaherbals.in/" },
+            { name: "Products", url: "https://sathyavedaherbals.in/products" },
+          ]),
+          {
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: "Sathyaveda Herbals — Product Collection",
+            description: "Browse all authentic Ayurvedic products by Sathyaveda Herbals LLP.",
+            url: "https://sathyavedaherbals.in/products",
+          },
+        ]}
+      />
       <Header />
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 pb-10 lg:pt-28 lg:pb-16">
         <div className="animate-fade-in" style={{ animationDuration: "600ms" }}>

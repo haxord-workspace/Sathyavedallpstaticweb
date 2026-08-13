@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Reveal } from "@/components/site/Reveal";
+import { SeoHead, buildBreadcrumbSchema } from "@/components/site/SeoHead";
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext, type CarouselApi } from "@/components/ui/carousel";
 import aboutImg1 from "@/assets/about/photo_1_2026-07-28_00-23-13.jpg";
 import aboutImg2 from "@/assets/about/photo_2_2026-07-28_00-23-13.jpg";
@@ -11,9 +12,29 @@ import aboutImg4 from "@/assets/about/photo_4_2026-07-28_00-23-13.jpg";
 import { ArrowRight } from "lucide-react";
 
 const aboutImages = [aboutImg1, aboutImg2, aboutImg3, aboutImg4];
+const aboutAlts = [
+  "Sathyaveda Herbals manufacturing facility Pokkotumbadam Kerala",
+  "Sathyaveda Herbals Ayurvedic herbal ingredients",
+  "Sathyaveda Herbals team crafting ayurvedic products",
+  "Sathyaveda Herbals natural botanical sourcing Kerala",
+];
 
 function AboutPage() {
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
+
+  const aboutJsonLd = [
+    buildBreadcrumbSchema([
+      { name: "Home", url: "https://sathyavedaherbals.in/" },
+      { name: "About", url: "https://sathyavedaherbals.in/about" },
+    ]),
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: "About Sathyaveda Herbals LLP",
+      description: "Learn about Sathyaveda Herbals LLP — traditional Kerala Ayurveda from Pokkotumbadam, crafted for modern wellness.",
+      url: "https://sathyavedaherbals.in/about",
+    },
+  ];
 
   useEffect(() => {
     if (!carouselApi) return;
@@ -26,6 +47,12 @@ function AboutPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SeoHead
+        path="/about"
+        title="About — Sathyaveda Herbals LLP"
+        description="Sathyaveda Herbals LLP — traditional Kerala Ayurveda from Pokkotumbadam. Discover our 25+ year heritage, natural ingredients and commitment to authentic formulations."
+        jsonLd={aboutJsonLd}
+      />
       <Header />
 
       <section className="relative bg-gradient-to-b from-secondary/30 to-transparent">
@@ -51,7 +78,7 @@ function AboutPage() {
               <CarouselContent className="flex">
                 {aboutImages.map((src, index) => (
                   <CarouselItem key={index}>
-                    <img src={src} alt={`Sathyaveda about ${index + 1}`} className="w-full h-64 object-cover sm:h-72 lg:h-80" />
+                    <img src={src} alt={aboutAlts[index] ?? `Sathyaveda Herbals Kerala`} loading="lazy" className="w-full h-64 object-cover sm:h-72 lg:h-80" />
                   </CarouselItem>
                 ))}
               </CarouselContent>

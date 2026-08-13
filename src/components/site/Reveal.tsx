@@ -1,4 +1,4 @@
-import type { ElementType, ReactNode } from "react";
+import type { ElementType, ReactNode, ComponentPropsWithoutRef } from "react";
 import { useInView } from "@/hooks/useInView";
 
 const animations = {
@@ -11,31 +11,34 @@ const animations = {
 
 type Animation = keyof typeof animations;
 
-interface RevealProps {
+type RevealProps<T extends ElementType = "div"> = {
   children: ReactNode;
-  as?: ElementType;
+  as?: T;
   className?: string;
   animation?: Animation;
   delay?: number;
   duration?: number;
-}
+} & Omit<ComponentPropsWithoutRef<T>, "as" | "animation" | "delay" | "duration">;
 
-export function Reveal({
+export function Reveal<T extends ElementType = "div">({
   children,
-  as: Tag = "div",
+  as,
   className = "",
   animation = "fade-up",
   delay = 0,
   duration = 700,
-}: RevealProps) {
+  ...restProps
+}: RevealProps<T>) {
+  const Tag = as || "div";
   const { ref, inView } = useInView<HTMLElement>({ threshold: 0.15, rootMargin: "0px 0px -10% 0px" });
   const { hidden, visible } = animations[animation];
 
   return (
     <Tag
-      ref={ref}
+      ref={ref as any}
       className={`transition-all ease-out will-change-transform ${inView ? visible : hidden} ${className}`}
       style={{ transitionDuration: `${duration}ms`, transitionDelay: `${delay}ms` }}
+      {...restProps}
     >
       {children}
     </Tag>

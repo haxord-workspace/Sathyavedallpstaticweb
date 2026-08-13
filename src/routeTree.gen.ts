@@ -9,21 +9,21 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WellnessRouteImport } from './routes/wellness'
 import { Route as ProductsRouteImport } from './routes/products'
+import { Route as JournalsRouteImport } from './routes/journals'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductProductIdRouteImport } from './routes/product.$productId'
 
-const WellnessRoute = WellnessRouteImport.update({
-  id: '/wellness',
-  path: '/wellness',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
   path: '/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JournalsRoute = JournalsRouteImport.update({
+  id: '/journals',
+  path: '/journals',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -51,16 +51,16 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/journals': typeof JournalsRoute
   '/products': typeof ProductsRoute
-  '/wellness': typeof WellnessRoute
   '/product/$productId': typeof ProductProductIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/journals': typeof JournalsRoute
   '/products': typeof ProductsRoute
-  '/wellness': typeof WellnessRoute
   '/product/$productId': typeof ProductProductIdRoute
 }
 export interface FileRoutesById {
@@ -68,8 +68,8 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/journals': typeof JournalsRoute
   '/products': typeof ProductsRoute
-  '/wellness': typeof WellnessRoute
   '/product/$productId': typeof ProductProductIdRoute
 }
 export interface FileRouteTypes {
@@ -78,24 +78,24 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/journals'
     | '/products'
-    | '/wellness'
     | '/product/$productId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/contact'
+    | '/journals'
     | '/products'
-    | '/wellness'
     | '/product/$productId'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/contact'
+    | '/journals'
     | '/products'
-    | '/wellness'
     | '/product/$productId'
   fileRoutesById: FileRoutesById
 }
@@ -103,25 +103,25 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  JournalsRoute: typeof JournalsRoute
   ProductsRoute: typeof ProductsRoute
-  WellnessRoute: typeof WellnessRoute
   ProductProductIdRoute: typeof ProductProductIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/wellness': {
-      id: '/wellness'
-      path: '/wellness'
-      fullPath: '/wellness'
-      preLoaderRoute: typeof WellnessRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/products': {
       id: '/products'
       path: '/products'
       fullPath: '/products'
       preLoaderRoute: typeof ProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/journals': {
+      id: '/journals'
+      path: '/journals'
+      fullPath: '/journals'
+      preLoaderRoute: typeof JournalsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -159,8 +159,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  JournalsRoute: JournalsRoute,
   ProductsRoute: ProductsRoute,
-  WellnessRoute: WellnessRoute,
   ProductProductIdRoute: ProductProductIdRoute,
 }
 export const routeTree = rootRouteImport

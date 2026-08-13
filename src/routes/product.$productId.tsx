@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, CheckCircle2, ShoppingBag } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Reveal } from "@/components/site/Reveal";
+import { SeoHead, buildProductSchema, buildBreadcrumbSchema } from "@/components/site/SeoHead";
 import { getProductById } from "@/lib/products";
 
 export const Route = createFileRoute("/product/$productId")({
@@ -41,10 +42,26 @@ function ProductDetailPage() {
   }
 
   const whatsappMessage = encodeURIComponent(`Hello Sathyaveda Herbals, I would like to purchase ${product.name}.`);
-  const whatsappUrl = `https://wa.me/919999999999?text=${whatsappMessage}`;
+  const whatsappUrl = `https://wa.me/917481031003?text=${whatsappMessage}`;
+
+  const productJsonLd = [
+    buildProductSchema(product),
+    buildBreadcrumbSchema([
+      { name: "Home", url: "https://sathyavedaherbals.in/" },
+      { name: "Products", url: "https://sathyavedaherbals.in/products" },
+      { name: product.name, url: `https://sathyavedaherbals.in/product/${product.id}` },
+    ]),
+  ];
 
   return (
     <div className="min-h-screen bg-background">
+      <SeoHead
+        path={`/product/${product.id}`}
+        title={`${product.name} — Sathyaveda Herbals LLP`}
+        description={product.description}
+        ogImage={typeof product.image === "string" ? product.image : undefined}
+        jsonLd={productJsonLd}
+      />
       <Header />
       <section className="mx-auto max-w-7xl px-4 pt-24 pb-8 sm:px-6 lg:px-8 lg:pt-28 lg:pb-16">
         <Link to="/" className="inline-flex items-center gap-2 text-sm font-semibold text-brand-green-dark transition hover:gap-3">
@@ -52,8 +69,8 @@ function ProductDetailPage() {
         </Link>
 
         <div className="mt-6 grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:gap-10">
-          <Reveal as="div" animation="slide-right" className="overflow-hidden rounded-[2rem] border border-border/70 bg-[#f7f4eb] p-3 shadow-sm lg:p-4">
-            <img src={product.image} alt={product.name} className="aspect-[4/5] w-full rounded-[1.5rem] object-contain" />
+          <Reveal as="div" animation="slide-right" className="overflow-hidden rounded-[2rem] border border-border/70 bg-[#f7f4eb] shadow-sm">
+            <img src={product.image} alt={product.name} className="aspect-square w-full object-cover object-center" />
           </Reveal>
 
           <Reveal as="div" animation="slide-left" delay={150}>

@@ -28,7 +28,7 @@ export interface Product {
 export const products: Product[] = [
   {
     id: "abc-powder",
-    name: "ABC Powder",
+    name: "ABC Capsules",
     brand: "Sathyaveda",
     description: "A premium herbal wellness blend inspired by traditional Kerala formulations and crafted for daily vitality.",
     shortDescription: "Premium wellness blend for daily vitality.",
@@ -49,12 +49,35 @@ export const products: Product[] = [
     ingredients: ["Apple", "Beetroot", "Carrot", "Drumstick extract", "Safed Musli", "Ashwagandha", "Gooseberry", "Dates Seed"],
     howToUse: "Mix one teaspoon in warm water or milk once daily, or as recommended by your wellness practitioner.",
   },
+    {
+    id: "veda-chargex",
+    name: "Veda ChargeX",
+    brand: "Sathyaveda",
+    description: "Herbal nutrition that energizes your body and supports everyday wellbeing.",
+    shortDescription: "Herbal tonic for balance, immunity and daily rejuvenation.",
+    category: "Vitality Blend",
+    image: chargeX,
+    badge: "Wellness Essential",
+    price: "₹950",
+    rating: 4.8,
+    variants: [
+      { size: "Bottle 120ml", price: "₹950" },
+      { size: "Bottle 250ml", price: "₹1,399" },
+    ],
+    benefits: [
+      "Supports immunity, digestion and energy balance",
+      "Blended with Drumstick, Safed Musli, Ashwagandha, Gooseberry and Dates Seed",
+      "Helps maintain healthy blood sugar and liver support",
+    ],
+    ingredients: ["Drumstick extract", "Safed Musli", "Ashwagandha", "Gooseberry", "Dates Seed"],
+    howToUse: "Take 1-2 teaspoons daily with warm water or milk, or as directed by your practitioner.",
+  },
   {
     id: "badam",
-    name: "Badam",
+    name: "Almonds",
     brand: "Sathyaveda",
-    description: "Carefully selected premium badam with a rich, wholesome character prized for daily nourishment.",
-    shortDescription: "Delicately sourced premium badam.",
+    description: "Carefully selected premium almonds with a rich, wholesome character prized for daily nourishment.",
+    shortDescription: "Delicately sourced premium almonds.",
     category: "Nutrient Rich",
     image: badam,
     badge: "Signature Choice",
@@ -95,29 +118,7 @@ export const products: Product[] = [
     ingredients: ["Premium whole cashews", "Natural nut oils", "Freshly packed"],
     howToUse: "Enjoy as a nourishing snack or add to recipes for an added nutritious boost.",
   },
-  {
-    id: "veda-chargex",
-    name: "Veda ChargeX",
-    brand: "Sathyaveda",
-    description: "A premium herbal vitality tonic designed with Kerala-inspired botanicals for energy and wellbeing.",
-    shortDescription: "Herbal tonic for balance, immunity and daily rejuvenation.",
-    category: "Vitality Blend",
-    image: chargeX,
-    badge: "Wellness Essential",
-    price: "₹950",
-    rating: 4.8,
-    variants: [
-      { size: "Bottle 120ml", price: "₹950" },
-      { size: "Bottle 250ml", price: "₹1,399" },
-    ],
-    benefits: [
-      "Supports immunity, digestion and energy balance",
-      "Blended with Drumstick, Safed Musli, Ashwagandha, Gooseberry and Dates Seed",
-      "Helps maintain healthy blood sugar and liver support",
-    ],
-    ingredients: ["Drumstick extract", "Safed Musli", "Ashwagandha", "Gooseberry", "Gooseberry", "Dates Seed"],
-    howToUse: "Take 1-2 teaspoons daily with warm water or milk, or as directed by your practitioner.",
-  },
+
 ];
 
 export function getProductById(productId: string) {

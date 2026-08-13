@@ -7,7 +7,7 @@ const navLinks = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About" },
   { to: "/products", label: "Products" },
-  { to: "/wellness", label: "Blogs" },
+  { to: "/journals", label: "Journals" },
   { to: "/contact", label: "Contact" },
 ];
 
@@ -24,11 +24,10 @@ export function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-out ${
-        visible
-          ? "bg-background/90 backdrop-blur-md border-b border-border shadow-sm"
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-out ${visible || open
+          ? "bg-background/95 backdrop-blur-md border-b border-border shadow-sm"
           : "bg-transparent"
-      }`}
+        }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-20 lg:px-8">
         <Link to="/" className="flex items-center gap-2">
@@ -48,7 +47,7 @@ export function Header() {
             to="/contact"
             className="hidden sm:inline-flex items-center rounded-full bg-brand-green-dark px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors duration-300 hover:bg-brand-green"
           >
-            Get in Touch
+            Order on WhatsApp
           </Link>
           <button
             aria-label="Toggle menu"
@@ -67,7 +66,7 @@ export function Header() {
               {l.label}
             </Link>
           ))}
-         
+
         </div>
       )}
     </header>

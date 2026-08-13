@@ -19,7 +19,7 @@ export function Footer() {
           <h4 className="font-semibold mb-3 text-base sm:text-lg">Company</h4>
           <ul className="space-y-2 text-sm opacity-80">
             <li><Link to="/about">About Us</Link></li>
-            <li><Link to="/wellness">Ayurvedic Wisdom</Link></li>
+            <li><Link to="/journals ">Ayurvedic Wisdom</Link></li>
             <li><Link to="/contact">Contact</Link></li>
 
           </ul>

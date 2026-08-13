@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Reveal } from "@/components/site/Reveal";
+import { SeoHead, buildBreadcrumbSchema } from "@/components/site/SeoHead";
 import { Calendar, Tag, ArrowRight, ChevronUp } from "lucide-react";
 import { posts, type Post } from "@/lib/blog";
 import { useState } from "react";
@@ -66,7 +67,7 @@ function BlogCard({ p, index }: { p: Post; index: number }) {
   );
 }
 
-export const Route = createFileRoute("/wellness")({
+export const Route = createFileRoute("/journals")({
   head: () => ({ meta: [{ title: "Blog — Sathyaveda Herbals LLP" }, { name: "description", content: "Articles on Ayurveda, product guides, rituals, and wellness tips." }] }),
   component: WellnessPage,
 });
@@ -74,6 +75,17 @@ export const Route = createFileRoute("/wellness")({
 function WellnessPage() {
   return (
     <div className="min-h-screen bg-background">
+      <SeoHead
+        path="/journals"
+        title="Journal — Sathyaveda Herbals LLP"
+        description="Articles on Ayurveda, product guides, seasonal rituals and wellness tips from Sathyaveda Herbals LLP, Kerala."
+        jsonLd={[
+          buildBreadcrumbSchema([
+            { name: "Home", url: "https://sathyavedaherbals.in/" },
+            { name: "Journal", url: "https://sathyavedaherbals.in/journals" },
+          ]),
+        ]}
+      />
       <Header />
 
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 pb-10 lg:pt-28 lg:pb-16">
