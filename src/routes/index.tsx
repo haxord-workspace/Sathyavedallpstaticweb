@@ -304,9 +304,11 @@ function Home() {
               ${togglesInView ? "animate-fade-in" : ""}`}
           >
             {shopProducts.map((product) => (
-              <div
+              <Link
                 key={product.id}
-                className="flex-none w-[44vw] sm:w-[46vw] md:w-[340px] lg:w-[calc(25%-12px)] xl:w-[calc(25%-12px)]
+                to="/product/$productId"
+                params={{ productId: product.id }}
+                className="group flex-none w-[44vw] sm:w-[46vw] md:w-[340px] lg:w-[calc(25%-12px)] xl:w-[calc(25%-12px)]
                   rounded-2xl border border-border/70 bg-white shadow-md overflow-hidden
                   flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg"
               >
@@ -315,7 +317,7 @@ function Home() {
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
+                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                   />
                
                 </div>
@@ -334,16 +336,14 @@ function Home() {
                       )}
                       <span className="text-sm sm:text-base font-bold text-brand-green-dark">{product.price}</span>
                     </div>
-                    <Link
-                      to="/product/$productId"
-                      params={{ productId: product.id }}
-                      className="inline-flex items-center gap-1.5 rounded-full  px-3 py-1.5 text-xs font-semibold text-brand-green-dark "
+                    <div
+                      className="inline-flex items-center gap-1.5 rounded-full  px-3 py-1.5 text-xs font-semibold text-brand-green-dark transition-all duration-300 group-hover:gap-2.5"
                     >
                       View details <ArrowRight className="h-3 w-3" />
-                    </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

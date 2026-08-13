@@ -18,13 +18,38 @@ function ImagePlaceholder({ text }: { text: string }) {
   );
 }
 
+function MediaRenderer({ src, alt }: { src?: string; alt: string }) {
+  if (!src) return <ImagePlaceholder text={alt} />;
+
+  if (src.endsWith(".mov") || src.endsWith(".mp4") || src.includes("/video/upload/")) {
+    return (
+      <video
+        src={src}
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover object-center scale-105"
+      />
+    );
+  }
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className="absolute inset-0 w-full h-full object-cover object-center mix-blend-multiply scale-[1.15]"
+    />
+  );
+}
+
 function FeaturedCard({ p }: { p: Post }) {
   return (
     <Reveal as="article" delay={100} className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden transition-shadow duration-300 hover:shadow-md col-span-1 lg:col-span-3">
       <div className="flex flex-col lg:flex-row h-full">
-        {/* Left: Image Placeholder */}
-        <div className="lg:w-1/2 min-h-[300px] lg:min-h-[400px] border-b lg:border-b-0 lg:border-r border-border/60 border-dashed">
-          <ImagePlaceholder text={`${p.title.split(":")[0]} — daily ritual`} />
+        {/* Left: Media */}
+        <div className="lg:w-1/2 min-h-[300px] lg:min-h-[400px] border-b lg:border-b-0 lg:border-r border-border/60 border-dashed relative overflow-hidden bg-white/50">
+          <MediaRenderer src={p.image} alt={`${p.title.split(":")[0]} — daily ritual`} />
         </div>
 
         {/* Right: Content */}
@@ -50,9 +75,9 @@ function FeaturedCard({ p }: { p: Post }) {
 function StandardCard({ p, index }: { p: Post; index: number }) {
   return (
     <Reveal as="article" delay={150 + index * 50} className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden transition-shadow duration-300 hover:shadow-md flex flex-col h-full">
-      {/* Top: Image Placeholder */}
-      <div className="h-48 border-b border-border/60 border-dashed">
-        <ImagePlaceholder text={p.title.split(":")[0]} />
+      {/* Top: Media */}
+      <div className="h-48 border-b border-border/60 border-dashed relative overflow-hidden bg-white/50">
+        <MediaRenderer src={p.image} alt={p.title.split(":")[0]} />
       </div>
 
       {/* Bottom: Content */}

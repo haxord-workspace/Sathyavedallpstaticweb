@@ -1,5 +1,6 @@
 import bannerAbc from "@/assets/SATHYAVEDA HERBALS BANNERS LAPTOP/abc.png";
 import bannerVeda from "@/assets/SATHYAVEDA HERBALS BANNERS LAPTOP/veda.png";
+import doshaImg from "@/assets/Dosha.png";
 
 export type Post = {
   title: string;
@@ -40,6 +41,7 @@ As with any wellness product, we'd encourage reading the full ingredient and usa
     tag: "Wellness",
     slug: "veda-chargex-energy-support",
     image: bannerVeda,
+    productId: "veda-chargex",
     content: `Veda ChargeX is Sathyaveda's herbal vitality tonic, blending Drumstick (Moringa) extract, Safed Musli, Ashwagandha and Gooseberry (Amla) with Dates Seed to support sustained, natural energy. Ashwagandha and Safed Musli are traditional Ayurvedic adaptogens used to help the body manage everyday stress, while Moringa and Amla add antioxidants and micronutrients that support immunity, digestion and healthy blood sugar balance.
 
 How to use: take one to two teaspoons of Veda ChargeX mixed with warm water or milk each morning, ideally with food. For the best results, pair it with consistent sleep, good hydration and short movement breaks through the day, rather than relying on it alone for energy.
@@ -55,6 +57,7 @@ What to expect: many people notice steadier, more even energy within a few weeks
     date: "2026-07-24",
     tag: "Lifestyle",
     slug: "travel-ready-ayurveda",
+    image: "https://res.cloudinary.com/dafifet3i/video/upload/v1786080685/IMG_8400_rkfi4t.mp4",
     content: `When travelling, a few well-chosen herbal allies can help you stay balanced even with disrupted routines, unfamiliar food and long hours in transit. This guide outlines a compact Ayurvedic travel kit built around Sathyaveda's everyday wellness range.
 
 Essentials to pack: single-serve sachets of ABC Powder for digestion and immunity, a small tub of Veda ChargeX for steady energy on long travel days, a pouch of Badam or Cashew for a nourishing snack, and a rehydrating electrolyte sachet for flights or road trips. Our complimentary launch bag is sized to hold these basics alongside a water bottle and small first-aid items.
@@ -68,6 +71,7 @@ Tips for staying balanced on the road: keep meal times as regular as possible, s
     date: "2026-07-26",
     tag: "Ayurveda",
     slug: "dosha-basics",
+    image: doshaImg,
     content: `Doshas are the core energetic principles in Ayurveda, and understanding your own balance is the foundation of any personalised Ayurvedic routine. This primer explains the basics of Vata, Pitta and Kapha and small daily changes you can make to support wellbeing.
 
 Vata, Pitta and Kapha describe movement, transformation and structure respectively. Vata governs circulation and the nervous system, Pitta governs digestion and metabolism, and Kapha governs structure and immunity. Small, consistent routines — regular meal times, suitable sleep windows and tailored herbs like Ashwagandha or Amla — help keep all three in balance.

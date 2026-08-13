@@ -1,4 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Reveal } from "@/components/site/Reveal";
@@ -25,6 +26,14 @@ export const Route = createFileRoute("/journals/$slug")({
 });
 
 function JournalArticlePage() {
+  useEffect(() => {
+    // Delay scroll slightly to override automatic scroll restoration interference
+    const timer = setTimeout(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }, 50);
+    return () => clearTimeout(timer);
+  }, []);
+
   const { post } = Route.useLoaderData();
 
   // Find 2 related articles for the bottom section
@@ -56,7 +65,7 @@ function JournalArticlePage() {
       <Header />
 
       <main className="pt-32 pb-20">
-        <article className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <article className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           
           {/* Header Section */}
           <Reveal as="header" className="max-w-2xl mx-auto mb-10">
@@ -73,11 +82,15 @@ function JournalArticlePage() {
           </Reveal>
 
           {/* Hero Image */}
-          <Reveal as="div" delay={50} className="w-full aspect-[16/9] sm:aspect-[21/9] bg-secondary/50 rounded-2xl overflow-hidden mb-12 sm:mb-16 border border-border/50 shadow-sm">
+          <Reveal as="div" delay={50} className="w-full bg-[#FDFBF7] sm:bg-white rounded-2xl overflow-hidden mb-12 sm:mb-16 border border-border/50 shadow-sm flex items-center justify-center">
             {post.image ? (
-              <img src={post.image} alt={post.title} className="w-full h-full object-cover object-center" />
+              post.image.endsWith(".mov") || post.image.endsWith(".mp4") || post.image.includes("/video/upload/") ? (
+                <video src={post.image} autoPlay muted loop playsInline className="w-full h-[300px] sm:h-[450px] object-cover object-center block scale-[1.2] sm:scale-100" />
+              ) : (
+                <img src={post.image} alt={post.title} className="w-full h-[300px] sm:h-[450px] object-cover object-center block mix-blend-multiply" />
+              )
             ) : (
-              <div className="w-full h-full flex items-center justify-center text-muted-foreground">Image Placeholder</div>
+              <div className="w-full aspect-[16/9] flex items-center justify-center text-muted-foreground">Image Placeholder</div>
             )}
           </Reveal>
 
