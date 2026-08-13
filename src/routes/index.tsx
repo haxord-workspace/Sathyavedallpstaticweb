@@ -252,7 +252,12 @@ function Home() {
                   </div>
                   <p className="text-xs text-foreground/60 leading-relaxed flex-1">{product.shortDescription}</p>
                   <div className="mt-auto flex items-center justify-between gap-2 pt-2 border-t border-border/50">
-                    <span className="text-base font-bold text-brand-green-dark">{product.price}</span>
+                    <div className="flex items-center gap-1.5">
+                      {product.originalPrice && (
+                        <span className="text-[10px] sm:text-xs text-muted-foreground font-medium line-through decoration-muted-foreground/60">{product.originalPrice}</span>
+                      )}
+                      <span className="text-sm sm:text-base font-bold text-brand-green-dark">{product.price}</span>
+                    </div>
                     <Link
                       to="/product/$productId"
                       params={{ productId: product.id }}

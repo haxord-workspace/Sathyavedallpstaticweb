@@ -18,6 +18,7 @@ export interface Product {
   image: string;
   badge: string;
   price: string;
+  originalPrice?: string;
   rating: number;
   variants: ProductVariant[];
   benefits: string[];
@@ -36,6 +37,7 @@ export const products: Product[] = [
     image: abcPowder,
     badge: "New Launch",
     price: "₹950",
+    originalPrice: "₹2450",
     rating: 4.8,
     variants: [
       { size: "100g pouch", price: "₹950" },
@@ -54,11 +56,12 @@ export const products: Product[] = [
     name: "Veda ChargeX",
     brand: "Sathyaveda",
     description: "Herbal nutrition that energizes your body and supports everyday wellbeing.",
-    shortDescription: "Herbal tonic for balance, immunity and daily rejuvenation.",
+    shortDescription: "Herbal nutrition that energizes your body and supports everyday wellbeing",
     category: "Vitality Blend",
     image: chargeX,
     badge: "Wellness Essential",
     price: "₹950",
+    originalPrice: "₹2450",
     rating: 4.8,
     variants: [
       { size: "Bottle 120ml", price: "₹950" },

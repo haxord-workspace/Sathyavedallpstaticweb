@@ -26,7 +26,12 @@ function ProductCard({ product, index }: { product: typeof products[number]; ind
           <p className="mt-1.5 text-xs text-muted-foreground leading-relaxed line-clamp-2">{product.shortDescription}</p>
         </div>
         <div className="mt-3 flex items-center justify-between">
-          <span className="text-sm font-semibold text-brand-green-dark">{product.price}</span>
+          <div className="flex items-center gap-1.5">
+            {product.originalPrice && (
+              <span className="text-[10px] sm:text-xs text-muted-foreground font-medium line-through decoration-muted-foreground/60">{product.originalPrice}</span>
+            )}
+            <span className="text-sm font-semibold text-brand-green-dark">{product.price}</span>
+          </div>
           <Link to="/product/$productId" params={{ productId: product.id }} className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-green-dark transition hover:gap-2.5">
             View details <ArrowRight className="h-3.5 w-3.5" />
           </Link>
