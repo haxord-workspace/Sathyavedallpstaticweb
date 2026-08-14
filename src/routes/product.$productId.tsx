@@ -76,10 +76,10 @@ function ProductDetailPage() {
           <Reveal as="div" animation="slide-left" delay={150}>
             {/* Mobile Layout (Visible only on mobile/tablet) */}
             <div className="lg:hidden">
-              <div className="flex items-center flex-wrap gap-3 mb-3">
-                <div className="inline-flex rounded-full border border-brand-green/20 bg-brand-green/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-brand-green shrink-0">
+              <div className="flex items-center flex-wrap gap-1 mb-1">
+                {/* <div className="inline-flex rounded-full border border-brand-green/20 bg-brand-green/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-brand-green shrink-0">
                   {product.badge}
-                </div>
+                </div> */}
                 <h1 className="font-display text-2xl text-brand-green-dark">{product.name}</h1>
               </div>
               
@@ -146,7 +146,7 @@ function ProductDetailPage() {
                 <h2 className="text-base font-semibold text-brand-green-dark sm:text-lg">Key details</h2>
                 <div className="mt-3 space-y-3 text-sm text-muted-foreground">
                   <div>
-                    <p className="font-semibold text-foreground">Available sizes</p>
+                    <p className="font-semibold text-foreground">{product.variantLabel || "Available sizes"}</p>
                     <div className="mt-2 flex flex-wrap gap-2">
                       {product.variants.map((variant) => (
                         <span key={variant.size} className="rounded-full border border-border px-3 py-1 text-xs font-medium text-foreground">
@@ -172,6 +172,12 @@ function ProductDetailPage() {
             </div>
           </Reveal>
         </div>
+        
+        {product.longDescriptionHTML && (
+          <Reveal as="div" delay={300} className="mt-12 lg:mt-16 rounded-3xl border border-border bg-[#fdfaf5] p-6 sm:p-10 lg:p-12 shadow-sm max-w-4xl mx-auto">
+            <div dangerouslySetInnerHTML={{ __html: product.longDescriptionHTML }} />
+          </Reveal>
+        )}
       </section>
       <Footer />
     </div>

@@ -360,14 +360,14 @@ function Home() {
               {/* Left: Text */}
               <Reveal as="div" animation="slide-right" className="flex flex-col gap-4 py-12 pr-10 min-w-0">
                 <span className="inline-flex self-start items-center text-brand-green bg-brand-green/10 font-semibold tracking-widest text-[10px] uppercase px-3 py-1 rounded-sm">Special Offer</span>
-                <h2 className="font-display text-4xl xl:text-5xl text-brand-green-dark leading-tight">Free American<br />Tourister Bag</h2>
+                <h2 className="font-display text-4xl xl:text-5xl text-brand-green-dark leading-tight">Free Tourister<br />Bag</h2>
                 <div className="flex items-center gap-3">
                   <div className="h-px w-10 bg-brand-green-dark/20" />
                   <Leaf className="h-4 w-4 text-brand-green-dark opacity-60" />
                   <div className="h-px w-10 bg-brand-green-dark/20" />
                 </div>
                 <p className="text-sm text-foreground/70 leading-relaxed max-w-[380px]">
-                  Buy both <strong className="text-foreground/90">ABC</strong> and <strong className="text-foreground/90">Veda ChargeX</strong> together and receive a complimentary American Tourister bag with your order. Limited time offer.
+                  Buy both <strong className="text-foreground/90">ABC</strong> and <strong className="text-foreground/90">Veda ChargeX</strong> together and receive a complimentary Tourister bag with your order. Limited time offer.
                 </p>
                 <div className="mt-1">
                   <h3 className="text-sm font-semibold text-foreground/80">Offer applies to:</h3>
@@ -380,7 +380,7 @@ function Home() {
                     ))}
                   </ul>
                 </div>
-                <a href="#products" className="mt-3 inline-flex items-center gap-2 self-start rounded-full bg-brand-green-dark px-6 py-3.5 text-white text-sm font-semibold hover:bg-brand-green transition-colors shadow-sm">
+                <a href="/products" className="mt-3 inline-flex items-center gap-2 self-start rounded-full bg-brand-green-dark px-6 py-3.5 text-white text-sm font-semibold hover:bg-brand-green transition-colors shadow-sm">
                   Shop ABC &amp; Veda ChargeX <ArrowRight className="h-4 w-4" />
                 </a>
               </Reveal>
@@ -417,7 +417,7 @@ function Home() {
                     <CarouselItem>
                       <img
                         src={offerABC}
-                        alt="ABC Capsules with Free American Tourister Bag — Sathyaveda Special Offer"
+                        alt="ABC Capsules with Free Tourister Bag — Sathyaveda Special Offer"
                         loading="lazy"
                         className="max-h-[480px] w-full object-contain drop-shadow-xl"
                       />
@@ -425,7 +425,7 @@ function Home() {
                     <CarouselItem>
                       <img
                         src={offerVeda}
-                        alt="Veda ChargeX with Free American Tourister Bag — Sathyaveda Special Offer"
+                        alt="Veda ChargeX with Free Tourister Bag — Sathyaveda Special Offer"
                         loading="lazy"
                         className="max-h-[480px] w-full object-contain drop-shadow-xl"
                       />
@@ -480,14 +480,14 @@ function Home() {
               {/* Left: Text */}
               <div className="flex flex-col gap-2.5 pr-2 pt-1 pb-4">
                 <span className="inline-flex self-start items-center text-brand-green bg-brand-green/10 font-semibold tracking-widest text-[9px] uppercase px-2.5 py-1 rounded-sm">Special Offer</span>
-                <h2 className="font-display text-[1.7rem] leading-tight text-brand-green-dark">Free American Tourister Bag</h2>
+                <h2 className="font-display text-[1.7rem] leading-tight text-brand-green-dark">Free Tourister Bag</h2>
                 <div className="flex items-center gap-2">
                   <div className="h-px w-6 bg-brand-green-dark/25" />
                   <Leaf className="h-3 w-3 text-brand-green-dark opacity-50" />
                   <div className="h-px w-6 bg-brand-green-dark/25" />
                 </div>
                 <p className="text-xs text-foreground/70 leading-relaxed">
-                  Buy both <strong className="text-foreground/90">ABC</strong> and <strong className="text-foreground/90">Veda ChargeX</strong> together and receive a complimentary American Tourister bag with your order. Limited time offer.
+                  Buy both <strong className="text-foreground/90">ABC</strong> and <strong className="text-foreground/90">Veda ChargeX</strong> together and receive a complimentary Tourister bag with your order. Limited time offer.
                 </p>
                 <div>
                   <h3 className="text-xs font-semibold text-foreground/80">Offer applies to:</h3>
@@ -512,7 +512,7 @@ function Home() {
                     <CarouselItem>
                       <img
                         src={offerABC}
-                        alt="ABC Capsules with Free American Tourister Bag — Sathyaveda Special Offer"
+                        alt="ABC Capsules with Free Tourister Bag — Sathyaveda Special Offer"
                         loading="lazy"
                         className="w-full object-contain max-h-[380px] drop-shadow-xl"
                       />
@@ -520,7 +520,7 @@ function Home() {
                     <CarouselItem>
                       <img
                         src={offerVeda}
-                        alt="Veda ChargeX with Free American Tourister Bag — Sathyaveda Special Offer"
+                        alt="Veda ChargeX with Free Tourister Bag — Sathyaveda Special Offer"
                         loading="lazy"
                         className="w-full object-contain max-h-[380px] drop-shadow-xl"
                       />

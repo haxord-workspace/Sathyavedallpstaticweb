@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, Instagram, Youtube, Mail, Phone, MapPin } from "lucide-react";
+import { Facebook, Instagram, Mail, Phone, MapPin } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import logo from "@/assets/logo.png";
 
 export function Footer() {
@@ -11,10 +12,16 @@ export function Footer() {
           <p className="text-[11px] mt-2 opacity-70 leading-snug">
             Authentic ayurvedic wellness from the heart of Kerala. Crafted with tradition, trusted by generations.
           </p>
-            <div className="flex gap-2.5 mt-3">
-            <Facebook className="h-3.5 w-3.5" />
-            <Instagram className="h-3.5 w-3.5" />
-            <Youtube className="h-3.5 w-3.5" />
+          <div className="flex gap-3 mt-4">
+            <a href="https://www.facebook.com/share/1EZnCjBddY/" target="_blank" rel="noreferrer" className="hover:text-white/80 transition-colors">
+              <Facebook className="h-4 w-4" />
+            </a>
+            <a href="https://www.instagram.com/sathyavedaherbals?igsh=d2R5Z3l5NWx4dnkz" target="_blank" rel="noreferrer" className="hover:text-white/80 transition-colors">
+              <Instagram className="h-4 w-4" />
+            </a>
+            <a href="https://wa.me/917481031003" target="_blank" rel="noreferrer" className="hover:text-white/80 transition-colors">
+              <FaWhatsapp className="h-4 w-4" />
+            </a>
           </div>
         </div>
         <div>

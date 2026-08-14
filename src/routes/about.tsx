@@ -5,18 +5,14 @@ import { Footer } from "@/components/site/Footer";
 import { Reveal } from "@/components/site/Reveal";
 import { SeoHead, buildBreadcrumbSchema } from "@/components/site/SeoHead";
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext, type CarouselApi } from "@/components/ui/carousel";
-import aboutImg1 from "@/assets/about/photo_1_2026-07-28_00-23-13.jpg";
-import aboutImg2 from "@/assets/about/photo_2_2026-07-28_00-23-13.jpg";
-import aboutImg3 from "@/assets/about/photo_3_2026-07-28_00-23-13.jpg";
-import aboutImg4 from "@/assets/about/photo_4_2026-07-28_00-23-13.jpg";
+import aboutImg1 from "@/assets/about/about1.jpeg";
+import aboutImg2 from "@/assets/about/about2.jpeg";
 import { ArrowRight } from "lucide-react";
 
-const aboutImages = [aboutImg1, aboutImg2, aboutImg3, aboutImg4];
+const aboutImages = [aboutImg1, aboutImg2];
 const aboutAlts = [
-  "Sathyaveda Herbals manufacturing facility Pokkotumbadam Kerala",
-  "Sathyaveda Herbals Ayurvedic herbal ingredients",
-  "Sathyaveda Herbals team crafting ayurvedic products",
-  "Sathyaveda Herbals natural botanical sourcing Kerala",
+  "Sathyaveda Herbals Ayurvedic manufacturing",
+  "Sathyaveda Herbals natural botanical ingredients",
 ];
 
 function AboutPage() {
@@ -73,12 +69,17 @@ function AboutPage() {
             </div>
           </Reveal>
 
-          <Reveal as="div" animation="slide-left" delay={150} className="rounded-[2rem] overflow-hidden shadow-xl border border-border bg-[#f7f5ee]">
+          <Reveal as="div" animation="slide-left" delay={150} className="rounded-[2rem] overflow-hidden shadow-xl border border-border bg-[#f7f5ee] w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[280px] mx-auto lg:mx-0 lg:justify-self-center">
             <Carousel className="relative" opts={{ loop: true }} setApi={setCarouselApi}>
-              <CarouselContent className="flex">
+              <CarouselContent className="flex items-stretch">
                 {aboutImages.map((src, index) => (
-                  <CarouselItem key={index}>
-                    <img src={src} alt={aboutAlts[index] ?? `Sathyaveda Herbals Kerala`} loading="lazy" className="w-full h-64 object-cover sm:h-72 lg:h-80" />
+                  <CarouselItem key={index} className="flex">
+                    <img 
+                      src={src} 
+                      alt={aboutAlts[index] ?? `Sathyaveda Herbals Kerala`} 
+                      loading="lazy" 
+                      className={`w-full block object-cover max-h-[350px] lg:max-h-[450px] ${index === 1 ? "h-full" : ""}`} 
+                    />
                   </CarouselItem>
                 ))}
               </CarouselContent>

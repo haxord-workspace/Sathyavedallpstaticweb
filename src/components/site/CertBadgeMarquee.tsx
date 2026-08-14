@@ -6,18 +6,18 @@ import {
   Leaf,
   Globe,
   Heart,
-  ShieldCheck,
 } from "lucide-react";
+import { GiFlowers } from 'react-icons/gi';
 
 const badges = [
   { icon: BadgeCheck,   label: "Certified" },
   { icon: MapPin,       label: "Made In Kerala" },
-  { icon: ScrollText,   label: "Ayurvedic Drug Certificate" },
   { icon: Leaf,         label: "Pure Natural" },
   { icon: Globe,        label: "Non-Toxic" },
   { icon: Heart,        label: "Cruelty Free" },
-  { icon: FlaskConical, label: "Lab Tested" },
-  { icon: ShieldCheck,  label: "GMP Certified" },
+  { icon: FlaskConical, label: "NABL Accredited Lab Tested" },
+  { icon: ScrollText,   label: "Udyam Registration" },
+  { icon: GiFlowers,    label: "Associated with Kudumbashree" }
 ];
 
 // Duplicate so the second copy fills the gap as the first scrolls off
