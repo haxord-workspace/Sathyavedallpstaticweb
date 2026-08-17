@@ -360,7 +360,7 @@ function Home() {
               {/* Left: Text */}
               <Reveal as="div" animation="slide-right" className="flex flex-col gap-4 py-12 pr-10 min-w-0">
                 <span className="inline-flex self-start items-center text-brand-green bg-brand-green/10 font-semibold tracking-widest text-[10px] uppercase px-3 py-1 rounded-sm">Special Offer</span>
-                <h2 className="font-display text-4xl xl:text-5xl text-brand-green-dark leading-tight">Free Tourister<br />Bag</h2>
+                <h2 className="font-display text-3xl xl:text-5xl text-brand-green-dark leading-tight">40 Liter Free<br />Tourister Bag</h2>
                 <div className="flex items-center gap-3">
                   <div className="h-px w-10 bg-brand-green-dark/20" />
                   <Leaf className="h-4 w-4 text-brand-green-dark opacity-60" />
@@ -480,7 +480,7 @@ function Home() {
               {/* Left: Text */}
               <div className="flex flex-col gap-2.5 pr-2 pt-1 pb-4">
                 <span className="inline-flex self-start items-center text-brand-green bg-brand-green/10 font-semibold tracking-widest text-[9px] uppercase px-2.5 py-1 rounded-sm">Special Offer</span>
-                <h2 className="font-display text-[1.7rem] leading-tight text-brand-green-dark">Free Tourister Bag</h2>
+                <h2 className="font-display text-[1.7rem] leading-tight text-brand-green-dark">40 Liter Free<br />Tourister Bag</h2>
                 <div className="flex items-center gap-2">
                   <div className="h-px w-6 bg-brand-green-dark/25" />
                   <Leaf className="h-3 w-3 text-brand-green-dark opacity-50" />

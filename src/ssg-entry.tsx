@@ -24,4 +24,4 @@ declare module "@tanstack/react-router" {
   }
 }
 
-export const createRoot = ViteReactSSG({ router });
+export const createRoot = ViteReactSSG({ router, routes: routeTree });

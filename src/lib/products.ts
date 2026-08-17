@@ -200,7 +200,7 @@ export const products: Product[] = [
   },
   {
     id: "badam",
-    name: "Almonds",
+    name: "Almonds 250g",
     brand: "Sathyaveda",
     description: "Carefully selected premium almonds with a rich, wholesome character prized for daily nourishment.",
     shortDescription: "Delicately sourced premium almonds.",
@@ -208,10 +208,10 @@ export const products: Product[] = [
     image: badam,
     badge: "Signature Choice",
     price: "₹350",
+    originalPrice: "₹500",
     rating: 4.7,
     variants: [
       { size: "250g pack", price: "₹350" },
-      { size: "500g pack", price: "₹1,699" },
     ],
     benefits: [
       "Made with premium California almonds, known for their superior quality",
@@ -224,7 +224,7 @@ export const products: Product[] = [
   },
   {
     id: "cashew",
-    name: "Cashew",
+    name: "Cashew 1kg",
     brand: "Sathyaveda",
     description: "Premium cashews sourced for their smooth, rich texture and high nutritional value.",
     shortDescription: "180 grade whole cashews, rich in protein and essential minerals.",
@@ -232,9 +232,10 @@ export const products: Product[] = [
     image: cashew,
     badge: "Best Seller",
     price: "₹1,800",
+    originalPrice: "₹2,000",
     rating: 4.9,
     variants: [
-      { size: "500g pack", price: "₹1,299" },
+
       { size: "1kg pack", price: "₹1,800" },
     ],
     benefits: [
