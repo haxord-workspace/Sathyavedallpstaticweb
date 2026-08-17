@@ -2,6 +2,7 @@ import abcPowder from "@/assets/products/ABC POWDER.jpg";
 import badam from "@/assets/products/BADAM (2).jpeg";
 import cashew from "@/assets/products/CASHEW.jpg";
 import chargeX from "@/assets/products/Veda_ChargeX_bottle_on_wooden.jpeg";
+import chargeXHover from "@/assets/products/veda_hover.png";
 
 export interface ProductVariant {
   size: string;
@@ -16,6 +17,7 @@ export interface Product {
   shortDescription: string;
   category: string;
   image: string;
+  hoverImage?: string;
   badge: string;
   price: string;
   originalPrice?: string;
@@ -110,6 +112,7 @@ export const products: Product[] = [
     shortDescription: "Formulated out of five Exotic Herbs that are well documented in Ayurvedic texts.",
     category: "Vitality Blend",
     image: chargeX,
+    hoverImage: chargeXHover,
     badge: "Wellness Essential",
     price: "₹950",
     originalPrice: "₹2450",

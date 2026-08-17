@@ -317,9 +317,15 @@ function Home() {
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    className={`w-full h-full object-cover object-center transition-all duration-700 group-hover:scale-105 ${product.hoverImage ? 'group-hover:opacity-0' : ''}`}
                   />
-               
+                  {product.hoverImage && (
+                    <img 
+                      src={product.hoverImage} 
+                      alt={`${product.name} alternate view`} 
+                      className="absolute inset-0 w-full h-full object-contain object-center transition-all duration-700 opacity-0 group-hover:opacity-100 bg-black" 
+                    />
+                  )}
                 </div>
 
                 {/* Card body */}

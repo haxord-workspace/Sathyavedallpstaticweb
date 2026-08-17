@@ -21,7 +21,18 @@ function ProductCard({ product, index }: { product: typeof products[number]; ind
       >
         {/* Image */}
         <div className="relative w-36 shrink-0 overflow-hidden bg-[#f7f4eb] sm:w-44 lg:w-full lg:shrink">
-          <img src={product.image} alt={product.name} className="aspect-square lg:aspect-[4/5] w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105" />
+          <img 
+            src={product.image} 
+            alt={product.name} 
+            className={`aspect-square lg:aspect-[4/5] w-full h-full object-cover object-center transition-all duration-700 group-hover:scale-105 ${product.hoverImage ? 'group-hover:opacity-0' : ''}`} 
+          />
+          {product.hoverImage && (
+            <img 
+              src={product.hoverImage} 
+              alt={`${product.name} alternate view`} 
+              className="absolute inset-0 w-full h-full object-contain object-center transition-all duration-700 opacity-0 group-hover:opacity-100 bg-black" 
+            />
+          )}
         </div>
         {/* Content */}
         <div className="flex flex-1 flex-col justify-between p-4">

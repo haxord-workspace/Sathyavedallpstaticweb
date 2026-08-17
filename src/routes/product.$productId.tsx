@@ -69,8 +69,19 @@ function ProductDetailPage() {
         </Link>
 
         <div className="mt-6 grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:gap-10">
-          <Reveal as="div" animation="slide-right" className="overflow-hidden rounded-[2rem] border border-border/70 bg-[#f7f4eb] shadow-sm">
-            <img src={product.image} alt={product.name} className="aspect-square w-full object-cover object-center" />
+          <Reveal as="div" animation="slide-right" className="group relative overflow-hidden rounded-[2rem] border border-border/70 bg-[#f7f4eb] shadow-sm">
+            <img 
+              src={product.image} 
+              alt={product.name} 
+              className={`aspect-square w-full object-cover object-center transition-all duration-700 group-hover:scale-105 ${product.hoverImage ? 'group-hover:opacity-0' : ''}`} 
+            />
+            {product.hoverImage && (
+              <img 
+                src={product.hoverImage} 
+                alt={`${product.name} alternate view`} 
+                className="absolute inset-0 w-full h-full object-contain object-center transition-all duration-700 opacity-0 group-hover:opacity-100 bg-black" 
+              />
+            )}
           </Reveal>
 
           <Reveal as="div" animation="slide-left" delay={150}>
