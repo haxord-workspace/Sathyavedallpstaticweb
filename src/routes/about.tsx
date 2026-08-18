@@ -7,7 +7,8 @@ import { SeoHead, buildBreadcrumbSchema } from "@/components/site/SeoHead";
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext, type CarouselApi } from "@/components/ui/carousel";
 import aboutImg1 from "@/assets/about/about1.jpeg";
 import aboutImg2 from "@/assets/about/about2.jpeg";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Link2, CheckCircle2 } from "lucide-react";
+import imgKudumbashree from "@/assets/Kudumbashree.png";
 
 const aboutImages = [aboutImg1, aboutImg2];
 const aboutAlts = [
@@ -87,6 +88,57 @@ function AboutPage() {
               <CarouselNext className="right-4 top-1/2 -translate-y-1/2" />
             </Carousel>
           </Reveal>
+        </div>
+      </section>
+
+      {/* Community Partnership Section */}
+      <section className="bg-[#f9f7ef] text-slate-900 py-16 lg:py-24 relative overflow-hidden">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <Reveal as="div" animation="fade-up" className="text-center max-w-3xl mx-auto flex flex-col items-center">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-green-dark mb-4">
+              Community Partnership
+            </span>
+            <h2 className="font-display text-3xl sm:text-4xl text-brand-green-dark leading-tight mb-6">
+              Empowered Roots,<br />Authentic Craftsmanship
+            </h2>
+            <p className="text-foreground/80 text-sm sm:text-base leading-relaxed mb-12">
+              At Sathyaveda Herbals LLP, our commitment to authentic Ayurveda goes hand-in-hand with social impact. We proudly collaborate with Kudumbashree—Kerala's renowned women empowerment and poverty eradication mission—for the manufacturing and processing of our botanical formulas. By bringing rural women artisans and traditional knowledge into our modern production facilities, we ensure that every batch is handled with meticulous care, hygiene, and genuine dedication. This partnership enables us to support sustainable livelihoods locally while delivering pure, uncompromised wellness to your home.
+            </p>
+
+            {/* Logos */}
+            <div className="flex items-center justify-center gap-4 sm:gap-6 mb-6">
+              <div className="w-24 h-24 sm:w-32 sm:h-32 bg-white rounded-2xl flex items-center justify-center p-4 shadow-sm border border-border/60">
+                <img src={imgKudumbashree} alt="Kudumbashree" className="w-full h-full object-contain" />
+              </div>
+              <div className="flex w-10 h-10 sm:w-12 sm:h-12 items-center justify-center rounded-full border border-brand-green/30 bg-brand-green/5 shrink-0">
+                <Link2 className="h-5 w-5 text-brand-green-dark opacity-80" />
+              </div>
+              <div className="w-24 h-24 sm:w-32 sm:h-32 bg-white rounded-2xl flex items-center justify-center p-4 shadow-sm border border-border/60">
+                <img src="/logo.png" alt="Sathyaveda" className="w-full h-full object-contain" />
+              </div>
+            </div>
+            
+            <p className="text-[10px] sm:text-xs text-foreground/60 mb-16">
+              Working hand in hand with Kudumbashree, Kerala's women empowerment mission.
+            </p>
+          </Reveal>
+
+          {/* Feature Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+            {[
+              { title: "Women-Led Production", desc: "Handcrafted and processed by dedicated Kudumbashree network members." },
+              { title: "Community-Centric", desc: "Supporting local families and fostering economic independence across Kerala." },
+              { title: "Uncompromised Standards", desc: "Combining traditional heritage with modern hygienic manufacturing practices." }
+            ].map((card, i) => (
+              <Reveal key={i} as="div" animation="fade-up" delay={i * 100} className="bg-white border border-border/60 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all text-left">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full border border-brand-green/30 mb-4 bg-brand-green/5">
+                  <CheckCircle2 className="h-4 w-4 text-brand-green-dark" />
+                </div>
+                <h3 className="font-semibold text-brand-green-dark mb-2 text-sm">{card.title}</h3>
+                <p className="text-xs sm:text-sm text-foreground/70 leading-relaxed">{card.desc}</p>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 

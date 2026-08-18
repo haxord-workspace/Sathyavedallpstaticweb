@@ -1,12 +1,23 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState, useEffect } from "react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Reveal } from "@/components/site/Reveal";
 import { SeoHead, buildBreadcrumbSchema } from "@/components/site/SeoHead";
 import { ArrowRight } from "lucide-react";
 import { products } from "@/lib/products";
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 
 function ProductCard({ product, index }: { product: typeof products[number]; index: number }) {
+  const [mobileCarouselApi, setMobileCarouselApi] = useState<CarouselApi | null>(null);
+
+  useEffect(() => {
+    if (!mobileCarouselApi) return;
+    const interval = window.setInterval(() => {
+      mobileCarouselApi.scrollNext();
+    }, 4000);
+    return () => window.clearInterval(interval);
+  }, [mobileCarouselApi]);
   return (
     <Reveal
       as="div"
@@ -19,8 +30,8 @@ function ProductCard({ product, index }: { product: typeof products[number]; ind
         params={{ productId: product.id }}
         className="group flex h-full flex-row lg:flex-col overflow-hidden rounded-[1.5rem] border border-border/70 bg-white/80 shadow-[0_20px_60px_-28px_rgba(0,0,0,0.25)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_30px_70px_-24px_rgba(0,0,0,0.3)]"
       >
-        {/* Image */}
-        <div className="relative w-36 shrink-0 overflow-hidden bg-[#f7f4eb] sm:w-44 lg:w-full lg:shrink">
+        {/* Desktop Image (Hover) */}
+        <div className="hidden lg:block relative w-full shrink-0 overflow-hidden bg-[#f7f4eb]">
           <img 
             src={product.image} 
             alt={product.name} 
@@ -31,6 +42,36 @@ function ProductCard({ product, index }: { product: typeof products[number]; ind
               src={product.hoverImage} 
               alt={`${product.name} alternate view`} 
               className="absolute inset-0 w-full h-full object-contain object-center transition-all duration-700 opacity-0 group-hover:opacity-100 bg-black" 
+            />
+          )}
+        </div>
+
+        {/* Mobile Image (Swipe Carousel) */}
+        <div className="lg:hidden relative w-36 shrink-0 overflow-hidden bg-[#f7f4eb] sm:w-44">
+          {product.hoverImage ? (
+            <Carousel setApi={setMobileCarouselApi} className="w-full h-full" opts={{ loop: true }}>
+              <CarouselContent className="ml-0 h-full">
+                <CarouselItem className="pl-0 relative aspect-square h-full">
+                  <img 
+                    src={product.image} 
+                    alt={product.name} 
+                    className="absolute inset-0 w-full h-full object-cover object-center" 
+                  />
+                </CarouselItem>
+                <CarouselItem className="pl-0 relative aspect-square h-full bg-black">
+                  <img 
+                    src={product.hoverImage} 
+                    alt={`${product.name} alternate view`} 
+                    className="absolute inset-0 w-full h-full object-contain object-center" 
+                  />
+                </CarouselItem>
+              </CarouselContent>
+            </Carousel>
+          ) : (
+            <img 
+              src={product.image} 
+              alt={product.name} 
+              className="aspect-square w-full h-full object-cover object-center" 
             />
           )}
         </div>

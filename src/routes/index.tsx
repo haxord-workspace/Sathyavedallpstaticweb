@@ -6,7 +6,7 @@ import { Footer } from "@/components/site/Footer";
 import { Reveal } from "@/components/site/Reveal";
 import { SeoHead, buildBreadcrumbSchema } from "@/components/site/SeoHead";
 import { CertBadgeMarquee } from "@/components/site/CertBadgeMarquee";
-import { Leaf, Shield, Truck, Sparkles, Star, ArrowRight, CheckCircle2, FlaskConical, Droplets, ShieldCheck, Dna, Activity } from "lucide-react";
+import { Leaf, Shield, Truck, Sparkles, Star, ArrowRight, CheckCircle2, FlaskConical, Droplets, ShieldCheck, Dna, Activity, Link2 } from "lucide-react";
 import { products as shopProducts } from "@/lib/products";
 
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext, type CarouselApi } from "@/components/ui/carousel";
@@ -28,6 +28,11 @@ import imgApple from "@/assets/apple.jpg";
 import imgBeetroot from "@/assets/beetroot.jpg";
 import imgCarrot from "@/assets/carrot.jpg";
 import imgAshwagandha from "@/assets/Ashwagandha.jpg";
+import imgKudumbashree from "@/assets/Kudumbashree.png";
+import imgDates from "@/assets/Dates.png";
+import imgDrumstick from "@/assets/Drumstick.png";
+import imgGooseberry from "@/assets/Gooseberry.png";
+import imgSafedMusli from "@/assets/Safed Musli .png";
 
 const heroBanners = [
   bannerAbc,
@@ -68,6 +73,96 @@ export const Route = createFileRoute("/")({
 
 const concerns = ["Hair Fall", "Sleep", "Joint Pain", "Immunity", "Respiratory", "Skin Glow", "Diabetes", "Liver", "Bone Health", "Stress"];
 
+function HomeProductCard({ product }: { product: typeof shopProducts[number] }) {
+  const [mobileCarouselApi, setMobileCarouselApi] = useState<CarouselApi | null>(null);
+
+  useEffect(() => {
+    if (!mobileCarouselApi) return;
+    const interval = window.setInterval(() => {
+      mobileCarouselApi.scrollNext();
+    }, 4000);
+    return () => window.clearInterval(interval);
+  }, [mobileCarouselApi]);
+
+  return (
+    <Link
+      to="/product/$productId"
+      params={{ productId: product.id }}
+      className="group flex-none w-[44vw] sm:w-[46vw] md:w-[340px] lg:w-[calc(25%-12px)] xl:w-[calc(25%-12px)]
+        rounded-2xl border border-border/70 bg-white shadow-md overflow-hidden
+        flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg"
+    >
+      {/* Desktop Image (Hover) */}
+      <div className="hidden lg:block relative w-full aspect-square overflow-hidden bg-brand-cream">
+        <img
+          src={product.image}
+          alt={product.name}
+          className={`w-full h-full object-cover object-center transition-all duration-700 group-hover:scale-105 ${product.hoverImage ? 'group-hover:opacity-0' : ''}`}
+        />
+        {product.hoverImage && (
+          <img
+            src={product.hoverImage}
+            alt={`${product.name} alternate view`}
+            className="absolute inset-0 w-full h-full object-contain object-center transition-all duration-700 opacity-0 group-hover:opacity-100 bg-black"
+          />
+        )}
+      </div>
+
+      {/* Mobile Image (Swipe Carousel) */}
+      <div className="lg:hidden relative w-full aspect-square overflow-hidden bg-brand-cream">
+        {product.hoverImage ? (
+          <Carousel setApi={setMobileCarouselApi} className="w-full h-full" opts={{ loop: true }}>
+            <CarouselContent className="ml-0 h-full">
+              <CarouselItem className="pl-0 relative aspect-square h-full">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="absolute inset-0 w-full h-full object-cover object-center"
+                />
+              </CarouselItem>
+              <CarouselItem className="pl-0 relative aspect-square h-full bg-black">
+                <img
+                  src={product.hoverImage}
+                  alt={`${product.name} alternate view`}
+                  className="absolute inset-0 w-full h-full object-contain object-center"
+                />
+              </CarouselItem>
+            </CarouselContent>
+          </Carousel>
+        ) : (
+          <img
+            src={product.image}
+            alt={product.name}
+            className="aspect-square w-full h-full object-cover object-center"
+          />
+        )}
+      </div>
+
+      {/* Card body */}
+      <div className=" bg-secondary/50 flex flex-1 flex-col gap-2 p-4">
+        <div>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-brand-green">{product.category}</p>
+          <h3 className="mt-0.5 text-base font-semibold text-brand-green-dark leading-snug">{product.name}</h3>
+        </div>
+        <p className="text-xs text-foreground/60 leading-relaxed flex-1">{product.shortDescription}</p>
+        <div className="mt-auto flex items-center justify-between gap-2 pt-2 border-t border-border/50">
+          <div className="flex items-center gap-1.5">
+            {product.originalPrice && (
+              <span className="text-[10px] sm:text-xs text-muted-foreground font-medium line-through decoration-muted-foreground/60">{product.originalPrice}</span>
+            )}
+            <span className="text-sm sm:text-base font-bold text-brand-green-dark">{product.price}</span>
+          </div>
+          <div
+            className="inline-flex items-center gap-1.5 rounded-full  px-3 py-1.5 text-xs font-semibold text-brand-green-dark transition-all duration-300 group-hover:gap-2.5"
+          >
+            View details <ArrowRight className="h-3 w-3" />
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
 function Home() {
   const { ref: heroRef, inView: heroInView } = useInView<HTMLDivElement>({ rootMargin: "-10%" });
   const { ref: togglesRef, inView: togglesInView } = useInView<HTMLDivElement>({ rootMargin: "-10%" });
@@ -78,6 +173,13 @@ function Home() {
   const [currentOfferSlide, setCurrentOfferSlide] = useState(0);
   const [offerBenefitsCarouselApi, setOfferBenefitsCarouselApi] = useState<CarouselApi | null>(null);
   const [offerBenefitsCarouselApiDesktop, setOfferBenefitsCarouselApiDesktop] = useState<CarouselApi | null>(null);
+  const [botanicalCarouselApi, setBotanicalCarouselApi] = useState<CarouselApi | null>(null);
+
+  useEffect(() => {
+    if (!botanicalCarouselApi) return;
+    const interval = window.setInterval(() => botanicalCarouselApi.scrollNext(), 2500);
+    return () => window.clearInterval(interval);
+  }, [botanicalCarouselApi]);
 
   const offerBenefits = [
     // ABC (Index 0)
@@ -117,21 +219,21 @@ function Home() {
 
   useEffect(() => {
     if (!heroCarouselApi) return;
-    
+
     const onSelect = () => {
       setCurrentSlide(heroCarouselApi.selectedScrollSnap());
     };
-    
+
     // Initialize state
     onSelect();
-    
+
     heroCarouselApi.on("select", onSelect);
     heroCarouselApi.on("reInit", onSelect);
-    
+
     const interval = window.setInterval(() => {
       heroCarouselApi.scrollNext();
     }, 5000);
-    
+
     return () => {
       heroCarouselApi.off("select", onSelect);
       heroCarouselApi.off("reInit", onSelect);
@@ -203,7 +305,7 @@ function Home() {
               </div>
             </div>
           )}
-          
+
           <div className="absolute inset-0 h-full w-full z-0">
             <Carousel setApi={setHeroCarouselApi} className="h-full w-full [&>.overflow-hidden]:h-full" opts={{ loop: true }}>
               <CarouselContent className="h-full ml-0">
@@ -228,9 +330,8 @@ function Home() {
                   <button
                     key={index}
                     onClick={() => heroCarouselApi?.scrollTo(index)}
-                    className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${
-                      currentSlide === index ? "bg-white" : "bg-white/50 hover:bg-white/75"
-                    }`}
+                    className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${currentSlide === index ? "bg-white" : "bg-white/50 hover:bg-white/75"
+                      }`}
                     aria-label={`Go to slide ${index + 1}`}
                   />
                 ))}
@@ -261,7 +362,7 @@ function Home() {
                         to="/products"
                         className="inline-flex items-center gap-2 bg-brand-green-dark text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold hover:bg-brand-green transition duration-300"
                       >
-                          Explore Products  <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                        Explore Products  <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                       </Link>
                       <Link
                         to="/about"
@@ -304,52 +405,7 @@ function Home() {
               ${togglesInView ? "animate-fade-in" : ""}`}
           >
             {shopProducts.map((product) => (
-              <Link
-                key={product.id}
-                to="/product/$productId"
-                params={{ productId: product.id }}
-                className="group flex-none w-[44vw] sm:w-[46vw] md:w-[340px] lg:w-[calc(25%-12px)] xl:w-[calc(25%-12px)]
-                  rounded-2xl border border-border/70 bg-white shadow-md overflow-hidden
-                  flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg"
-              >
-                {/* Product image */}
-                <div className="relative w-full aspect-square overflow-hidden bg-brand-cream">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className={`w-full h-full object-cover object-center transition-all duration-700 group-hover:scale-105 ${product.hoverImage ? 'group-hover:opacity-0' : ''}`}
-                  />
-                  {product.hoverImage && (
-                    <img 
-                      src={product.hoverImage} 
-                      alt={`${product.name} alternate view`} 
-                      className="absolute inset-0 w-full h-full object-contain object-center transition-all duration-700 opacity-0 group-hover:opacity-100 bg-black" 
-                    />
-                  )}
-                </div>
-
-                {/* Card body */}
-                <div className=" bg-secondary/50 flex flex-1 flex-col gap-2 p-4">
-                  <div>
-                    <p className="text-[10px] font-semibold uppercase tracking-widest text-brand-green">{product.category}</p>
-                    <h3 className="mt-0.5 text-base font-semibold text-brand-green-dark leading-snug">{product.name}</h3>
-                  </div>
-                  <p className="text-xs text-foreground/60 leading-relaxed flex-1">{product.shortDescription}</p>
-                  <div className="mt-auto flex items-center justify-between gap-2 pt-2 border-t border-border/50">
-                    <div className="flex items-center gap-1.5">
-                      {product.originalPrice && (
-                        <span className="text-[10px] sm:text-xs text-muted-foreground font-medium line-through decoration-muted-foreground/60">{product.originalPrice}</span>
-                      )}
-                      <span className="text-sm sm:text-base font-bold text-brand-green-dark">{product.price}</span>
-                    </div>
-                    <div
-                      className="inline-flex items-center gap-1.5 rounded-full  px-3 py-1.5 text-xs font-semibold text-brand-green-dark transition-all duration-300 group-hover:gap-2.5"
-                    >
-                      View details <ArrowRight className="h-3 w-3" />
-                    </div>
-                  </div>
-                </div>
-              </Link>
+              <HomeProductCard key={product.id} product={product} />
             ))}
           </div>
         </div>
@@ -417,7 +473,7 @@ function Home() {
               {/* Right: Product image — auto-cycles every 5s */}
               <Reveal as="div" animation="slide-left" delay={150} className="relative pl-8 pr-2 flex items-center justify-center py-6 min-w-0">
                 {/* FREE badge */}
-               
+
                 <Carousel opts={{ loop: true }} setApi={setOfferCarouselApiDesktop} className="w-full">
                   <CarouselContent>
                     <CarouselItem>
@@ -481,7 +537,7 @@ function Home() {
 
             {/* Hero grid: text left, image right, FREE badge at top-right */}
             <div className="relative grid grid-cols-[1.15fr_0.85fr] items-start gap-0">
-   
+
 
               {/* Left: Text */}
               <div className="flex flex-col gap-2.5 pr-2 pt-1 pb-4">
@@ -650,6 +706,57 @@ function Home() {
         </div>
       </section> */}
 
+      {/* Community Impact Section */}
+      <section className="text-slate-900 py-16 lg:py-24 relative overflow-hidden">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <Reveal as="div" animation="fade-up" className="text-center max-w-3xl mx-auto flex flex-col items-center">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#d4af37] mb-4">
+              Community Impact
+            </span>
+            <h2 className="font-display text-4xl sm:text-5xl text-brand-green-dark leading-tight mb-6">
+              Rooted in Community.<br />Powered by Women.
+            </h2>
+            <p className="text-foreground/80 text-sm sm:text-base leading-relaxed mb-12">
+              Authentic Ayurveda is built on care, trust, and community. We are proud to partner with Kudumbashree to craft our herbal formulas. Every product you choose supports local women entrepreneurs in Kerala, blending traditional wisdom with modern standards to bring you wellness you can trust.
+            </p>
+
+            {/* Logos */}
+            <div className="flex items-center justify-center gap-4 sm:gap-6 mb-6">
+              <div className="w-24 h-24 sm:w-32 sm:h-32 bg-white rounded-2xl flex items-center justify-center p-4 shadow-md border border-border/50">
+                <img src={imgKudumbashree} alt="Kudumbashree" className="w-full h-full object-contain" />
+              </div>
+              <div className="flex w-10 h-10 sm:w-12 sm:h-12 items-center justify-center rounded-full border border-[#d4af37]/40 bg-[#d4af37]/10 shrink-0">
+                <Link2 className="h-5 w-5 text-[#d4af37] opacity-90" />
+              </div>
+              <div className="w-24 h-24 sm:w-32 sm:h-32 bg-white rounded-2xl flex items-center justify-center p-4 shadow-md border border-border/50">
+                <img src="/logo.png" alt="Sathyaveda" className="w-full h-full object-contain" />
+              </div>
+            </div>
+
+            <p className="text-xs sm:text-sm text-foreground/70 mb-16">
+              In proud partnership with Kudumbashree — Kerala's Women Empowerment Mission.
+            </p>
+          </Reveal>
+
+          {/* Feature Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+            {[
+              { title: "Ethical Sourcing & Processing", desc: "Directly involving Kerala's local Kudumbashree network in production." },
+              { title: "Empowerment in Every Batch", desc: "Every order directly contributes to rural women's economic independence." },
+              { title: "Traceable & Pure", desc: "Made locally in Kerala under strict quality and safety guidelines." }
+            ].map((card, i) => (
+              <Reveal key={i} as="div" animation="fade-up" delay={i * 100} className="bg-white border border-border/50 rounded-2xl p-6 hover:shadow-md transition-all">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full border border-[#d4af37]/40 mb-4 bg-[#d4af37]/10">
+                  <CheckCircle2 className="h-4 w-4 text-[#d4af37]" />
+                </div>
+                <h3 className="font-semibold text-brand-green-dark mb-2 text-base">{card.title}</h3>
+                <p className="text-sm text-foreground/70 leading-relaxed">{card.desc}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Inside Our Formulations */}
       <section className="bg-[#fdfbf7] text-slate-900 pt-16 lg:pt-24 relative overflow-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -679,21 +786,33 @@ function Home() {
             <div className="lg:col-span-8 relative z-10">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
                 {[
-                  { title: "Apple", desc: "A nourishing fruit traditionally valued in everyday wellness.", img:imgBeetroot},
-                  { title: "Beetroot", desc: "A natural root known for its vitality and rich nutrients.", img:imgApple},
-                  { title: "Carrot", desc: "A wholesome root packed with goodness from nature.", img: imgCarrot },
-                  { title: "Botanical Ingredients", desc: "Carefully selected herbs and botanicals to complete the blend.", img: imgAshwagandha },
+                  { title: "Apple", desc: "A nourishing fruit traditionally valued in everyday wellness.", images: [imgApple] },
+                  { title: "Beetroot", desc: "A natural root known for its vitality and rich nutrients.", images: [imgBeetroot] },
+                  { title: "Carrot", desc: "A wholesome root packed with goodness from nature.", images: [imgCarrot] },
+                  { title: "Botanical Ingredients", desc: "Carefully selected herbs and botanicals to complete the blend.", images: [imgAshwagandha, imgDates, imgDrumstick, imgGooseberry, imgSafedMusli] },
                 ].map((item, i) => (
                   <Reveal key={item.title} as="div" animation="fade-up" delay={i * 100} className="bg-[#f5f1e8] rounded-xl overflow-hidden shadow-sm flex flex-col">
                     <div className="aspect-[4/5] sm:aspect-square relative overflow-hidden bg-[#eeddbb]/20">
-                      <img src={item.img} alt={item.title} className="w-full h-full object-cover mix-blend-multiply" />
+                      {item.images.length === 1 ? (
+                        <img src={item.images[0]} alt={item.title} className="w-full h-full object-cover mix-blend-multiply" />
+                      ) : (
+                        <Carousel setApi={setBotanicalCarouselApi} opts={{ loop: true }} className="w-full h-full mix-blend-multiply [&>div]:h-full">
+                          <CarouselContent className="ml-0 h-full">
+                            {item.images.map((src, idx) => (
+                              <CarouselItem key={idx} className="pl-0 h-full relative flex items-center justify-center p-4">
+                                <img src={src} alt={`${item.title} ${idx + 1}`} className={`w-full h-full object-contain mix-blend-multiply ${src === imgDrumstick ? 'contrast-[1.15] brightness-[1.05]' : ''}`} />
+                              </CarouselItem>
+                            ))}
+                          </CarouselContent>
+                        </Carousel>
+                      )}
                     </div>
                     <div className="p-4 sm:p-5 text-center flex-1 flex flex-col items-center justify-start">
                       <h3 className="font-display text-lg sm:text-xl text-brand-green-dark">{item.title}</h3>
                       <div className="flex items-center justify-center w-full my-2 opacity-40">
-                         <div className="h-px bg-brand-green-dark w-4"></div>
-                         <Leaf className="h-3 w-3 text-brand-green-dark mx-1" />
-                         <div className="h-px bg-brand-green-dark w-4"></div>
+                        <div className="h-px bg-brand-green-dark w-4"></div>
+                        <Leaf className="h-3 w-3 text-brand-green-dark mx-1" />
+                        <div className="h-px bg-brand-green-dark w-4"></div>
                       </div>
                       <p className="text-xs sm:text-sm text-foreground/70 leading-relaxed">{item.desc}</p>
                     </div>

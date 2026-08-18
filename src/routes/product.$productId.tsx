@@ -1,10 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState, useEffect } from "react";
 import { ArrowLeft, ArrowRight, CheckCircle2, ShoppingBag } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Reveal } from "@/components/site/Reveal";
 import { SeoHead, buildProductSchema, buildBreadcrumbSchema } from "@/components/site/SeoHead";
 import { getProductById } from "@/lib/products";
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 
 export const Route = createFileRoute("/product/$productId")({
   head: ({ params }) => {
@@ -22,6 +24,16 @@ export const Route = createFileRoute("/product/$productId")({
 function ProductDetailPage() {
   const { productId } = Route.useParams();
   const product = getProductById(productId);
+
+  const [mobileCarouselApi, setMobileCarouselApi] = useState<CarouselApi | null>(null);
+
+  useEffect(() => {
+    if (!mobileCarouselApi) return;
+    const interval = window.setInterval(() => {
+      mobileCarouselApi.scrollNext();
+    }, 4000);
+    return () => window.clearInterval(interval);
+  }, [mobileCarouselApi]);
 
   if (!product) {
     return (
@@ -69,7 +81,8 @@ function ProductDetailPage() {
         </Link>
 
         <div className="mt-6 grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:gap-10">
-          <Reveal as="div" animation="slide-right" className="group relative overflow-hidden rounded-[2rem] border border-border/70 bg-[#f7f4eb] shadow-sm">
+          {/* Desktop Image (Hover) */}
+          <Reveal as="div" animation="slide-right" className="hidden lg:block group relative overflow-hidden rounded-[2rem] border border-border/70 bg-[#f7f4eb] shadow-sm">
             <img 
               src={product.image} 
               alt={product.name} 
@@ -80,6 +93,36 @@ function ProductDetailPage() {
                 src={product.hoverImage} 
                 alt={`${product.name} alternate view`} 
                 className="absolute inset-0 w-full h-full object-contain object-center transition-all duration-700 opacity-0 group-hover:opacity-100 bg-black" 
+              />
+            )}
+          </Reveal>
+
+          {/* Mobile Image (Swipe Carousel) */}
+          <Reveal as="div" animation="slide-right" className="lg:hidden overflow-hidden rounded-[2rem] border border-border/70 bg-[#f7f4eb] shadow-sm">
+            {product.hoverImage ? (
+              <Carousel setApi={setMobileCarouselApi} className="w-full" opts={{ loop: true }}>
+                <CarouselContent className="ml-0">
+                  <CarouselItem className="pl-0 relative aspect-square">
+                    <img 
+                      src={product.image} 
+                      alt={product.name} 
+                      className="absolute inset-0 w-full h-full object-cover object-center" 
+                    />
+                  </CarouselItem>
+                  <CarouselItem className="pl-0 relative aspect-square bg-black">
+                    <img 
+                      src={product.hoverImage} 
+                      alt={`${product.name} alternate view`} 
+                      className="absolute inset-0 w-full h-full object-contain object-center" 
+                    />
+                  </CarouselItem>
+                </CarouselContent>
+              </Carousel>
+            ) : (
+              <img 
+                src={product.image} 
+                alt={product.name} 
+                className="aspect-square w-full object-cover object-center" 
               />
             )}
           </Reveal>
