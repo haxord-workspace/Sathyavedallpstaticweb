@@ -174,11 +174,26 @@ function Home() {
   const [offerBenefitsCarouselApi, setOfferBenefitsCarouselApi] = useState<CarouselApi | null>(null);
   const [offerBenefitsCarouselApiDesktop, setOfferBenefitsCarouselApiDesktop] = useState<CarouselApi | null>(null);
   const [botanicalCarouselApi, setBotanicalCarouselApi] = useState<CarouselApi | null>(null);
+  const [botanicalSlide, setBotanicalSlide] = useState(0);
 
   useEffect(() => {
     if (!botanicalCarouselApi) return;
+
+    const onSelect = () => {
+      setBotanicalSlide(botanicalCarouselApi.selectedScrollSnap());
+    };
+
+    onSelect();
+    botanicalCarouselApi.on("select", onSelect);
+    botanicalCarouselApi.on("reInit", onSelect);
+
     const interval = window.setInterval(() => botanicalCarouselApi.scrollNext(), 2500);
-    return () => window.clearInterval(interval);
+    
+    return () => {
+      botanicalCarouselApi.off("select", onSelect);
+      botanicalCarouselApi.off("reInit", onSelect);
+      window.clearInterval(interval);
+    };
   }, [botanicalCarouselApi]);
 
   const offerBenefits = [
@@ -717,7 +732,7 @@ function Home() {
               Rooted in Community.<br />Powered by Women.
             </h2>
             <p className="text-foreground/80 text-sm sm:text-base leading-relaxed mb-12">
-              Authentic Ayurveda is built on care, trust, and community. We are proud to partner with Kudumbashree to craft our herbal formulas. Every product you choose supports local women entrepreneurs in Kerala, blending traditional wisdom with modern standards to bring you wellness you can trust.
+              Authentic Ayurveda is built on care, trust, and community. We are proud to partner with<b> Kudumbashree </b>to craft our herbal formulas. Every product you choose supports local women entrepreneurs in Kerala, blending traditional wisdom with modern standards to bring you wellness you can trust.
             </p>
 
             {/* Logos */}
@@ -789,7 +804,13 @@ function Home() {
                   { title: "Apple", desc: "A nourishing fruit traditionally valued in everyday wellness.", images: [imgApple] },
                   { title: "Beetroot", desc: "A natural root known for its vitality and rich nutrients.", images: [imgBeetroot] },
                   { title: "Carrot", desc: "A wholesome root packed with goodness from nature.", images: [imgCarrot] },
-                  { title: "Botanical Ingredients", desc: "Carefully selected herbs and botanicals to complete the blend.", images: [imgAshwagandha, imgDates, imgDrumstick, imgGooseberry, imgSafedMusli] },
+                  { title: "Five Active Botanicals, Zero Fillers", desc: [
+                    <span key="ashwagandha"><b>Ashwagandha:</b> Helps the body manage stress and fights daily tiredness.</span>,
+                    <span key="dates"><b>Dates Seed:</b> Rich in natural antioxidants for long-lasting recovery.</span>,
+                    <span key="drumstick"><b>Drumstick Extract:</b> Packed with natural vitamins to supercharge your daily energy.</span>,
+                    <span key="gooseberry"><b>Gooseberry:</b> High in Vitamin C to protect cells and boost immunity.</span>,
+                    <span key="safedmusli"><b>Safed Musli:</b> Enhances physical strength and muscle stamina.</span>
+                  ], images: [imgAshwagandha, imgDates, imgDrumstick, imgGooseberry, imgSafedMusli] },
                 ].map((item, i) => (
                   <Reveal key={item.title} as="div" animation="fade-up" delay={i * 100} className="bg-[#f5f1e8] rounded-xl overflow-hidden shadow-sm flex flex-col">
                     <div className="aspect-[4/5] sm:aspect-square relative overflow-hidden bg-[#eeddbb]/20">
@@ -814,7 +835,9 @@ function Home() {
                         <Leaf className="h-3 w-3 text-brand-green-dark mx-1" />
                         <div className="h-px bg-brand-green-dark w-4"></div>
                       </div>
-                      <p className="text-xs sm:text-sm text-foreground/70 leading-relaxed">{item.desc}</p>
+                      <p className="text-xs sm:text-sm text-foreground/70 leading-relaxed">
+                        {Array.isArray(item.desc) ? item.desc[botanicalSlide] : item.desc}
+                      </p>
                     </div>
                   </Reveal>
                 ))}

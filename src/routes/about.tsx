@@ -47,7 +47,7 @@ function AboutPage() {
       <SeoHead
         path="/about"
         title="About — Sathyaveda Herbals LLP"
-        description="Sathyaveda Herbals LLP — traditional Kerala Ayurveda from Pokkotumbadam. Discover our 25+ year heritage, natural ingredients and commitment to authentic formulations."
+        description="Sathyaveda Herbals LLP — traditional Kerala Ayurveda from Pokkotumbadam. Discover our authentic formulations, natural ingredients, and commitment to modern wellness."
         jsonLd={aboutJsonLd}
       />
       <Header />
@@ -102,7 +102,7 @@ function AboutPage() {
               Empowered Roots,<br />Authentic Craftsmanship
             </h2>
             <p className="text-foreground/80 text-sm sm:text-base leading-relaxed mb-12">
-              At Sathyaveda Herbals LLP, our commitment to authentic Ayurveda goes hand-in-hand with social impact. We proudly collaborate with Kudumbashree—Kerala's renowned women empowerment and poverty eradication mission—for the manufacturing and processing of our botanical formulas. By bringing rural women artisans and traditional knowledge into our modern production facilities, we ensure that every batch is handled with meticulous care, hygiene, and genuine dedication. This partnership enables us to support sustainable livelihoods locally while delivering pure, uncompromised wellness to your home.
+              At Sathyaveda Herbals LLP, our commitment to authentic Ayurveda goes hand-in-hand with social impact. We proudly collaborate with <b>Kudumbashree</b>—Kerala's renowned women empowerment and poverty eradication mission—for the manufacturing and processing of our botanical formulas. By bringing rural women artisans and traditional knowledge into our modern production facilities, we ensure that every batch is handled with meticulous care, hygiene, and genuine dedication. This partnership enables us to support sustainable livelihoods locally while delivering pure, uncompromised wellness to your home.
             </p>
 
             {/* Logos */}
@@ -167,8 +167,8 @@ function AboutPage() {
 
           <div className="grid gap-4 sm:grid-cols-2">
             {[
-              { stat: "25+", label: "Years of Ayurvedic lineage" },
-              { stat: "100%", label: "Natural herb-forward formulas" },
+              { stat: "Lab-Verified", label: "Your health is our priority. We lab-test all our herbal ingredients so you can enjoy authentic Ayurvedic care with complete peace of mind." },
+              { stat: "Honest Herbal Care", label: "100% transparent sourcing. Zero shortcuts. Discover a fresh, clean approach to natural health and daily wellness." },
               { stat: "Trusted", label: "By customers seeking effective herbal solutions" },
               { stat: "Locally made", label: "In Kerala with sustainable care." },
             ].map((item, index) => (
