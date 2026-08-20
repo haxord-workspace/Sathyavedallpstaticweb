@@ -44,8 +44,7 @@ export const products: Product[] = [
     originalPrice: "₹2450",
     rating: 4.8,
     variants: [
-      { size: "100g pouch", price: "₹950" },
-      { size: "250g pouch", price: "₹1,199" },
+    { size: "60 Veg capsules", price: "₹950" }
     ],
     benefits: [
       "Supports weight management and heart health",

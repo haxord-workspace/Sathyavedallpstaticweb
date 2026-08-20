@@ -557,7 +557,7 @@ function Home() {
               {/* Left: Text */}
               <div className="flex flex-col gap-2.5 pr-2 pt-1 pb-4">
                 <span className="inline-flex self-start items-center text-brand-green bg-brand-green/10 font-semibold tracking-widest text-[9px] uppercase px-2.5 py-1 rounded-sm">Special Offer</span>
-                <h2 className="font-display text-[1.7rem] leading-tight text-brand-green-dark">40 Liter Free<br />Tourister Bag</h2>
+                <h2 className="font-display text-[1.7rem] leading-tight text-brand-green-dark">40 Litre Free<br />Tourister Bag</h2>
                 <div className="flex items-center gap-2">
                   <div className="h-px w-6 bg-brand-green-dark/25" />
                   <Leaf className="h-3 w-3 text-brand-green-dark opacity-50" />
@@ -652,6 +652,30 @@ function Home() {
                 <div className="flex flex-col items-center justify-center gap-1 px-3 py-4 bg-rose-100/60 shrink-0">
                   <img src={imgCarrot} alt="Carrot" className="h-10 w-10 object-contain rounded-full" />
                   <img src={imgBeetroot} alt="Beetroot" className="h-10 w-10 object-contain rounded-full" />
+                </div>
+              </div>
+            </Reveal>
+
+            {/* Veda ChargeX banner */}
+            <Reveal as="div" animation="fade-up" delay={90} className="mt-4 rounded-2xl overflow-hidden bg-gradient-to-r from-amber-50 via-orange-50 to-amber-100 border border-amber-200/50">
+              <div className="flex items-stretch">
+                {/* Left ingredients */}
+                <div className="flex flex-col items-center justify-center gap-1 px-3 py-4 bg-amber-100/60 shrink-0">
+                  <img src={imgDrumstick} alt="Drumstick" className="h-10 w-10 object-contain rounded-full bg-white shadow-sm" />
+                  <img src={imgSafedMusli} alt="Safed Musli" className="h-10 w-10 object-contain rounded-full bg-white shadow-sm" />
+                </div>
+
+                {/* Center text */}
+                <div className="flex-1 flex flex-col items-center justify-center text-center px-3 py-4">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#b47a25]">Boost Your</p>
+                  <p className="text-[1.35rem] font-display font-bold text-[#966315] leading-tight">Natural Vitality</p>
+                  <p className="text-[10px] text-amber-700/90 mt-1 leading-snug">With the goodness of<br /><strong>Drumstick, Musli &amp; Ashwagandha</strong></p>
+                </div>
+
+                {/* Right ingredients */}
+                <div className="flex flex-col items-center justify-center gap-1 px-3 py-4 bg-amber-100/60 shrink-0">
+                  <img src={imgAshwagandha} alt="Ashwagandha" className="h-10 w-10 object-contain rounded-full bg-white shadow-sm" />
+                  <img src={imgDates} alt="Dates" className="h-10 w-10 object-contain rounded-full bg-white shadow-sm" />
                 </div>
               </div>
             </Reveal>
