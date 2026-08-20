@@ -47,68 +47,51 @@ export const Route = createFileRoute("/contact")({
 
         <div className="grid gap-6 md:grid-cols-2 md:gap-10">
 
-          {/* Left column: Info cards & Map */}
-          <div className="flex flex-col gap-6">
-            {/* Contact info cards */}
-            <Reveal as="div" animation="slide-right" className="flex flex-col gap-3">
-              <div className="flex items-start gap-4 rounded-2xl border border-border bg-card p-4 shadow-sm">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-green/10">
-                  <MapPin className="h-4 w-4 text-brand-green-dark" />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-brand-green">Address</p>
-                  <p className="mt-1 text-sm text-foreground/80">Pokkotumbadam, Kerala, India</p>
-                </div>
+          {/* Contact info cards */}
+          <Reveal as="div" animation="slide-right" className="flex flex-col gap-3">
+            <div className="flex items-start gap-4 rounded-2xl border border-border bg-card p-4 shadow-sm">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-green/10">
+                <MapPin className="h-4 w-4 text-brand-green-dark" />
               </div>
-
-              <div className="flex items-start gap-4 rounded-2xl border border-border bg-card p-4 shadow-sm">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-green/10">
-                  <Phone className="h-4 w-4 text-brand-green-dark" />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-brand-green">Office</p>
-                  <p className="mt-1 text-sm text-foreground/80">04931 237003</p>
-                </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-brand-green">Address</p>
+                <p className="mt-1 text-sm text-foreground/80">Pokkotumbadam, Kerala, India</p>
               </div>
+            </div>
 
-              <div className="flex items-start gap-4 rounded-2xl border border-border bg-card p-4 shadow-sm">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-green/10">
-                  <MessageCircle className="h-4 w-4 text-brand-green-dark" />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-brand-green">WhatsApp</p>
-                  <p className="mt-1 text-sm text-foreground/80">7481 031 003</p>
-                  <p className="text-sm text-foreground/80">9061 936 003</p>
-                </div>
+            <div className="flex items-start gap-4 rounded-2xl border border-border bg-card p-4 shadow-sm">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-green/10">
+                <Phone className="h-4 w-4 text-brand-green-dark" />
               </div>
-
-              <div className="flex items-start gap-4 rounded-2xl border border-border bg-card p-4 shadow-sm">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-green/10">
-                  <Mail className="h-4 w-4 text-brand-green-dark" />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-brand-green">Email</p>
-                  <p className="mt-1 text-sm text-foreground/80 break-all">sathyavedaherbals@gmail.com</p>
-                </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-brand-green">Office</p>
+                <p className="mt-1 text-sm text-foreground/80">04931 237003</p>
               </div>
-            </Reveal>
+            </div>
 
-            {/* Map */}
-            <Reveal as="div" animation="slide-right" delay={150} className="w-full h-48 sm:h-56 rounded-2xl overflow-hidden border border-border shadow-sm">
-              <iframe
-                title="Sathyaveda Herbals LLP Location"
-                src="https://maps.google.com/maps?q=11.2299547,76.282323&hl=en&z=17&output=embed"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
-            </Reveal>
-          </div>
+            <div className="flex items-start gap-4 rounded-2xl border border-border bg-card p-4 shadow-sm">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-green/10">
+                <MessageCircle className="h-4 w-4 text-brand-green-dark" />
+              </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-brand-green">WhatsApp</p>
+                <p className="mt-1 text-sm text-foreground/80">7481 031 003</p>
+                <p className="text-sm text-foreground/80">9061 936 003</p>
+              </div>
+            </div>
 
-          {/* Right column: Contact form */}
+            <div className="flex items-start gap-4 rounded-2xl border border-border bg-card p-4 shadow-sm">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-green/10">
+                <Mail className="h-4 w-4 text-brand-green-dark" />
+              </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-brand-green">Email</p>
+                <p className="mt-1 text-sm text-foreground/80 break-all">sathyavedaherbals@gmail.com</p>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Contact form */}
           <Reveal as="form" onSubmit={handleSubmit} animation="slide-left" delay={200} className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6 h-fit">
             <div>
               <p className="text-xs font-semibold uppercase tracking-widest text-brand-green mb-3">Send a message</p>
@@ -139,6 +122,20 @@ export const Route = createFileRoute("/contact")({
             >
               Send Message
             </button>
+          </Reveal>
+
+          {/* Map */}
+          <Reveal as="div" animation="fade-up" delay={150} className="w-full h-56 sm:h-72 lg:h-[350px] rounded-2xl overflow-hidden border border-border shadow-sm md:col-span-2">
+            <iframe
+              title="Sathyaveda Herbals LLP Location"
+              src="https://maps.google.com/maps?q=11.2299547,76.282323&hl=en&z=17&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
           </Reveal>
 
         </div>
