@@ -14,6 +14,7 @@ export interface Product {
   name: string;
   brand: string;
   description: string;
+  description1?: string;
   shortDescription: string;
   category: string;
   image: string;
@@ -36,6 +37,7 @@ export const products: Product[] = [
     name: "ABC Capsules",
     brand: "Sathyaveda",
     description: "Sathyaveda ABC Powder capsule is formulated out of 3 exotic pure fruits that are well documented and tested for heavy metals in compliance with natural standards.",
+    description1: "Nurtured by Mountain Mists: Ooty's Vibrant Carrots and Ruby Beetroots",
     shortDescription: "Formulated out of 3 exotic pure fruits for daily harmony.",
     category: "Wellness",
     image: abcPowder,
@@ -44,7 +46,7 @@ export const products: Product[] = [
     originalPrice: "₹2450",
     rating: 4.8,
     variants: [
-    { size: "60 Veg capsules", price: "₹950" }
+      { size: "60 Veg capsules", price: "₹950" }
     ],
     benefits: [
       "Supports weight management and heart health",
@@ -53,7 +55,7 @@ export const products: Product[] = [
       "Pure, natural, safe and effective with no additives",
     ],
     ingredients: ["Apple", "Beetroot", "Carrot"],
-    howToUse: "2 Capsule Daily for 120 days. Take ABC Capsule with 1 glass Water or Milk after food.",
+    howToUse: "Minimum 2 Capsule Daily for 120 days. Take ABC Capsule with 1 glass Water or Milk after food.",
     longDescriptionHTML: `
       <div class="space-y-6 text-sm text-foreground/80 leading-relaxed">
         <p><strong>Sathyaveda ABC Powder capsule</strong> is formulated out of 3 exotic pure fruits that are well documented and tested for heavy metals in compliance with Natural standards. The product is made of natural fruits from selected Apple, Beetroot and Carrot.</p>
@@ -103,7 +105,7 @@ export const products: Product[] = [
       </div>
     `,
   },
-    {
+  {
     id: "veda-chargex",
     name: "Veda ChargeX",
     brand: "Sathyaveda",
@@ -127,7 +129,7 @@ export const products: Product[] = [
       "Reduces the ageing process and acts as an allround immunity enhancer",
     ],
     ingredients: ["Drumstick Extract : 300 mg", "Safed Musli : 50 mg", "Ashwagandha : 50 mg", "Gooseberry : 50 mg", "Dates Seed : 50 mg"],
-    howToUse: "2 Caps Daily for 120 days. Take Veda ChargeX Capsule with 1 glass Water or Milk after food.",
+    howToUse: "Minimum 2 Capsule Daily for 120 days. Take Veda ChargeX Capsule with 1 glass Water or Milk after food.",
     longDescriptionHTML: `
       <div class="space-y-6 text-sm text-foreground/80 leading-relaxed">
         <p><strong>VEDA CHARGEX</strong> is formulated out of five Exotic Herbs that are well documented in Ayurvedic texts.</p>
@@ -205,6 +207,7 @@ export const products: Product[] = [
     name: "Almonds 250g",
     brand: "Sathyaveda",
     description: "Carefully selected premium almonds with a rich, wholesome character prized for daily nourishment.",
+    description1: "CALIFORNIA ALMONDS A GRADE EXPORT QUALITY",
     shortDescription: "Delicately sourced premium almonds.",
     category: "Nutrient Rich",
     image: badam,
@@ -229,6 +232,7 @@ export const products: Product[] = [
     name: "Cashew 1kg",
     brand: "Sathyaveda",
     description: "Premium cashews sourced for their smooth, rich texture and high nutritional value.",
+    description1:"RICH CASHEWS 180 GRADE EXPORT QUALITY",
     shortDescription: "180 grade whole cashews, rich in protein and essential minerals.",
     category: "Premium Nuts",
     image: cashew,

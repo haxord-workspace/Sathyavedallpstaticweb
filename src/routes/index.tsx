@@ -340,18 +340,19 @@ function Home() {
                   );
                 })}
               </CarouselContent>
-              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
-                {heroBanners.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => heroCarouselApi?.scrollTo(index)}
-                    className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${currentSlide === index ? "bg-white" : "bg-white/50 hover:bg-white/75"
-                      }`}
-                    aria-label={`Go to slide ${index + 1}`}
-                  />
-                ))}
-              </div>
             </Carousel>
+          </div>
+          {/* Dot indicators – placed outside the z-0 carousel container so they're clickable above the gradient overlays */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30">
+            {heroBanners.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => heroCarouselApi?.scrollTo(index)}
+                className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${currentSlide === index ? "bg-white" : "bg-white/50 hover:bg-white/75"
+                  }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
           </div>
           <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/60 via-black/30 to-transparent pointer-events-none" />
           <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
@@ -437,7 +438,7 @@ function Home() {
               {/* Left: Text */}
               <Reveal as="div" animation="slide-right" className="flex flex-col gap-4 py-12 pr-10 min-w-0">
                 <span className="inline-flex self-start items-center text-brand-green bg-brand-green/10 font-semibold tracking-widest text-[10px] uppercase px-3 py-1 rounded-sm">Special Offer</span>
-                <h2 className="font-display text-3xl xl:text-5xl text-brand-green-dark leading-tight">40 Liter Free<br />Tourister Bag</h2>
+                <h2 className="font-display text-3xl xl:text-5xl text-brand-green-dark leading-tight">40 Litre Free<br />Tourister Bag</h2>
                 <div className="flex items-center gap-3">
                   <div className="h-px w-10 bg-brand-green-dark/20" />
                   <Leaf className="h-4 w-4 text-brand-green-dark opacity-60" />

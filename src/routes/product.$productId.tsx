@@ -154,6 +154,9 @@ function ProductDetailPage() {
               </div>
 
               <p className="text-sm text-muted-foreground leading-relaxed">{product.description}</p>
+              {product.description1 && (
+                <p className="mt-2 text-sm font-semibold text-muted-foreground leading-relaxed">{product.description1}</p>
+              )}
             </div>
 
             {/* Desktop Layout (Visible only on laptop/desktop) */}
@@ -163,6 +166,9 @@ function ProductDetailPage() {
               </div>
               <h1 className="mt-3 font-display text-5xl text-brand-green-dark">{product.name}</h1>
               <p className="mt-2 text-lg text-muted-foreground">{product.description}</p>
+              {product.description1 && (
+                <p className="mt-2 text-lg font-semibold text-muted-foreground">{product.description1}</p>
+              )}
 
               <div className="mt-6">
                 <div className="flex items-center gap-2.5 mb-5">

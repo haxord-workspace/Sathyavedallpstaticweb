@@ -7,13 +7,19 @@ import { SeoHead, buildBreadcrumbSchema } from "@/components/site/SeoHead";
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext, type CarouselApi } from "@/components/ui/carousel";
 import aboutImg1 from "@/assets/about/about1.jpeg";
 import aboutImg2 from "@/assets/about/about2.jpeg";
+import aboutImg3 from "@/assets/about/about3.jpeg";
+import aboutImg4 from "@/assets/about/about4.jpeg";
+import aboutImg5 from "@/assets/about/about5.png";
 import { ArrowRight, Link2, CheckCircle2 } from "lucide-react";
 import imgKudumbashree from "@/assets/Kudumbashree.png";
 
-const aboutImages = [aboutImg1, aboutImg2];
+const aboutImages = [aboutImg1, aboutImg2, aboutImg3, aboutImg4, aboutImg5];
 const aboutAlts = [
   "Sathyaveda Herbals Ayurvedic manufacturing",
   "Sathyaveda Herbals natural botanical ingredients",
+  "Sathyaveda Herbals Kerala herbal production",
+  "Sathyaveda Herbals traditional wellness crafting",
+  "Sathyaveda Herbals authentic Ayurvedic products",
 ];
 
 function AboutPage() {
