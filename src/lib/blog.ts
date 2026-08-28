@@ -1,6 +1,5 @@
 import bannerAbc from "@/assets/SATHYAVEDA HERBALS BANNERS LAPTOP/abc.png";
 import bannerVeda from "@/assets/SATHYAVEDA HERBALS BANNERS LAPTOP/veda.png";
-import doshaImg from "@/assets/Dosha.png";
 
 export type Post = {
   title: string;
@@ -63,22 +62,6 @@ What to expect: many people notice steadier, more even energy within a few weeks
 Essentials to pack: single-serve sachets of ABC Powder for digestion and immunity, a small tub of Veda ChargeX for steady energy on long travel days, a pouch of Badam or Cashew for a nourishing snack, and a rehydrating electrolyte sachet for flights or road trips. Our complimentary launch bag is sized to hold these basics alongside a water bottle and small first-aid items.
 
 Tips for staying balanced on the road: keep meal times as regular as possible, sip warm water instead of cold or iced drinks, and take short grounding walks at layovers or rest stops to support digestion and circulation. Even a single teaspoon of ABC Powder in warm water each morning can help anchor the body's rhythm when everything else around you is changing.
-`,
-  },
-  {
-    title: "Dosha Basics: Find Your Routine",
-    excerpt: "A concise Ayurveda primer on Vata, Pitta and Kapha doshas, with simple daily adjustments to support balance.",
-    date: "2026-07-26",
-    tag: "Ayurveda",
-    slug: "dosha-basics",
-    image: doshaImg,
-    content: `Doshas are the core energetic principles in Ayurveda, and understanding your own balance is the foundation of any personalised Ayurvedic routine. This primer explains the basics of Vata, Pitta and Kapha and small daily changes you can make to support wellbeing.
-
-Vata, Pitta and Kapha describe movement, transformation and structure respectively. Vata governs circulation and the nervous system, Pitta governs digestion and metabolism, and Kapha governs structure and immunity. Small, consistent routines — regular meal times, suitable sleep windows and tailored herbs like Ashwagandha or Amla — help keep all three in balance.
-
-Practical steps: for Vata (cool, dry, quick-moving) favour grounding warm foods, oil massage and a steady daily schedule; for Pitta (hot, intense, sharp) prioritise cooling foods, moderate spicy meals and avoid overheating; for Kapha (heavy, slow, steady) incorporate light, warming spices and energising morning movement.
-
-Bringing it together: many Ayurvedic wellness blends, including Sathyaveda's ABC Powder and Veda ChargeX, are formulated to gently support all three doshas — but pairing them with dosha-aware daily habits is what makes an Ayurvedic routine truly effective.
 `,
   },
 ];

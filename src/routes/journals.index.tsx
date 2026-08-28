@@ -164,11 +164,13 @@ function WellnessPage() {
 
         {/* Articles Grid */}
         {filteredPosts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="space-y-6 lg:space-y-8">
             {featuredPost && <FeaturedCard p={featuredPost} />}
-            {remainingPosts.map((p, index) => (
-              <StandardCard key={p.slug} p={p} index={index} />
-            ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-3xl mx-auto">
+              {remainingPosts.map((p, index) => (
+                <StandardCard key={p.slug} p={p} index={index} />
+              ))}
+            </div>
           </div>
         ) : (
           <div className="text-center py-20 text-muted-foreground">
