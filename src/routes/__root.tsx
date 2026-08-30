@@ -91,7 +91,7 @@ function RootComponent() {
 
       {/* Floating WhatsApp Button */}
       <a
-        href="https://wa.me/917481031003?text=Hi%20Sathyavedaherbal%2C%20let%20me%20know%20more"
+        href="https://wa.me/917481031003?text=Hi%20Sathyaveda%20Herbals%2C%20I%E2%80%99m%20interested%20in%20your%20herbal%20products.%20Could%20you%20please%20share%20more%20details%20and%20help%20me%20choose%20the%20right%20products%20for%20my%20needs"
         target="_blank"
         rel="noreferrer"
         aria-label="Chat on WhatsApp"
