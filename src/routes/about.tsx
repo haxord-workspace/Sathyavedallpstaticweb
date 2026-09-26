@@ -163,6 +163,69 @@ function AboutPage() {
         </div>
       </section>
 
+      {/* Certifications Section */}
+      <section className="bg-background py-16 lg:py-24 border-t border-border">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <Reveal as="div" animation="fade-up" className="text-center max-w-3xl mx-auto flex flex-col items-center mb-12">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-green-dark mb-4">
+              Our Accreditations
+            </span>
+            <h2 className="font-display text-3xl sm:text-4xl text-brand-green-dark leading-tight mb-4">
+              Certified for Quality & Safety
+            </h2>
+            <p className="text-foreground/80 text-sm sm:text-base leading-relaxed">
+              We adhere to strict manufacturing standards and regulatory guidelines to ensure our products are pure, safe, and effective.
+            </p>
+          </Reveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                title: "FSSAI Central License",
+                desc: "Certified by the Food Safety and Standards Authority of India for manufacturing health supplements and nutraceuticals.",
+                badge: "License: 11326999000432",
+                pdf: "/certificates/fssai_license.pdf"
+              },
+              {
+                title: "MSME Udyam Registration",
+                desc: "Registered under the Ministry of Micro, Small and Medium Enterprises as a manufacturing unit.",
+                badge: "UDYAM-KL-09-0096665",
+                pdf: "/certificates/udyam_registration.pdf"
+              },
+              {
+                title: "KSIDC Approval",
+                desc: "In-principle approval from the Government of Kerala, Department of Industries & Commerce.",
+                badge: "KLMSME-56/2026",
+                pdf: "/certificates/ksidc_approval.pdf"
+              },
+              {
+                title: "Pollution Control Board",
+                desc: "Consent to Operate from the Kerala State Pollution Control Board under the Green Category.",
+                badge: "Valid till 2031",
+                pdf: "/certificates/pcb_consent.pdf"
+              },
+              {
+                title: "Ministry of Corporate Affairs",
+                desc: "Incorporated as a Limited Liability Partnership under the Government of India.",
+                badge: "ACU-1078",
+                pdf: "/certificates/mca_incorporation.pdf"
+              }
+            ].map((cert, i) => (
+              <Reveal key={i} as="a" href={cert.pdf} target="_blank" rel="noopener noreferrer" animation="fade-up" delay={i * 100} className="bg-[#f9f7ef] border border-border/60 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-brand-green/40 transition-all flex flex-col items-start text-left cursor-pointer group">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full border border-brand-green/30 mb-4 bg-white shadow-sm group-hover:scale-110 transition-transform">
+                  <CheckCircle2 className="h-5 w-5 text-brand-green-dark" />
+                </div>
+                <h3 className="font-semibold text-brand-green-dark mb-2 text-base group-hover:text-brand-green">{cert.title}</h3>
+                <p className="text-xs sm:text-sm text-foreground/70 leading-relaxed mb-4 flex-grow">{cert.desc}</p>
+                <span className="inline-flex items-center rounded-full border border-brand-green/20 bg-brand-green/10 px-2.5 py-0.5 text-xs font-semibold text-brand-green-dark">
+                  {cert.badge}
+                </span>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section id="why" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
         <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] items-start">
           <Reveal as="div" animation="slide-right" className="rounded-3xl border border-border bg-card p-6 shadow-sm lg:p-8">
