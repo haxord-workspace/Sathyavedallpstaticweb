@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, CheckCircle2, ShoppingBag } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Reveal } from "@/components/site/Reveal";
+import { ProductReviews } from "@/components/site/ProductReviews";
 import { SeoHead, buildProductSchema, buildBreadcrumbSchema } from "@/components/site/SeoHead";
 import { getProductById } from "@/lib/products";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
@@ -238,6 +239,8 @@ function ProductDetailPage() {
             <div dangerouslySetInnerHTML={{ __html: product.longDescriptionHTML }} />
           </Reveal>
         )}
+
+        <ProductReviews productId={product.id} productName={product.name} />
       </section>
       <Footer />
     </div>
