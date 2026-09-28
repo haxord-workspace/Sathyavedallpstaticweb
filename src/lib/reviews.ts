@@ -177,3 +177,14 @@ export function buildReviewFormUrl(productName: string): string {
   url.searchParams.set(REVIEW_FORM_PRODUCT_ENTRY_ID, productName);
   return url.toString();
 }
+
+/** Same URL as buildReviewFormUrl, but with the `embedded=true` param Google
+ * Forms needs to render cleanly (no header chrome) inside an iframe. */
+export function buildReviewFormEmbedUrl(productName: string): string {
+  const base = buildReviewFormUrl(productName);
+  if (!base) return "";
+
+  const url = new URL(base);
+  url.searchParams.set("embedded", "true");
+  return url.toString();
+}

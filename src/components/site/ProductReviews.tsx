@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Star, MessageSquarePlus } from "lucide-react";
+import { Star, MessageSquarePlus, X } from "lucide-react";
 import {
   REVIEWS_SHEET_CSV_URL,
   REVIEW_FORM_URL,
-  buildReviewFormUrl,
+  buildReviewFormEmbedUrl,
   fetchProductReviews,
   reviewMatchesProduct,
   type ProductReview,
@@ -31,6 +31,7 @@ export function ProductReviews({
 }) {
   const [reviews, setReviews] = useState<ProductReview[] | null>(null);
   const [error, setError] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     if (!REVIEWS_SHEET_CSV_URL) return;
@@ -52,7 +53,7 @@ export function ProductReviews({
     };
   }, [productId, productName]);
 
-  const writeReviewUrl = buildReviewFormUrl(productName);
+  const reviewFormEmbedUrl = buildReviewFormEmbedUrl(productName);
   const average =
     reviews && reviews.length > 0
       ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
@@ -77,17 +78,38 @@ export function ProductReviews({
           )}
         </div>
 
-        {writeReviewUrl && (
-          <a
-            href={writeReviewUrl}
-            target="_blank"
-            rel="noreferrer"
+        {reviewFormEmbedUrl && (
+          <button
+            type="button"
+            onClick={() => setShowForm((v) => !v)}
             className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-semibold text-foreground transition hover:border-brand-green-dark hover:text-brand-green-dark shadow-sm"
           >
-            <MessageSquarePlus className="h-4 w-4" /> Write a review
-          </a>
+            {showForm ? (
+              <>
+                <X className="h-4 w-4" /> Close
+              </>
+            ) : (
+              <>
+                <MessageSquarePlus className="h-4 w-4" /> Write a review
+              </>
+            )}
+          </button>
         )}
       </div>
+
+      {showForm && reviewFormEmbedUrl && (
+        <div className="mt-6 overflow-hidden rounded-2xl border border-border bg-white">
+          <iframe
+            src={reviewFormEmbedUrl}
+            title={`Write a review for ${productName}`}
+            className="w-full"
+            height={900}
+            loading="lazy"
+          >
+            Loading review form…
+          </iframe>
+        </div>
+      )}
 
       <div className="mt-8 space-y-6">
         {error && (
