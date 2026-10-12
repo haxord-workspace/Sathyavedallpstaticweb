@@ -9,17 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WellnessRouteImport } from './routes/wellness'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as JournalsIndexRouteImport } from './routes/journals.index'
+import { Route as ProductProductIdRouteImport } from './routes/product.$productId'
+import { Route as JournalsSlugRouteImport } from './routes/journals.$slug'
 
-const WellnessRoute = WellnessRouteImport.update({
-  id: '/wellness',
-  path: '/wellness',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
   path: '/products',
@@ -40,20 +37,39 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const JournalsIndexRoute = JournalsIndexRouteImport.update({
+  id: '/journals/',
+  path: '/journals/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductProductIdRoute = ProductProductIdRouteImport.update({
+  id: '/product/$productId',
+  path: '/product/$productId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JournalsSlugRoute = JournalsSlugRouteImport.update({
+  id: '/journals/$slug',
+  path: '/journals/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/products': typeof ProductsRoute
-  '/wellness': typeof WellnessRoute
+  '/journals/$slug': typeof JournalsSlugRoute
+  '/product/$productId': typeof ProductProductIdRoute
+  '/journals/': typeof JournalsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/products': typeof ProductsRoute
-  '/wellness': typeof WellnessRoute
+  '/journals/$slug': typeof JournalsSlugRoute
+  '/product/$productId': typeof ProductProductIdRoute
+  '/journals': typeof JournalsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -61,14 +77,38 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/products': typeof ProductsRoute
-  '/wellness': typeof WellnessRoute
+  '/journals/$slug': typeof JournalsSlugRoute
+  '/product/$productId': typeof ProductProductIdRoute
+  '/journals/': typeof JournalsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/products' | '/wellness'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/products'
+    | '/journals/$slug'
+    | '/product/$productId'
+    | '/journals/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/products' | '/wellness'
-  id: '__root__' | '/' | '/about' | '/contact' | '/products' | '/wellness'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/products'
+    | '/journals/$slug'
+    | '/product/$productId'
+    | '/journals'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/products'
+    | '/journals/$slug'
+    | '/product/$productId'
+    | '/journals/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,18 +116,13 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
   ProductsRoute: typeof ProductsRoute
-  WellnessRoute: typeof WellnessRoute
+  JournalsSlugRoute: typeof JournalsSlugRoute
+  ProductProductIdRoute: typeof ProductProductIdRoute
+  JournalsIndexRoute: typeof JournalsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/wellness': {
-      id: '/wellness'
-      path: '/wellness'
-      fullPath: '/wellness'
-      preLoaderRoute: typeof WellnessRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/products': {
       id: '/products'
       path: '/products'
@@ -116,6 +151,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/journals/': {
+      id: '/journals/'
+      path: '/journals'
+      fullPath: '/journals/'
+      preLoaderRoute: typeof JournalsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/product/$productId': {
+      id: '/product/$productId'
+      path: '/product/$productId'
+      fullPath: '/product/$productId'
+      preLoaderRoute: typeof ProductProductIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/journals/$slug': {
+      id: '/journals/$slug'
+      path: '/journals/$slug'
+      fullPath: '/journals/$slug'
+      preLoaderRoute: typeof JournalsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -124,7 +180,9 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
   ProductsRoute: ProductsRoute,
-  WellnessRoute: WellnessRoute,
+  JournalsSlugRoute: JournalsSlugRoute,
+  ProductProductIdRoute: ProductProductIdRoute,
+  JournalsIndexRoute: JournalsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

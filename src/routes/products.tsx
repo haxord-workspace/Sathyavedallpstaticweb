@@ -1,143 +1,136 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState, useEffect } from "react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import { useState } from "react";
-import pOil from "@/assets/product-oil.jpg";
-import pPowder from "@/assets/product-powder.jpg";
-import pTablets from "@/assets/product-tablets.jpg";
+import { Reveal } from "@/components/site/Reveal";
+import { SeoHead, buildBreadcrumbSchema } from "@/components/site/SeoHead";
+import { ArrowRight } from "lucide-react";
+import { products } from "@/lib/products";
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 
-interface ProductVariant {
-  size: string;
-  price: string;
-}
+function ProductCard({ product, index }: { product: typeof products[number]; index: number }) {
+  const [mobileCarouselApi, setMobileCarouselApi] = useState<CarouselApi | null>(null);
 
-interface Product {
-  id: number;
-  name: string;
-  brand: string;
-  description: string;
-  variants?: ProductVariant[];
-  price?: string;
-  image: string;
-  category: string;
-}
-
-const items: Product[] = [
-  {
-    id: 1,
-    brand: "Sathyaveda Glow Rich",
-    name: "ABC Powder",
-    description: "Premium herbal formulation for skin health and vitality",
-    category: "Wellness",
-    image: pPowder,
-    variants: [
-      { size: "60 Capsules 500 mg", price: "₹599" },
-      { size: "Powder 200 grams", price: "₹799" },
-      { size: "Powder 500 grams", price: "₹1,499" },
-    ],
-  },
-  {
-    id: 2,
-    brand: "EnergeXMax",
-    name: "Drumstick Extract + Musli Powder",
-    description: "Energy and vitality capsules with natural herb extracts",
-    category: "Energy & Vitality",
-    price: "₹699",
-    image: pTablets,
-    variants: [
-      { size: "Capsules 500mg", price: "₹699" },
-    ],
-  },
-  {
-    id: 3,
-    brand: "Sathyaveda Rich",
-    name: "Cashew Nuts",
-    description: "180 grade export quality premium cashew nuts",
-    category: "Premium Nuts",
-    price: "₹1,299",
-    image: pOil,
-    variants: [
-      { size: "1 Kg", price: "₹1,299" },
-    ],
-  },
-];
-
-function ProductCard({ product, index }: { product: Product; index: number }) {
-  const [selectedVariant, setSelectedVariant] = useState(0);
-
+  useEffect(() => {
+    if (!mobileCarouselApi) return;
+    const interval = window.setInterval(() => {
+      mobileCarouselApi.scrollNext();
+    }, 4000);
+    return () => window.clearInterval(interval);
+  }, [mobileCarouselApi]);
   return (
-    <div
-      className="bg-card rounded-2xl border border-border overflow-hidden hover:shadow-2xl transition-all duration-500 animate-fade-in hover:scale-105"
-      style={{
-        animationDelay: `${index * 150}ms`,
-      }}
+    <Reveal
+      as="div"
+      animation="fade-up"
+      delay={(index % 4) * 100}
+      className="block h-full"
     >
-      <div className="aspect-square bg-secondary overflow-hidden">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
-        />
-      </div>
-      <div className="p-6">
-        <div className="text-xs text-brand-green font-medium uppercase tracking-wider">{product.brand}</div>
-        <div className="font-display text-lg mt-2 text-brand-green-dark">{product.name}</div>
-        <p className="text-sm text-muted-foreground mt-2">{product.description}</p>
+      <Link
+        to="/product/$productId"
+        params={{ productId: product.id }}
+        className="group flex h-full flex-row lg:flex-col overflow-hidden rounded-[1.5rem] border border-border/70 bg-white/80 shadow-[0_20px_60px_-28px_rgba(0,0,0,0.25)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_30px_70px_-24px_rgba(0,0,0,0.3)]"
+      >
+        {/* Desktop Image (Hover) */}
+        <div className="hidden lg:block relative w-full shrink-0 overflow-hidden bg-[#f7f4eb]">
+          <img 
+            src={product.image} 
+            alt={product.name} 
+            className={`aspect-square lg:aspect-[4/5] w-full h-full object-cover object-center transition-all duration-700 group-hover:scale-105 ${product.hoverImage ? 'group-hover:opacity-0' : ''}`} 
+          />
+          {product.hoverImage && (
+            <img 
+              src={product.hoverImage} 
+              alt={`${product.name} alternate view`} 
+              className="absolute inset-0 w-full h-full object-contain object-center transition-all duration-700 opacity-0 group-hover:opacity-100 bg-black" 
+            />
+          )}
+        </div>
 
-        {product.variants && product.variants.length > 0 && (
-          <div className="mt-4">
-            <label className="text-xs font-semibold text-muted-foreground mb-2 block">Select Variant:</label>
-            <div className="flex flex-col gap-2">
-              {product.variants.map((variant, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setSelectedVariant(idx)}
-                  className={`text-xs px-3 py-2 rounded-lg border transition-all duration-300 ${
-                    selectedVariant === idx
-                      ? "bg-brand-green-dark text-primary-foreground border-brand-green-dark"
-                      : "border-border hover:border-brand-green-dark"
-                  }`}
-                >
-                  {variant.size}
-                </button>
-              ))}
+        {/* Mobile Image (Swipe Carousel) */}
+        <div className="lg:hidden relative w-36 shrink-0 overflow-hidden bg-[#f7f4eb] sm:w-44">
+          {product.hoverImage ? (
+            <Carousel setApi={setMobileCarouselApi} className="w-full h-full" opts={{ loop: true }}>
+              <CarouselContent className="ml-0 h-full">
+                <CarouselItem className="pl-0 relative aspect-square h-full">
+                  <img 
+                    src={product.image} 
+                    alt={product.name} 
+                    className="absolute inset-0 w-full h-full object-cover object-center" 
+                  />
+                </CarouselItem>
+                <CarouselItem className="pl-0 relative aspect-square h-full bg-black">
+                  <img 
+                    src={product.hoverImage} 
+                    alt={`${product.name} alternate view`} 
+                    className="absolute inset-0 w-full h-full object-contain object-center" 
+                  />
+                </CarouselItem>
+              </CarouselContent>
+            </Carousel>
+          ) : (
+            <img 
+              src={product.image} 
+              alt={product.name} 
+              className="aspect-square w-full h-full object-cover object-center" 
+            />
+          )}
+        </div>
+        {/* Content */}
+        <div className="flex flex-1 flex-col justify-between p-4">
+          <div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-green">{product.brand}</div>
+            <div className="mt-1 font-display text-base text-brand-green-dark lg:text-lg">{product.name}</div>
+            <p className="mt-1.5 text-xs text-muted-foreground leading-relaxed line-clamp-2">{product.shortDescription}</p>
+          </div>
+          <div className="mt-3 flex items-center justify-between">
+            <div className="flex items-center gap-1.5">
+              {product.originalPrice && (
+                <span className="text-[10px] sm:text-xs text-muted-foreground font-medium line-through decoration-muted-foreground/60">{product.originalPrice}</span>
+              )}
+              <span className="text-sm font-semibold text-brand-green-dark">{product.price}</span>
             </div>
-            <div className="flex items-center justify-between mt-4">
-              <span className="font-bold text-brand-green-dark">{product.variants[selectedVariant].price}</span>
-              <button className="text-xs px-4 py-2 rounded-full bg-brand-green-dark text-primary-foreground hover:bg-brand-green transition-colors duration-300">
-                Add to Cart
-              </button>
+            <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-green-dark transition-all duration-300 group-hover:gap-2.5">
+              View details <ArrowRight className="h-3.5 w-3.5" />
             </div>
           </div>
-        )}
-
-        {!product.variants && (
-          <div className="flex items-center justify-between mt-4">
-            <span className="font-bold text-brand-green-dark">{product.price}</span>
-            <button className="text-xs px-4 py-2 rounded-full bg-brand-green-dark text-primary-foreground hover:bg-brand-green transition-colors duration-300">
-              Add to Cart
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
+        </div>
+      </Link>
+    </Reveal>
   );
 }
 
 export const Route = createFileRoute("/products")({
-  head: () => ({ meta: [{ title: "Products — Sathyaveda Herbals LLP" }, { name: "description", content: "Authentic ayurvedic products from Kerala." }] }),
+  head: () => ({ meta: [{ title: "Products — Sathyaveda Herbals LLP" }, { name: "description", content: "Shop authentic Ayurvedic products from Kerala — ABC Capsules, Veda ChargeX, Premium Almonds and Cashews." }] }),
   component: () => (
     <div className="min-h-screen bg-background scroll-smooth">
+      <SeoHead
+        path="/products"
+        title="Products — Sathyaveda Herbals LLP"
+        description="Shop authentic Ayurvedic products from Kerala — ABC Capsules, Veda ChargeX, Premium Almonds and Cashews for everyday wellness."
+        jsonLd={[
+          buildBreadcrumbSchema([
+            { name: "Home", url: "https://sathyavedaherbals.in/" },
+            { name: "Products", url: "https://sathyavedaherbals.in/products" },
+          ]),
+          {
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: "Sathyaveda Herbals — Product Collection",
+            description: "Browse all authentic Ayurvedic products by Sathyaveda Herbals LLP.",
+            url: "https://sathyavedaherbals.in/products",
+          },
+        ]}
+      />
       <Header />
-      <section className="container mx-auto px-4 py-16 md:py-24">
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 pb-10 lg:pt-28 lg:pb-16">
         <div className="animate-fade-in" style={{ animationDuration: "600ms" }}>
-          <h1 className="font-display text-5xl md:text-6xl text-brand-green-dark text-center mb-4">Premium Wellness Products</h1>
-          <p className="text-center text-muted-foreground text-lg max-w-2xl mx-auto">
+          <h1 className="font-display text-3xl md:text-6xl text-brand-green-dark text-center mb-3">Premium Wellness Products</h1>
+          <p className="text-center text-muted-foreground text-base max-w-2xl mx-auto sm:text-lg">
             Discover our carefully curated collection of authentic Ayurvedic products, sourced from Kerala and crafted for your well-being.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
-          {items.map((product, index) => (
+        <div className="mt-10 grid grid-cols-1 gap-4 md:mt-14 md:grid-cols-2 md:gap-5 lg:grid-cols-4 lg:gap-6">
+          {products.map((product, index) => (
             <ProductCard key={product.id} product={product} index={index} />
           ))}
         </div>

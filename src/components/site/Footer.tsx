@@ -1,50 +1,58 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, Instagram, Youtube, Mail, Phone, MapPin } from "lucide-react";
+import { Facebook, Instagram, Mail, Phone, MapPin } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import logo from "@/assets/logo.png";
 
 export function Footer() {
   return (
-    <footer className="bg-brand-green-dark text-primary-foreground mt-20">
-      <div className="container mx-auto px-4 py-14 grid md:grid-cols-4 gap-10">
+    <footer className="bg-brand-green-dark text-primary-foreground">
+      <div className="container mx-auto px-4 py-4 grid gap-3 md:grid-cols-4 md:gap-4 lg:py-6">
         <div>
-          <img src={logo} alt="Sathyaveda Herbals" className="h-20 w-auto bg-background/95 rounded-lg p-2" />
-          <p className="text-sm mt-4 opacity-80">
+          <img src={logo} alt="Sathyaveda Herbals" className="h-10 w-auto bg-background/95 rounded-lg p-1.5 lg:h-12" />
+          <p className="text-[11px] mt-2 opacity-70 leading-snug">
             Authentic ayurvedic wellness from the heart of Kerala. Crafted with tradition, trusted by generations.
           </p>
-        </div>
-        <div>
-          <h4 className="font-semibold mb-4 text-lg">Shop</h4>
-          <ul className="space-y-2 text-sm opacity-80">
-            <li><Link to="/products">Skin Care</Link></li>
-            <li><Link to="/products">Hair Care</Link></li>
-            <li><Link to="/products">Pain Relief</Link></li>
-            <li><Link to="/products">Immunity</Link></li>
-          </ul>
-        </div>
-        <div>
-          <h4 className="font-semibold mb-4 text-lg">Company</h4>
-          <ul className="space-y-2 text-sm opacity-80">
-            <li><Link to="/about">About Us</Link></li>
-            <li><Link to="/wellness">Ayurvedic Wisdom</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
-            <li><a href="#">Privacy Policy</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 className="font-semibold mb-4 text-lg">Reach Us</h4>
-          <ul className="space-y-3 text-sm opacity-80">
-            <li className="flex gap-2"><MapPin className="h-4 w-4 mt-0.5 shrink-0" /> Pokkotumbadam, Kerala, India</li>
-            <li className="flex gap-2"><Phone className="h-4 w-4 mt-0.5 shrink-0" /> +91 00000 00000</li>
-            <li className="flex gap-2"><Mail className="h-4 w-4 mt-0.5 shrink-0" /> info@sathyavedaherbals.com</li>
-          </ul>
           <div className="flex gap-3 mt-4">
-            <Facebook className="h-5 w-5" />
-            <Instagram className="h-5 w-5" />
-            <Youtube className="h-5 w-5" />
+            <a href="https://www.facebook.com/share/1EZnCjBddY/" target="_blank" rel="noreferrer" className="hover:text-white/80 transition-colors">
+              <Facebook className="h-4 w-4" />
+            </a>
+            <a href="https://www.instagram.com/sathyavedaherbals?igsh=d2R5Z3l5NWx4dnkz" target="_blank" rel="noreferrer" className="hover:text-white/80 transition-colors">
+              <Instagram className="h-4 w-4" />
+            </a>
+            <a href="https://wa.me/917481031003" target="_blank" rel="noreferrer" className="hover:text-white/80 transition-colors">
+              <FaWhatsapp className="h-4 w-4" />
+            </a>
           </div>
         </div>
+        <div>
+          <h4 className="font-semibold mb-1.5 text-sm"><Link to="/products">Shop</Link></h4>
+          <ul className="space-y-1 text-[11px] opacity-75">
+            <li><Link to="/product/$productId" params={{ productId: "abc-powder" }}>ABC Capsules</Link></li>
+            <li><Link to="/product/$productId" params={{ productId: "veda-chargex" }}>Veda ChargeX</Link></li>
+            <li><Link to="/product/$productId" params={{ productId: "badam" }}>Almonds</Link></li>
+            <li><Link to="/product/$productId" params={{ productId: "cashew" }}>Cashew</Link></li>
+          </ul>
+        </div>
+        <div>
+          <h4 className="font-semibold mb-1.5 text-sm">Company</h4>
+          <ul className="space-y-1 text-[11px] opacity-75">
+            <li><Link to="/about">About Us</Link></li>
+            <li><Link to="/journals">Journals</Link></li>
+            <li><Link to="/contact">Contact</Link></li>
+          </ul>
+        </div>
+        <div>
+          <h4 className="font-semibold mb-1.5 text-sm">Reach Us</h4>
+          <ul className="space-y-1.5 text-[11px] opacity-75">
+            <li className="flex gap-2"><MapPin className="h-3 w-3 mt-0.5 shrink-0" /> Pokkotumbadam, Kerala, India</li>
+            <li className="flex gap-2 items-start"><Phone className="h-3 w-3 mt-0.5 shrink-0" /><span><span className="opacity-60 text-[9px] uppercase tracking-wider">Office</span><br />04931 237003</span></li>
+            <li className="flex gap-2 items-start"><Phone className="h-3 w-3 mt-0.5 shrink-0" /><span><span className="opacity-60 text-[9px] uppercase tracking-wider">WhatsApp</span><br />7481 031 003<br />9061 936 003</span></li>
+            <li className="flex gap-2"><Mail className="h-3 w-3 mt-0.5 shrink-0" /> sathyavedaherbals@gmail.com</li>
+          </ul>
+        
+        </div>
       </div>
-      <div className="border-t border-primary-foreground/20 py-4 text-center text-xs opacity-70">
+      <div className="border-t border-primary-foreground/10 py-2.5 text-center text-[9px] opacity-50 tracking-widest">
         © {new Date().getFullYear()} Sathyaveda Herbals LLP. All rights reserved.
       </div>
     </footer>

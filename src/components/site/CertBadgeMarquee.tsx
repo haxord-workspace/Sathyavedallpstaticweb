@@ -1,0 +1,59 @@
+import {
+  FlaskConical,
+  BadgeCheck,
+  MapPin,
+  ScrollText,
+  Leaf,
+  Globe,
+  Heart,
+  ShieldCheck,
+  Landmark,
+  Building2,
+  Trees
+} from "lucide-react";
+import { GiFlowers } from 'react-icons/gi';
+
+const badges = [
+  { icon: BadgeCheck,   label: "Certified" },
+  { icon: MapPin,       label: "Made In Kerala" },
+  { icon: Leaf,         label: "Pure Natural" },
+  { icon: ShieldCheck,  label: "FSSAI Central License" },
+  { icon: Globe,        label: "Non-Toxic" },
+  { icon: Landmark,     label: "KSIDC Approved" },
+  { icon: Heart,        label: "Cruelty Free" },
+  { icon: Trees,        label: "Pollution Control Board Consent" },
+  { icon: FlaskConical, label: "NABL Accredited Lab Tested" },
+  { icon: Building2,    label: "MCA Incorporated" },
+  { icon: ScrollText,   label: "Udyam Registration" },
+  { icon: GiFlowers,    label: "Associated with Kudumbashree" }
+];
+
+const allBadges = [...badges, ...badges];
+
+export function CertBadgeMarquee() {
+  return (
+    <div className="w-full overflow-hidden border-y border-[#d4c5a9]/60 bg-[#f5ede0]">
+      <div className="flex items-center cert-marquee-track py-3">
+        {allBadges.map((badge, idx) => {
+          const Icon = badge.icon;
+          return (
+            <div
+              key={idx}
+              className="flex flex-none items-center gap-2 px-6 sm:px-8 text-[#4a3728]"
+            >
+              <Icon
+                className="h-4 w-4 flex-none text-[#7a5c3e] sm:h-5 sm:w-5"
+                strokeWidth={1.6}
+              />
+              <span className="whitespace-nowrap text-xs font-semibold tracking-wide sm:text-sm">
+                {badge.label}
+              </span>
+              {/* Subtle separator dot */}
+              <span className="ml-4 sm:ml-6 h-1 w-1 flex-none rounded-full bg-[#b8a48a] opacity-70" />
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
